@@ -793,6 +793,66 @@ body.dark-mode .section-subtitle {
 }
 
 /* ============================================
+   HOMEPAGE ABOUT SECTION
+   ============================================ */
+.home-about {
+  padding: 90px 20px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.home-about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home-about-content {
+  width: 100%;
+}
+
+.home-about-content p {
+  font-size: 19px;
+  line-height: 1.9;
+  margin-bottom: 22px;
+  color: var(--text-secondary);
+}
+
+.home-about-content strong,
+.home-about-content h2,
+.home-about-content h3 {
+  color: var(--text-primary);
+}
+
+.home-about-content ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin: 35px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-about-content li {
+  background: var(--bg-secondary);
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+/* Mobile responsive for homepage About section */
+@media (max-width: 768px) {
+  .home-about {
+    padding: 60px 15px;
+  }
+
+  .home-about-content p {
+    font-size: 16px;
+  }
+}
+
+/* ============================================
    CARDS
    ============================================ */
 .card {
