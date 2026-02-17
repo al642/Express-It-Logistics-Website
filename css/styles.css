@@ -806,49 +806,117 @@ body.dark-mode .section-subtitle {
   margin: 0 auto;
 }
 
-.home-about-content {
+/* New wrapper for the 2-column + full-width layout */
+.about-wrapper {
   width: 100%;
 }
 
-.home-about-content p {
+/* Top Row: 2-Column Grid Layout */
+.about-top {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 50px;
+}
+
+/* Left column - Heading + First Paragraph */
+.about-left {
+  width: 100%;
+}
+
+.about-left .section-label {
+  display: inline-block;
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.about-left .section-title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+/* Right column - Card */
+.about-card {
+  width: 100%;
+}
+
+/* Bottom Row: Full Width Text */
+.about-full {
+  width: 100%;
+}
+
+.about-full p {
   font-size: 19px;
   line-height: 1.9;
   margin-bottom: 22px;
   color: var(--text-secondary);
 }
 
-.home-about-content strong,
-.home-about-content h2,
-.home-about-content h3 {
-  color: var(--text-primary);
-}
-
-.home-about-content ul {
+/* Highlights Grid - Full Width */
+.about-highlights {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
-  margin: 35px 0;
-  padding: 0;
+  gap: 20px;
+  margin: 30px 0;
   list-style: none;
+  padding: 0;
 }
 
-.home-about-content li {
+.about-highlights li {
   background: var(--bg-secondary);
   padding: 15px 20px;
   border-radius: 8px;
   font-weight: 600;
   text-align: center;
   color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-/* Mobile responsive for homepage About section */
+.about-highlights li i {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* Mobile Responsive - 900px breakpoint */
+@media (max-width: 900px) {
+  .about-top {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  .about-full p {
+    font-size: 17px;
+  }
+
+  .about-highlights {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+}
+
 @media (max-width: 768px) {
   .home-about {
     padding: 60px 15px;
   }
 
-  .home-about-content p {
+  .about-full p {
     font-size: 16px;
+  }
+
+  .about-highlights {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -2713,4 +2781,44 @@ img {
     grid-template-columns: 1fr;
     gap: 20px;
   }
+}
+
+/* ============================================
+   FOOTER CONTACT GRID - 2 COLUMN LAYOUT
+   ============================================ */
+.footer-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.footer-contact-grid h5 {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.footer-contact-grid p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Mobile stack - single column */
+@media (max-width: 768px) {
+  .footer-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Make footer more compact */
+.site-footer {
+  padding: 50px 20px;
+}
+
+.footer-col p {
+  margin-bottom: 8px;
 }
