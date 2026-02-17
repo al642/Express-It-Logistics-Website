@@ -70,14 +70,15 @@
 
   <!-- Navigation Bar -->
   <header class="site-header">
-    <div class="container header-container">
-
+    <div class="header-container">
       <a href="../index.html" class="brand">
-        <img src="../assets/images/logo.png" alt="Express It Logistics Ltd">
-        <span class="brand-text">Express It Logistics Ltd</span>
+        <img src="../assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
+        <div class="brand-text">
+          <span class="brand-name">Express It Logistics Ltd</span>
+        </div>
       </a>
 
-      <nav class="main-nav">
+      <nav class="main-nav nav-links">
         <a href="../index.html" class="nav-link">Home</a>
         <a href="services.html" class="nav-link">Services</a>
         <a href="team.html" class="nav-link">Team</a>
@@ -95,15 +96,9 @@
         <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
           <i class="fas fa-moon" aria-hidden="true"></i>
         </button>
-        <!-- Mobile Menu Button -->
-        <div class="mobile-menu-btn-container">
-          <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
       </nav>
 
+      <button id="mobile-menu-btn" class="mobile-menu-btn menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
 
     <!-- Mobile Menu -->
@@ -291,71 +286,58 @@
 
   <!-- Footer -->
   <footer class="site-footer">
-    <div class="container footer-container">
-      <div class="footer-column">
-        <h4>Express It Logistics Ltd</h4>
-        <p>
-          Professional cold-chain and logistics solutions across Uganda and beyond.
-        </p>
-        <p><strong>24/7 Cold-Chain Support Available</strong></p>
+    <div class="footer-container">
+
+      <div class="footer-col">
+        <h3>Express It Logistics Ltd</h3>
+        <p>Professional cold-chain and logistics solutions across Uganda and beyond.</p>
       </div>
 
-      <div class="footer-column">
+      <div class="footer-col">
         <h4>Quick Links</h4>
-        <ul class="footer-links">
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="team.html">Our Team</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="contact.html">Get a Quote</a></li>
-        </ul>
+        <a href="/index.html">Home</a>
+        <a href="/pages/services.html">Services</a>
+        <a href="/pages/team.html">Our Team</a>
+        <a href="/pages/contact.html">Contact Us</a>
+        <a href="/pages/quote.html">Get a Quote</a>
       </div>
 
-      <div class="footer-column footer-contact">
+      <div class="footer-col contact-col">
         <h4>Contact Information</h4>
 
-        <div class="footer-block">
-          <h5>Office Address</h5>
-          <p>
-            <strong>Express It Logistics Ltd</strong><br>
-            Rumee House, 3rd Floor<br>
-            Plot 19 Lumumba Avenue – Nakasero<br>
-            P.O. Box 74638<br>
-            Kampala – Uganda
-          </p>
-        </div>
+        <strong>Office Address</strong>
+        <p>Rumee House, 3rd Floor<br>
+        Plot 19 Lumumba Avenue – Nakasero<br>
+        P.O. Box 74638<br>
+        Kampala – Uganda</p>
 
-        <div class="footer-block">
-          <h5>Phone Numbers</h5>
-          <p>
-            Main: <a href="tel:+256772200122">+256 772 200 122</a><br>
-            Alt 1: <a href="tel:+256773001030">+256 773 001 030</a><br>
-            Alt 2: <a href="tel:+256701447750">+256 701 447 750</a>
-          </p>
-        </div>
+        <strong>Phone</strong>
+        <p>
+        +256 772 200 122<br>
+        +256 773 001 030<br>
+        +256 701 447 750
+        </p>
 
-        <div class="footer-block">
-          <h5>Email Addresses</h5>
-          <p>
-            General: <a href="mailto:info@expressitlogistics.co.ug">info@expressitlogistics.co.ug</a><br>
-            Sales: <a href="mailto:expressitlogistics@gmail.com">expressitlogistics@gmail.com</a><br>
-            Direct: <a href="mailto:sabiitiallan@gmail.com">sabiitiallan@gmail.com</a>
-          </p>
-        </div>
+        <strong>Email</strong>
+        <p>
+        info@expressitlogistics.co.ug<br>
+        expressitlogistics@gmail.com<br>
+        sabiitiallan@gmail.com
+        </p>
 
-        <div class="footer-block">
-          <h5>Business Hours</h5>
-          <p>
-            Mon – Fri: 08:00 AM – 06:00 PM<br>
-            Saturday: 08:00 AM – 02:00 PM<br>
-            Sunday: Closed
-          </p>
-        </div>
+        <strong>Business Hours</strong>
+        <p>
+        Mon – Fri: 08:00 AM – 06:00 PM<br>
+        Saturday: 08:00 AM – 02:00 PM<br>
+        Sunday: Closed
+        </p>
 
-        <div class="footer-emergency">
-          24/7 Cold-Chain Support Available — Emergency and on-demand logistics support provided at any time upon request.
-        </div>
+        <p class="support-note">
+        24/7 Cold-Chain Support Available — Emergency and on-demand logistics support provided at any time upon request.
+        </p>
+
       </div>
+
     </div>
   </footer>
 
