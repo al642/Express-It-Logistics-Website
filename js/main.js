@@ -189,6 +189,7 @@
     constructor() {
       this.menu = null;
       this.btn = null;
+      this.navLinks = null;
       this.isOpen = false;
       this.init();
     }
@@ -196,8 +197,9 @@
     init() {
       this.btn = document.getElementById("mobile-menu-btn");
       this.menu = document.getElementById("mobile-menu");
+      this.navLinks = document.querySelector(".nav-links");
 
-      if (!this.btn || !this.menu) return;
+      if (!this.btn) return;
 
       // Toggle button
       this.btn.addEventListener("click", () => this.toggle());
@@ -211,27 +213,34 @@
       });
 
       // Close on link click
-      this.menu.querySelectorAll('a').forEach(link => {
+      this.menu?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => this.close());
+      });
+      this.navLinks?.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => this.close());
       });
     }
 
     toggle() {
       this.isOpen = !this.isOpen;
-      this.menu.classList.toggle("open", this.isOpen);
+      this.menu?.classList.toggle("open", this.isOpen);
+      this.navLinks?.classList.toggle("active", this.isOpen);
       this.btn.classList.toggle("active", this.isOpen);
       this.btn.setAttribute("aria-expanded", this.isOpen);
     }
 
     close() {
       this.isOpen = false;
-      this.menu.classList.remove("open");
+      this.menu?.classList.remove("open");
+      this.navLinks?.classList.remove("active");
       this.btn?.classList.remove("active");
       this.btn?.setAttribute("aria-expanded", "false");
     }
 
     handleOutsideClick(e) {
-      if (this.isOpen && !this.menu.contains(e.target) && !this.btn.contains(e.target)) {
+      const clickedInsideMenu = this.menu?.contains(e.target) ?? false;
+      const clickedInsideNavLinks = this.navLinks?.contains(e.target) ?? false;
+      if (this.isOpen && !clickedInsideMenu && !clickedInsideNavLinks && !this.btn.contains(e.target)) {
         this.close();
       }
     }
@@ -619,4 +628,3 @@
   };
 
 })();
-
