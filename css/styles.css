@@ -147,7 +147,9 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -166,6 +168,44 @@ p {
 
 a {
   color: var(--accent);
+}
+
+/* Utility Classes for Dark Mode Support */
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-primary-text {
+  color: var(--text-primary);
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.bg-primary\/10 {
+  background-color: var(--color-primary-bg);
+}
+
+.bg-primary\/20 {
+  background-color: var(--color-primary-bg-light);
+}
+
+/* Also support standard class names without escaping */
+.bg-primary-10 {
+  background-color: var(--color-primary-bg);
+}
+
+.bg-primary-20 {
+  background-color: var(--color-primary-bg-light);
 }
 
 /* ============================================
@@ -1420,7 +1460,7 @@ body.dark-mode .partner-logo-text {
   width: 100%;
   padding: 1rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   background-color: var(--bg-secondary);
   color: var(--text-primary);
@@ -1440,14 +1480,9 @@ body.dark-mode .partner-logo-text {
   padding-right: 2.75rem;
 }
 
+/* Dark mode form select dropdown arrow */
 body.dark-mode .form-select {
   background-image: url('data:image/svg+xml;utf8,<svg fill="%23cbd5e1" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-}
-
-body.dark-mode .form-input,
-body.dark-mode .form-select,
-body.dark-mode .form-textarea {
-  border: 1px solid #334155;
 }
 
 .form-input:hover,
@@ -2170,14 +2205,8 @@ select {
   appearance: none;
   background: var(--bg-secondary);
   color: var(--text-primary);
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-}
-
-body.dark-mode input,
-body.dark-mode textarea,
-body.dark-mode select {
-  border: 1px solid #334155;
 }
 
 input[type="checkbox"],
@@ -2337,7 +2366,7 @@ button:focus-visible {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #25D366;
+  background-color: #25d366;
   color: white;
   padding: 12px 18px;
   border-radius: 50px;
@@ -2356,7 +2385,8 @@ button:focus-visible {
    ========================================= */
 
 /* Prevent horizontal scroll */
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
@@ -2370,7 +2400,6 @@ img {
    TABLET (1024px and below)
    =============================== */
 @media (max-width: 1024px) {
-
   section {
     padding: 60px 0;
   }
@@ -2386,14 +2415,12 @@ img {
   .main-nav {
     gap: 18px;
   }
-
 }
 
 /* ===============================
    MOBILE (768px and below)
    =============================== */
 @media (max-width: 768px) {
-
   /* Header */
   .header-container {
     flex-direction: row;
@@ -2449,14 +2476,12 @@ img {
     padding: 10px 16px;
     font-size: 14px;
   }
-
 }
 
 /* ===============================
    SMALL MOBILE (480px and below)
    =============================== */
 @media (max-width: 480px) {
-
   h1 {
     font-size: 24px;
   }
@@ -2476,22 +2501,18 @@ img {
   .main-nav {
     gap: 10px;
   }
-
 }
 
 /* ===============================
    FOLDABLE / LARGE MOBILE
    =============================== */
 @media (min-width: 769px) and (max-width: 900px) {
-
   .header-container {
     padding: 0 25px;
   }
-
 }
 
 @media (max-width: 992px) {
-
   .header-container {
     position: relative;
   }
@@ -2530,7 +2551,7 @@ img {
 .site-footer {
   background: var(--footer-bg);
   color: var(--footer-text);
-  padding: 40px 0;
+  padding: 30px 0;
   font-size: 14px;
 }
 
@@ -2551,8 +2572,8 @@ img {
 /* GRID FOR FOOTER COLUMNS */
 .footer-inner {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
   align-items: flex-start;
   max-width: 1300px;
   margin: 0 auto;
@@ -2565,15 +2586,17 @@ img {
 /* COLUMN SPACING */
 .footer-col h3,
 .footer-col h4 {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   font-weight: 700;
+  font-size: 16px;
 }
 
 .footer-col a {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   text-decoration: none;
   color: var(--footer-text);
+  font-size: 13px;
 }
 
 .footer-col a:hover {
@@ -2581,52 +2604,51 @@ img {
 }
 
 .footer-col p {
-  margin: 0 0 8px;
-  line-height: 1.45;
+  margin: 0 0 6px;
+  line-height: 1.4;
+  font-size: 13px;
 }
 
 /* LIGHTER SPACING INSIDE BLOCKS */
 .footer-block {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
+/* CONTACT INFO - SINGLE COLUMN FLOW */
 .footer-contact {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 20px;
+  display: block;
 }
 
 .footer-contact h4 {
-  grid-column: 1 / -1;
-  margin-bottom: 2px;
-}
-
-.footer-contact .footer-block {
-  margin: 0;
+  margin-bottom: 8px;
 }
 
 /* SUPPORT NOTE */
 .support-note {
   font-weight: 600;
-  margin-top: 8px;
+  margin-top: 6px;
   color: #ff5678;
+  font-size: 13px;
 }
 
 /* SECTION DIVIDERS FOR TABLET */
 @media (max-width: 992px) {
   .footer-inner {
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 25px;
   }
 
-  .footer-contact {
-    grid-template-columns: 1fr;
-    gap: 10px;
+  .footer-brand {
+    grid-column: 1 / -1;
   }
 }
 
 /* STACK ON SMALL MOBILE */
-@media (max-width: 768px) {
+@media (max-width: 576px) {
+  .site-footer {
+    padding: 25px 0;
+  }
+
   .footer-inner {
     grid-template-columns: 1fr;
     gap: 20px;
