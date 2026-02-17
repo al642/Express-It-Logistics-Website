@@ -88,25 +88,24 @@
 
   class DarkModeManager {
     constructor() {
-      this.storageKey = 'expressit_theme';
-      this.systemPreferenceKey = 'expressit_system_preference';
-      this.bodyClass = 'dark';
-      this.toggleSelectors = ['#dark-mode-toggle', '#dark-mode-toggle-mobile'];
+      this.storageKey = 'darkMode';
+      this.legacyStorageKey = 'expressit_theme';
+      this.bodyClass = 'dark-mode';
+      this.toggleSelectors = ['#darkModeToggle', '#dark-mode-toggle', '#dark-mode-toggle-mobile'];
       this.isDark = false;
-      this.icons = null;
       this.init();
     }
 
     init() {
-      const savedPreference = localStorage.getItem(this.storageKey);
+      const savedPreference = this.getStoredPreference();
       const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
 
-      if (savedPreference !== null) {
-        this.isDark = savedPreference === 'true';
-        localStorage.setItem(this.systemPreferenceKey, 'false');
+      if (savedPreference === true) {
+        this.isDark = true;
+      } else if (savedPreference === false) {
+        this.isDark = false;
       } else {
         this.isDark = prefersDark;
-        localStorage.setItem(this.systemPreferenceKey, 'true');
       }
 
       this.applyTheme();
@@ -129,7 +128,7 @@
       const mediaQuery = window.matchMedia?.('(prefers-color-scheme: dark)');
       if (mediaQuery?.addEventListener) {
         mediaQuery.addEventListener('change', (e) => {
-          if (localStorage.getItem(this.systemPreferenceKey) === 'true') {
+          if (localStorage.getItem(this.storageKey) === null) {
             this.isDark = e.matches;
             this.applyTheme();
             this.updateIcons();
@@ -140,8 +139,7 @@
 
     toggle() {
       this.isDark = !this.isDark;
-      localStorage.setItem(this.storageKey, this.isDark);
-      localStorage.setItem(this.systemPreferenceKey, 'false');
+      this.setStoredPreference(this.isDark);
       this.applyTheme();
       this.updateIcons();
       this.animateToggle();
@@ -153,19 +151,24 @@
       } else {
         document.body.classList.remove(this.bodyClass);
       }
+      document.body.classList.remove('dark');
+      document.documentElement.style.colorScheme = this.isDark ? 'dark' : 'light';
       this.updateThemeColor();
     }
 
     updateThemeColor() {
       const themeColorMeta = document.querySelector('meta[name="theme-color"]');
       if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', this.isDark ? '#1a1a2e' : '#e91e63');
+        themeColorMeta.setAttribute('content', this.isDark ? '#0f172a' : '#e63946');
       }
     }
 
     updateIcons() {
-      document.querySelectorAll('#dark-mode-toggle i, #dark-mode-toggle-mobile i').forEach(icon => {
+      document.querySelectorAll('#darkModeToggle i, #dark-mode-toggle i, #dark-mode-toggle-mobile i').forEach(icon => {
         icon.className = this.isDark ? 'fas fa-sun' : 'fas fa-moon';
+      });
+      document.querySelectorAll(this.toggleSelectors.join(', ')).forEach((button) => {
+        button.setAttribute('aria-pressed', this.isDark ? 'true' : 'false');
       });
     }
 
@@ -177,7 +180,32 @@
     }
 
     static isDarkMode() {
-      return document.body.classList.contains('dark');
+      return document.body.classList.contains('dark-mode');
+    }
+
+    getStoredPreference() {
+      try {
+        const value = localStorage.getItem(this.storageKey);
+        if (value === 'true') return true;
+        if (value === 'false') return false;
+
+        const legacyValue = localStorage.getItem(this.legacyStorageKey);
+        if (legacyValue === 'dark' || legacyValue === 'true') return true;
+        if (legacyValue === 'light' || legacyValue === 'false') return false;
+
+        return null;
+      } catch {
+        return null;
+      }
+    }
+
+    setStoredPreference(value) {
+      try {
+        localStorage.setItem(this.storageKey, String(value));
+        localStorage.removeItem(this.legacyStorageKey);
+      } catch {
+        // Ignore storage failures (private mode/restricted contexts)
+      }
     }
   }
 
