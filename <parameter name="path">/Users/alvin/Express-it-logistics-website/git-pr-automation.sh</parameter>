@@ -5,9 +5,11 @@ echo "=== Express IT Logistics - Pull Request Automation ==="
 echo ""
 
 # Navigate to project directory
+
 cd /Users/alvin/Express-it-logistics-website
 
 # Step 1: Check git status
+
 echo "Step 1: Analyzing current git status..."
 echo "----------------------------------------"
 git status
@@ -17,6 +19,7 @@ echo "Press Enter to stage all changes..."
 read
 
 # Step 2: Stage all changes
+
 echo ""
 echo "Step 2: Staging all changes..."
 git add -A
@@ -27,6 +30,7 @@ echo "Press Enter to create commit..."
 read
 
 # Step 3: Create commit with meaningful message
+
 echo ""
 echo "Step 3: Creating commit..."
 git commit -m "feat: enhance website with browser compatibility and logo standardization
@@ -46,6 +50,7 @@ echo "Press Enter to push changes to remote..."
 read
 
 # Step 4: Push changes to remote
+
 echo ""
 echo "Step 4: Pushing changes to remote..."
 git push origin blackboxai/enhancement/browser-compatibility
@@ -57,6 +62,7 @@ echo "Press Enter to create pull request..."
 read
 
 # Step 5: Create pull request
+
 echo ""
 echo "Step 5: Creating pull request..."
 
@@ -66,37 +72,45 @@ gh pr create \
 
 This pull request includes comprehensive enhancements to improve browser compatibility and standardize the logo system across the Express IT Logistics website.
 
-### Key Changes:
+### Key Changes
 
 #### Logo Standardization
+
 - Replaced multiple icon files (favicon-16x16.png, favicon-32x32.png, icon-192.png, icon-512.png) with a single unified PNG logo file for consistency
 
 #### Browser Compatibility
+
 - Improved cross-browser compatibility across different platforms and devices
 - Enhanced PWA functionality with updated manifest and service worker
 
 #### Mobile Enhancements
+
 - Updated Track Shipment functionality for mobile view
 - Enhanced WhatsApp button with subtle glow effect and interactive states
 - Improved mobile menu with animated hamburger button
 
 #### Form Security
+
 - Added anti-spam honeypot protection to the Contact Us form
 
 #### Code Quality
+
 - Refreshed CSS styling for better consistency
 - Updated documentation and setup guides
 - Cleaned up unused favicon assets
 
-### Files Changed:
+### Files Changed
+
 - Modified: .gitignore, FORMSPREE_SETUP.md, TODO.md, css/styles.css, index.html, js/main.js, manifest.json, pages/contact.html, pages/services.html, pages/team.html, robots.txt, sw.js
 - Deleted: assets/images/favicon-16x16.png, assets/images/favicon-32x32.png, assets/images/icon-192.png, assets/images/icon-512.png
 - Added: LOGO_SYSTEM_TODO.md, LOGO_TASK.md
 
-### Testing:
+### Testing
+
 All changes have been tested for browser compatibility and mobile responsiveness.
 
-### Review Checklist:
+### Review Checklist
+
 - [x] Logo displays correctly across all devices
 - [x] Browser compatibility verified on multiple platforms
 - [x] Mobile responsive design tested
@@ -110,5 +124,5 @@ echo "✅ Pull Request Created Successfully!"
 echo "========================================"
 echo ""
 echo "Your pull request has been created and is ready for review."
-echo "Visit: https://github.com/al642/express-it-logistics-website/pull/"
+echo "Visit: <https://github.com/al642/express-it-logistics-website/pull/>"
 </parameter>
