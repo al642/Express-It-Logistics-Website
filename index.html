@@ -7,13 +7,13 @@
   <meta name="keywords" content="logistics, shipping, freight, warehousing, transportation, East Africa, Uganda, cold chain, distribution, supply chain">
   <meta name="author" content="Express It Logistics Ltd">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://expressitlogistics.github.io/index.html">
+  <link rel="canonical" href="index.html">
   
   <!-- OpenGraph Meta Tags (Social Sharing) -->
   <meta property="og:title" content="Express It Logistics Ltd - Logistics & Shipping Solutions">
   <meta property="og:description" content="Premier logistics solutions provider across East Africa and internationally. Specialized cold-chain logistics, freight, warehousing, and distribution services.">
   <meta property="og:type" content="business.business">
-  <meta property="og:url" content="https://expressitlogistics.github.io/">
+  <meta property="og:url" content="/">
   <meta property="og:site_name" content="Express It Logistics Ltd">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Express It Logistics Ltd">
@@ -53,7 +53,7 @@
     "@type": "LocalBusiness",
     "name": "Express It Logistics Ltd",
     "description": "Premier logistics and shipping solutions provider across East Africa and internationally. Specialized cold-chain logistics, freight transportation, warehousing, and distribution services.",
-    "url": "https://expressitlogistics.github.io/",
+    "url": "/",
     "telephone": "+256772200122",
     "email": "info@expressitlogistics.co.ug",
     "address": {
@@ -74,7 +74,7 @@
       "@type": "GeoShape",
       "box": "-1.2921 29.8739 4.2476 35.3994"
     },
-    "image": "https://expressitlogistics.github.io/assets/images/icon.svg",
+    "image": "/assets/images/logo.png",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -183,6 +183,15 @@
     
     <!-- Hero Section -->
     <section class="hero-section" aria-label="Hero">
+      <!-- Hero Slider -->
+      <div class="hero-slider">
+        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1920&q=80')"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=1920&q=80')"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&q=80')"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80')"></div>
+      </div>
+      <div class="hero-overlay"></div>
+      
       <div class="container">
       <div class="hero-content">
         <div class="animate-fade-in-up">
@@ -239,6 +248,15 @@
         </a>
       </div>
       </div>
+      </div>
+      
+<!-- Slider Navigation -->
+      <button class="hero-prev" aria-label="Previous slide">&#10094;</button>
+      <button class="hero-next" aria-label="Next slide">&#10095;</button>
+      <div class="hero-dots"></div>
+      <!-- Progress Bar -->
+      <div class="hero-progress-bar">
+        <div class="hero-progress"></div>
       </div>
     </section>
 
@@ -601,63 +619,58 @@
   <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-inner container">
+      <!-- Column 1: Brand with Logo -->
       <div class="footer-col footer-brand">
-        <h3>Express It Logistics Ltd</h3>
+        <a href="index.html" class="footer-brand-link">
+          <img src="assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="footer-logo-img">
+          <span class="footer-brand-text">Express It Logistics Ltd</span>
+        </a>
         <p>Professional cold-chain and logistics solutions across Uganda and beyond.</p>
         <p class="support-note">24/7 Cold-Chain Support Available</p>
       </div>
 
+      <!-- Column 2: Quick Links -->
       <div class="footer-col footer-links">
         <h4>Quick Links</h4>
-        <a href="/index.html">Home</a>
-        <a href="/pages/services.html">Services</a>
-        <a href="/pages/team.html">Our Team</a>
-        <a href="/pages/contact.html">Contact Us</a>
-        <a href="/pages/get-quote.html">Get a Quote</a>
+        <a href="index.html">Home</a>
+        <a href="pages/services.html">Services</a>
+        <a href="pages/team.html">Our Team</a>
+        <a href="pages/contact.html">Contact Us</a>
       </div>
 
+      <!-- Column 3: Contact Information with 2-column grid -->
       <div class="footer-col footer-contact">
         <h4>Contact Information</h4>
-
         <div class="footer-contact-grid">
-          <div>
-            <h5>Office Address</h5>
-            <p>Rumee House, 3rd Floor<br>
-            Plot 19 Lumumba Avenue – Nakasero<br>
-            P.O. Box 74638<br>
-            Kampala – Uganda</p>
+          <div class="footer-contact-item">
+            <h5>Address</h5>
+            <p>Rumee House, 3rd Floor<br>Plot 19 Lumumba Avenue<br>Kampala, Uganda</p>
           </div>
-
-          <div>
-            <h5>Phone Numbers</h5>
-            <p>
-              +256 772 200 122<br>
-              +256 773 001 030<br>
-              +256 701 447 750
-            </p>
+          <div class="footer-contact-item">
+            <h5>Phone</h5>
+            <p>+256 772 200 122<br>+256 773 001 030</p>
           </div>
-
-          <div>
-            <h5>Email Addresses</h5>
-            <p>
-              info@expressitlogistics.co.ug<br>
-              expressitlogistics@gmail.com<br>
-              sabiitiallan@gmail.com
-            </p>
+          <div class="footer-contact-item">
+            <h5>Email</h5>
+            <p>info@expressitlogistics.co.ug</p>
           </div>
-
-          <div>
-            <h5>Business Hours</h5>
-            <p>
-              Mon – Fri: 08:00 AM – 06:00 PM<br>
-              Saturday: 08:00 AM – 02:00 PM<br>
-              Sunday: Closed
-            </p>
+          <div class="footer-contact-item">
+            <h5>Hours</h5>
+            <p>Mon - Fri: 8AM - 6PM<br>Sat: 8AM - 2PM</p>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Express It Logistics Ltd. All Rights Reserved.</p>
+    </div>
   </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
   <!-- Main JavaScript -->
   <script src="js/main.js"></script>

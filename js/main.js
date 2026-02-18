@@ -88,24 +88,25 @@
 
   class DarkModeManager {
     constructor() {
-      this.storageKey = 'darkMode';
-      this.legacyStorageKey = 'expressit_theme';
-      this.bodyClass = 'dark-mode';
-      this.toggleSelectors = ['#darkModeToggle', '#dark-mode-toggle', '#dark-mode-toggle-mobile'];
+      this.storageKey = 'expressit_theme';
+      this.systemPreferenceKey = 'expressit_system_preference';
+      this.bodyClass = 'dark';
+      this.toggleSelectors = ['#dark-mode-toggle', '#dark-mode-toggle-mobile'];
       this.isDark = false;
+      this.icons = null;
       this.init();
     }
 
     init() {
-      const savedPreference = this.getStoredPreference();
+      const savedPreference = localStorage.getItem(this.storageKey);
       const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
 
-      if (savedPreference === true) {
-        this.isDark = true;
-      } else if (savedPreference === false) {
-        this.isDark = false;
+      if (savedPreference !== null) {
+        this.isDark = savedPreference === 'true';
+        localStorage.setItem(this.systemPreferenceKey, 'false');
       } else {
         this.isDark = prefersDark;
+        localStorage.setItem(this.systemPreferenceKey, 'true');
       }
 
       this.applyTheme();
@@ -128,7 +129,7 @@
       const mediaQuery = window.matchMedia?.('(prefers-color-scheme: dark)');
       if (mediaQuery?.addEventListener) {
         mediaQuery.addEventListener('change', (e) => {
-          if (localStorage.getItem(this.storageKey) === null) {
+          if (localStorage.getItem(this.systemPreferenceKey) === 'true') {
             this.isDark = e.matches;
             this.applyTheme();
             this.updateIcons();
@@ -139,7 +140,8 @@
 
     toggle() {
       this.isDark = !this.isDark;
-      this.setStoredPreference(this.isDark);
+      localStorage.setItem(this.storageKey, this.isDark);
+      localStorage.setItem(this.systemPreferenceKey, 'false');
       this.applyTheme();
       this.updateIcons();
       this.animateToggle();
@@ -151,24 +153,19 @@
       } else {
         document.body.classList.remove(this.bodyClass);
       }
-      document.body.classList.remove('dark');
-      document.documentElement.style.colorScheme = this.isDark ? 'dark' : 'light';
       this.updateThemeColor();
     }
 
     updateThemeColor() {
       const themeColorMeta = document.querySelector('meta[name="theme-color"]');
       if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', this.isDark ? '#0f172a' : '#e63946');
+        themeColorMeta.setAttribute('content', this.isDark ? '#1a1a2e' : '#e91e63');
       }
     }
 
     updateIcons() {
-      document.querySelectorAll('#darkModeToggle i, #dark-mode-toggle i, #dark-mode-toggle-mobile i').forEach(icon => {
+      document.querySelectorAll('#dark-mode-toggle i, #dark-mode-toggle-mobile i').forEach(icon => {
         icon.className = this.isDark ? 'fas fa-sun' : 'fas fa-moon';
-      });
-      document.querySelectorAll(this.toggleSelectors.join(', ')).forEach((button) => {
-        button.setAttribute('aria-pressed', this.isDark ? 'true' : 'false');
       });
     }
 
@@ -180,32 +177,7 @@
     }
 
     static isDarkMode() {
-      return document.body.classList.contains('dark-mode');
-    }
-
-    getStoredPreference() {
-      try {
-        const value = localStorage.getItem(this.storageKey);
-        if (value === 'true') return true;
-        if (value === 'false') return false;
-
-        const legacyValue = localStorage.getItem(this.legacyStorageKey);
-        if (legacyValue === 'dark' || legacyValue === 'true') return true;
-        if (legacyValue === 'light' || legacyValue === 'false') return false;
-
-        return null;
-      } catch {
-        return null;
-      }
-    }
-
-    setStoredPreference(value) {
-      try {
-        localStorage.setItem(this.storageKey, String(value));
-        localStorage.removeItem(this.legacyStorageKey);
-      } catch {
-        // Ignore storage failures (private mode/restricted contexts)
-      }
+      return document.body.classList.contains('dark');
     }
   }
 
@@ -217,7 +189,6 @@
     constructor() {
       this.menu = null;
       this.btn = null;
-      this.navLinks = null;
       this.isOpen = false;
       this.init();
     }
@@ -225,9 +196,8 @@
     init() {
       this.btn = document.getElementById("mobile-menu-btn");
       this.menu = document.getElementById("mobile-menu");
-      this.navLinks = document.querySelector(".nav-links");
 
-      if (!this.btn) return;
+      if (!this.btn || !this.menu) return;
 
       // Toggle button
       this.btn.addEventListener("click", () => this.toggle());
@@ -241,34 +211,27 @@
       });
 
       // Close on link click
-      this.menu?.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => this.close());
-      });
-      this.navLinks?.querySelectorAll('a').forEach(link => {
+      this.menu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => this.close());
       });
     }
 
     toggle() {
       this.isOpen = !this.isOpen;
-      this.menu?.classList.toggle("open", this.isOpen);
-      this.navLinks?.classList.toggle("active", this.isOpen);
+      this.menu.classList.toggle("open", this.isOpen);
       this.btn.classList.toggle("active", this.isOpen);
       this.btn.setAttribute("aria-expanded", this.isOpen);
     }
 
     close() {
       this.isOpen = false;
-      this.menu?.classList.remove("open");
-      this.navLinks?.classList.remove("active");
+      this.menu.classList.remove("open");
       this.btn?.classList.remove("active");
       this.btn?.setAttribute("aria-expanded", "false");
     }
 
     handleOutsideClick(e) {
-      const clickedInsideMenu = this.menu?.contains(e.target) ?? false;
-      const clickedInsideNavLinks = this.navLinks?.contains(e.target) ?? false;
-      if (this.isOpen && !clickedInsideMenu && !clickedInsideNavLinks && !this.btn.contains(e.target)) {
+      if (this.isOpen && !this.menu.contains(e.target) && !this.btn.contains(e.target)) {
         this.close();
       }
     }
@@ -293,7 +256,7 @@
     handleScroll() {
       if (!this.ticking) {
         window.requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
+          const {scrollY} = window;
           this.navbar?.classList.toggle("scrolled", scrollY > 50);
           this.lastScrollY = scrollY;
           this.ticking = false;
@@ -514,6 +477,132 @@
   }
 
   // ============================================
+  // HERO SLIDER MANAGER
+  // ============================================
+
+  class HeroSliderManager {
+    constructor() {
+      this.slider = document.querySelector('.hero-slider');
+      this.slides = document.querySelectorAll('.hero-slider .slide');
+      this.prevBtn = document.querySelector('.hero-prev');
+      this.nextBtn = document.querySelector('.hero-next');
+      this.dotsContainer = document.querySelector('.hero-dots');
+      this.current = 0;
+      this.interval = null;
+      this.autoScrollTime = 5000; // 5 seconds
+
+      if (this.slider && this.slides.length > 0) {
+        this.init();
+      }
+    }
+
+    init() {
+      this.createDots();
+      this.startAutoScroll();
+      this.bindEvents();
+    }
+
+    createDots() {
+      if (!this.dotsContainer) return;
+      
+      this.slides.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (index === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+        dot.addEventListener('click', () => this.goToSlide(index));
+        this.dotsContainer.appendChild(dot);
+      });
+    }
+
+    updateDots() {
+      const dots = this.dotsContainer.querySelectorAll('.dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === this.current);
+      });
+    }
+
+    showSlide(index) {
+      this.slides.forEach(slide => slide.classList.remove('active'));
+      this.slides[index].classList.add('active');
+      this.updateDots();
+    }
+
+    nextSlide() {
+      this.current = (this.current + 1) % this.slides.length;
+      this.showSlide(this.current);
+    }
+
+    prevSlide() {
+      this.current = (this.current - 1 + this.slides.length) % this.slides.length;
+      this.showSlide(this.current);
+    }
+
+    goToSlide(index) {
+      this.current = index;
+      this.showSlide(this.current);
+      this.resetTimer();
+    }
+
+    startAutoScroll() {
+      this.interval = setInterval(() => this.nextSlide(), this.autoScrollTime);
+    }
+
+    resetTimer() {
+      if (this.interval) {
+        clearInterval(this.interval);
+      }
+      this.startAutoScroll();
+    }
+
+    bindEvents() {
+      // Previous button
+      this.prevBtn?.addEventListener('click', () => {
+        this.prevSlide();
+        this.resetTimer();
+      });
+
+      // Next button
+      this.nextBtn?.addEventListener('click', () => {
+        this.nextSlide();
+        this.resetTimer();
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+          this.prevSlide();
+          this.resetTimer();
+        } else if (e.key === 'ArrowRight') {
+          this.nextSlide();
+          this.resetTimer();
+        }
+      });
+
+      // Pause on hover
+      this.slider?.addEventListener('mouseenter', () => {
+        if (this.interval) {
+          clearInterval(this.interval);
+        }
+      });
+
+      this.slider?.addEventListener('mouseleave', () => {
+        this.startAutoScroll();
+      });
+
+      // Handle visibility change (pause when tab is hidden)
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          if (this.interval) {
+            clearInterval(this.interval);
+          }
+        } else {
+          this.startAutoScroll();
+        }
+      });
+    }
+  }
+
+  // ============================================
   // FORM SUBMISSION MANAGER
   // ============================================
 
@@ -621,8 +710,143 @@
   }
 
   // ============================================
-  // INITIALIZATION
+  // HERO SLIDER MANAGER
   // ============================================
+
+  class HeroSliderManager {
+    constructor() {
+      this.slider = document.querySelector('.hero-section');
+      this.slides = document.querySelectorAll('.hero-slider .slide');
+      this.dotsContainer = document.querySelector('.hero-dots');
+      this.progress = document.querySelector('.hero-progress');
+      this.prevBtn = document.querySelector('.hero-prev');
+      this.nextBtn = document.querySelector('.hero-next');
+
+      this.current = 0;
+      this.slideInterval = null;
+      this.slideDuration = 6000;
+
+      if (this.slider && this.slides.length > 0) {
+        this.init();
+      }
+    }
+
+    init() {
+      this.createDots();
+      this.bindEvents();
+      this.startSlider();
+    }
+
+    createDots() {
+      if (!this.dotsContainer) return;
+
+      this.slides.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => this.goToSlide(index));
+        this.dotsContainer.appendChild(dot);
+      });
+
+      this.dots = this.dotsContainer.querySelectorAll('.dot');
+    }
+
+    bindEvents() {
+      this.prevBtn?.addEventListener('click', () => this.prevSlide());
+      this.nextBtn?.addEventListener('click', () => this.nextSlide());
+
+      this.slider?.addEventListener('mouseenter', () => this.pauseSlider());
+      this.slider?.addEventListener('mouseleave', () => this.resumeSlider());
+
+      this.initTouchSupport();
+    }
+
+    initTouchSupport() {
+      if (!this.slider) return;
+
+      let startX = 0;
+
+      this.slider.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+
+      this.slider.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+
+        if (diff > 50) {
+          this.nextSlide();
+        } else if (diff < -50) {
+          this.prevSlide();
+        }
+      }, { passive: true });
+    }
+
+    showSlide(index) {
+      this.slides.forEach(slide => slide.classList.remove('active'));
+      this.dots?.forEach(dot => dot.classList.remove('active'));
+
+      this.slides[index]?.classList.add('active');
+      this.dots?.[index]?.classList.add('active');
+
+      this.restartProgress();
+    }
+
+    nextSlide() {
+      this.current = (this.current + 1) % this.slides.length;
+      this.showSlide(this.current);
+    }
+
+    prevSlide() {
+      this.current = (this.current - 1 + this.slides.length) % this.slides.length;
+      this.showSlide(this.current);
+    }
+
+    goToSlide(index) {
+      this.current = index;
+      this.showSlide(this.current);
+    }
+
+    startSlider() {
+      this.slideInterval = setInterval(() => this.nextSlide(), this.slideDuration);
+      this.restartProgress();
+    }
+
+    restartProgress() {
+      if (!this.progress) return;
+
+      this.progress.style.transition = 'none';
+      this.progress.style.width = '0%';
+
+      void this.progress.offsetWidth;
+
+      setTimeout(() => {
+        this.progress.style.transition = `width ${this.slideDuration}ms linear`;
+        this.progress.style.width = '100%';
+      }, 50);
+    }
+
+    pauseSlider() {
+      if (this.slideInterval) {
+        clearInterval(this.slideInterval);
+        this.slideInterval = null;
+      }
+      if (this.progress) {
+        const computedStyle = window.getComputedStyle(this.progress);
+        const width = computedStyle.getPropertyValue('width');
+        this.progress.style.transition = 'none';
+        this.progress.style.width = width;
+      }
+    }
+
+    resumeSlider() {
+      this.startSlider();
+    }
+  }
+
+  // ============================================
+  // INITIALIZATION
+  // ====================================
 
   const init = () => {
     setCopyrightYear();
@@ -634,6 +858,7 @@
     new ServicesCarouselManager();
     new FormSubmissionManager();
     new ServiceWorkerManager();
+    new HeroSliderManager();
   };
 
   // Run when DOM is ready
@@ -656,3 +881,4 @@
   };
 
 })();
+
