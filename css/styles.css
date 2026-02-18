@@ -477,7 +477,8 @@ body.dark-mode .main-nav .dark-mode-toggle i {
    ============================================ */
 .hero-section {
   position: relative;
-  min-height: 100vh;
+  height: 90vh;
+  min-height: 600px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -510,6 +511,9 @@ body.dark-mode .main-nav .dark-mode-toggle i {
   height: 100%;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  image-rendering: auto;
   opacity: 0;
   transition: opacity 1.2s ease-in-out;
 }
@@ -2160,12 +2164,18 @@ body.dark-mode .form-select {
   .brand-name {
     font-size: 1rem;
   }
+
+  .hero-section {
+    height: 70vh;
+    min-height: 450px;
+  }
 }
 
 /* Tablets (481px - 768px) */
 @media (max-width: 768px) {
   .hero-section {
-    min-height: auto;
+    height: 75vh;
+    min-height: 500px;
     padding: 6rem 1rem 3rem;
   }
 
@@ -2481,15 +2491,15 @@ body.dark-mode .form-select {
 /* Safari 100vh fix */
 @supports (height: 100dvh) {
   .hero-section {
-    min-height: 100dvh;
+    height: 90dvh;
     overflow: hidden;
   }
 }
 
 /* Fallback for browsers without 100dvh support */
 .hero-section {
-  min-height: 100vh;
-  min-height: calc(100vh - 80px);
+  height: 90vh;
+  min-height: 600px;
   overflow: hidden;
   width: 100%;
 }
