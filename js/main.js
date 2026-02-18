@@ -90,7 +90,7 @@
     constructor() {
       this.storageKey = 'expressit_theme';
       this.systemPreferenceKey = 'expressit_system_preference';
-      this.bodyClass = 'dark';
+      this.bodyClass = 'dark-mode';
       this.toggleSelectors = ['#dark-mode-toggle', '#dark-mode-toggle-mobile'];
       this.isDark = false;
       this.icons = null;
@@ -177,7 +177,7 @@
     }
 
     static isDarkMode() {
-      return document.body.classList.contains('dark');
+      return document.body.classList.contains('dark-mode') || document.body.classList.contains('dark');
     }
   }
 
