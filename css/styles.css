@@ -2159,6 +2159,40 @@ body.dark-mode .form-select {
    RESPONSIVE DESIGN
    ============================================ */
 
+/* STEP 1 — HERO MOBILE HEIGHT */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 70vh;
+  }
+}
+
+/* STEP 2 — STACK NAVIGATION ON MOBILE */
+@media (max-width: 900px) {
+  .header-container {
+    flex-direction: column;
+    height: auto;
+  }
+}
+
+/* STEP 3 — BUTTON FULL WIDTH ON SMALL DEVICES */
+@media (max-width: 600px) {
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* STEP 4 — FOOTER STACKING */
+@media (max-width: 900px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Mobile phones (max 480px) */
 @media (max-width: 480px) {
   .brand-name {
