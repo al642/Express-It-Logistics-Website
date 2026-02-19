@@ -6,6 +6,7 @@ Consistent, brand-faithful pink accent system
    ============================================ */
 :root {
   /* Light Mode Colors (Default) */
+  --bg-light: #ffffff;
   --bg-primary: #ffffff;
   --bg-secondary: #f4f6f9;
   --bg-tertiary: #eef2f7;
@@ -16,7 +17,7 @@ Consistent, brand-faithful pink accent system
   --text-primary: #111111;
   --text-secondary: #555555;
   --text-muted: #5c5c70;
-  --accent: #e63946;
+  --accent: var(--brand-pink);
 
   /* Pink Brand Colors - Primary */
   --brand-pink: #db2777;
@@ -61,6 +62,7 @@ Consistent, brand-faithful pink accent system
 /* Dark Mode Colors */
 body.dark-mode,
 body.dark {
+  --bg-dark: #0f172a;
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
   --bg-tertiary: #283547;
@@ -71,7 +73,7 @@ body.dark {
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-muted: #a8a8c0;
-  --accent: #ff5678;
+  --accent: var(--brand-pink);
 
   /* Pink accent colors are NOT redefined in dark mode */
   /* They inherit the exact same values from :root */
@@ -164,8 +166,8 @@ body {
     "Segoe UI",
     Roboto,
     sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: var(--bg-light);
+  color: var(--text-light);
   line-height: 1.6;
   transition:
     background 0.3s ease,
@@ -176,6 +178,18 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+}
+
+/* Light mode body */
+body {
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+
+/* Dark mode body */
+body.dark-mode {
+  background: var(--bg-dark);
+  color: var(--text-dark);
 }
 
 section {
@@ -447,7 +461,7 @@ body.dark-mode .main-nav .dark-mode-toggle i {
   background-color: var(--bg-secondary);
 }
 
-.mobile-dark-mode-toggle {
+.mobile-theme-toggle {
   padding: 1rem 20px;
 }
 
@@ -674,12 +688,32 @@ body.dark-mode .main-nav .dark-mode-toggle i {
 .hero-content {
   position: relative;
   z-index: 3;
+  color: white;
   text-align: center;
-  color: #ffffff;
-  padding: 2rem 1.5rem;
   max-width: 900px;
-  width: 100%;
   margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
 }
 
 .hero-badge {
@@ -1520,6 +1554,14 @@ body.dark-mode .partner-logo-text {
   cursor: grabbing;
 }
 
+/* Services Slider - Horizontal Scroll fallback */
+.services-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 20px;
+}
+
 .service-slide {
   flex: 0 0 320px;
   scroll-snap-align: start;
@@ -1823,15 +1865,58 @@ body.dark-mode .form-select {
 }
 
 /* ============================================
-   FOOTER
+   FOOTER - STANDARDIZED (Task: Footer Container)
    ============================================ */
-.footer {
-  background-color: var(--footer-bg);
-  color: var(--text-secondary);
-  padding: 4rem 1.5rem 2rem;
-  overflow: hidden;
-  width: 100%;
-  transition: background-color 450ms cubic-bezier(0.4, 0, 0.2, 1);
+
+/* Base Footer Styles */
+.site-footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 40px 20px 20px;
+  font-size: 14px;
+}
+
+.site-footer a {
+  color: var(--footer-text);
+}
+
+.site-footer a:hover {
+  opacity: 0.8;
+}
+
+.site-footer p,
+.site-footer h3,
+.site-footer h4 {
+  color: var(--footer-text);
+}
+
+/* NEW: Footer Container - 3 Column Grid as per task specification */
+.footer-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+  padding: 40px 5%;
+  background: #111;
+  color: white;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    padding: 30px 5%;
+  }
+}
+
+/* Fallback: Keep footer-inner for backward compatibility */
+.footer-inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  align-items: flex-start;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
 .footer-content {
@@ -3003,7 +3088,7 @@ img {
 .support-note {
   font-weight: 600;
   margin-top: 8px;
-  color: #ff5678;
+  color: var(--brand-pink);
   font-size: 13px;
 }
 
