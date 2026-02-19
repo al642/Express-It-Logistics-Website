@@ -76,109 +76,74 @@
   // ============================================
 
   const setCopyrightYear = () => {
-    const yearElements = document.querySelectorAll(".copyright-year");
-    yearElements.forEach((el) => {
+    // Handle .copyright-year elements (existing)
+    const copyrightYearElements = document.querySelectorAll(".copyright-year");
+    copyrightYearElements.forEach((el) => {
       el.textContent = "2026";
     });
+
+    // Handle #year elements (footer year - auto population)
+    const yearElement = document.getElementById("year");
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
   };
 
   // ============================================
-  // DARK MODE MANAGER (Singleton)
+  // THEME MANAGER (Unified Theme System)
   // ============================================
 
-  class DarkModeManager {
-    constructor() {
-      this.storageKey = 'expressit_theme';
-      this.systemPreferenceKey = 'expressit_system_preference';
-      this.bodyClass = 'dark-mode';
-      this.toggleSelectors = ['#dark-mode-toggle', '#dark-mode-toggle-mobile'];
-      this.isDark = false;
-      this.icons = null;
-      this.init();
-    }
+  // Theme Toggle Logic - matches task specification exactly
+  const toggle = document.getElementById("theme-toggle");
 
-    init() {
-      const savedPreference = localStorage.getItem(this.storageKey);
-      const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
 
-      if (savedPreference !== null) {
-        this.isDark = savedPreference === 'true';
-        localStorage.setItem(this.systemPreferenceKey, 'false');
+      if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
       } else {
-        this.isDark = prefersDark;
-        localStorage.setItem(this.systemPreferenceKey, 'true');
+        localStorage.setItem("theme", "light");
       }
+      
+      // Update all theme toggle icons
+      updateThemeIcons();
+    });
+  }
 
-      this.applyTheme();
-      this.updateIcons();
-      this.bindEvents();
-    }
+  // Mobile theme toggle
+  const mobileToggle = document.getElementById("theme-toggle-mobile");
+  if (mobileToggle) {
+    mobileToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
 
-    bindEvents() {
-      // Toggle buttons
-      this.toggleSelectors.forEach(selector => {
-        document.querySelectorAll(selector).forEach(element => {
-          element?.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.toggle();
-          });
-        });
-      });
-
-      // System preference changes
-      const mediaQuery = window.matchMedia?.('(prefers-color-scheme: dark)');
-      if (mediaQuery?.addEventListener) {
-        mediaQuery.addEventListener('change', (e) => {
-          if (localStorage.getItem(this.systemPreferenceKey) === 'true') {
-            this.isDark = e.matches;
-            this.applyTheme();
-            this.updateIcons();
-          }
-        });
-      }
-    }
-
-    toggle() {
-      this.isDark = !this.isDark;
-      localStorage.setItem(this.storageKey, this.isDark);
-      localStorage.setItem(this.systemPreferenceKey, 'false');
-      this.applyTheme();
-      this.updateIcons();
-      this.animateToggle();
-    }
-
-    applyTheme() {
-      if (this.isDark) {
-        document.body.classList.add(this.bodyClass);
+      if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
       } else {
-        document.body.classList.remove(this.bodyClass);
+        localStorage.setItem("theme", "light");
       }
-      this.updateThemeColor();
-    }
+      
+      // Update all theme toggle icons
+      updateThemeIcons();
+    });
+  }
 
-    updateThemeColor() {
-      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-      if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', this.isDark ? '#1a1a2e' : '#e91e63');
-      }
+  // Load saved theme on page load
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-mode");
     }
+    // Update icons on load
+    updateThemeIcons();
+  });
 
-    updateIcons() {
-      document.querySelectorAll('#dark-mode-toggle i, #dark-mode-toggle-mobile i').forEach(icon => {
-        icon.className = this.isDark ? 'fas fa-sun' : 'fas fa-moon';
-      });
-    }
-
-    animateToggle() {
-      document.querySelectorAll('.dark-mode-toggle').forEach(toggle => {
-        toggle.style.transform = 'scale(0.9)';
-        setTimeout(() => toggle.style.transform = 'scale(1)', 150);
-      });
-    }
-
-    static isDarkMode() {
-      return document.body.classList.contains('dark-mode') || document.body.classList.contains('dark');
-    }
+  // Function to update all theme toggle icons
+  function updateThemeIcons() {
+    const isDark = document.body.classList.contains("dark-mode");
+    document.querySelectorAll('#theme-toggle i, #theme-toggle-mobile i').forEach(icon => {
+      icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    });
   }
 
   // ============================================
@@ -850,12 +815,27 @@
 
   const init = () => {
     setCopyrightYear();
-    window.darkModeManager = new DarkModeManager();
     new MobileMenuManager();
     new NavbarScrollManager();
     new SmoothScrollManager();
     new MobileTrackLinkManager();
     new ServicesCarouselManager();
+    
+    // Simple Services Slider - Using scrollBy for horizontal scrolling
+    const slider = document.querySelector(".services-slider");
+    const nextBtn = document.getElementById("services-next");
+    const prevBtn = document.getElementById("services-prev");
+
+    if (slider && nextBtn && prevBtn) {
+      nextBtn.addEventListener("click", () => {
+        slider.scrollBy({ left: 300, behavior: "smooth" });
+      });
+
+      prevBtn.addEventListener("click", () => {
+        slider.scrollBy({ left: -300, behavior: "smooth" });
+      });
+    }
+
     new FormSubmissionManager();
     new ServiceWorkerManager();
     new HeroSliderManager();
@@ -870,10 +850,14 @@
 
   // Export for external use
   window.ExpressIT = {
-    darkMode: {
-      toggle: () => window.darkModeManager?.toggle(),
-      isDark: () => DarkModeManager.isDarkMode(),
-      updateThemeColor: () => window.darkModeManager?.updateThemeColor()
+    theme: {
+      toggle: () => {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        updateThemeIcons();
+      },
+      isDark: () => document.body.classList.contains("dark-mode")
     },
     showNotification,
     isValidEmail,

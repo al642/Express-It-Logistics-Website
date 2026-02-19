@@ -7,7 +7,7 @@
 	"display": "standalone",
 	"orientation": "portrait-primary",
 	"background_color": "#ffffff",
-	"theme_color": "#e91e63",
+"theme_color": "#db2777",
 	"icons": [
 		{
 			"src": "assets/images/apple-touch-icon.png",

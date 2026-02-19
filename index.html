@@ -42,7 +42,7 @@
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#e91e63">
+<meta name="theme-color" content="#db2777">
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
@@ -147,8 +147,8 @@
           <i class="fas fa-search" aria-hidden="true"></i>
           Track Shipment
         </a>
-        <!-- Dark Mode Toggle -->
-        <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
           <i class="fas fa-moon" aria-hidden="true"></i>
         </button>
       </nav>
@@ -170,8 +170,8 @@
         Get Quote
         <i class="fas fa-arrow-right" aria-hidden="true"></i>
       </a>
-      <div class="mobile-dark-mode-toggle">
-        <button id="dark-mode-toggle-mobile" class="dark-mode-toggle" aria-label="Toggle dark mode">
+      <div class="mobile-theme-toggle">
+        <button id="theme-toggle-mobile" class="dark-mode-toggle" aria-label="Toggle dark mode">
           <i class="fas fa-moon" aria-hidden="true"></i>
         </button>
       </div>
@@ -457,7 +457,7 @@
 
         <!-- Services Sliding Carousel -->
         <div class="services-carousel-container">
-          <div class="services-carousel" id="services-carousel">
+          <div class="services-carousel services-slider" id="services-carousel">
             <!-- Service 1 - COLD-CHAIN SUPPORT -->
             <article class="service-slide">
               <div class="service-card service-slide-card">
@@ -565,10 +565,10 @@
 
           <!-- Carousel Navigation -->
           <div class="services-carousel-nav">
-            <button class="services-carousel-btn services-carousel-prev" aria-label="Previous services">
+            <button id="services-prev" class="services-carousel-btn services-carousel-prev" aria-label="Previous services">
               <i class="fas fa-chevron-left" aria-hidden="true"></i>
             </button>
-            <button class="services-carousel-btn services-carousel-next" aria-label="Next services">
+            <button id="services-next" class="services-carousel-btn services-carousel-next" aria-label="Next services">
               <i class="fas fa-chevron-right" aria-hidden="true"></i>
             </button>
           </div>
@@ -607,7 +607,7 @@
 
   <!-- Footer -->
   <footer class="site-footer">
-    <div class="footer-inner container">
+    <div class="footer-container">
       <!-- Column 1: Brand with Logo -->
       <div class="footer-col footer-brand">
         <a href="index.html" class="footer-brand-link">
@@ -653,13 +653,9 @@
 
     <!-- Footer Bottom -->
     <div class="footer-bottom">
-      <p>© <span id="year"></span> Express It Logistics Ltd. All Rights Reserved.</p>
+      <p>&copy; <span id="year"></span> Express It Logistics Ltd. All Rights Reserved.</p>
     </div>
   </footer>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 
   <!-- Main JavaScript -->
   <script src="js/main.js"></script>
