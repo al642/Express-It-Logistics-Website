@@ -8,53 +8,68 @@
   "use strict";
 
   // ============================================
-  // DARK MODE HANDLER (Task Requirement)
+  // DARK MODE HANDLER
   // ============================================
   
-  document.addEventListener("DOMContentLoaded", function () {
+  function initDarkMode() {
     const toggle = document.getElementById("theme-toggle");
     const mobileToggle = document.getElementById("theme-toggle-mobile");
 
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      // Also toggle .dark class for CSS compatibility
+      document.body.classList.toggle("dark");
+
+      const isDark = document.body.classList.contains("dark-mode");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      
+      // Update all theme toggle icons
+      updateThemeIcons();
+    }
+
+    // Function to update all theme toggle icons
+    function updateThemeIcons() {
+      const isDark = document.body.classList.contains("dark-mode");
+      document.querySelectorAll('#theme-toggle i, #theme-toggle-mobile i').forEach(icon => {
+        if (icon) {
+          icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        }
+      });
+    }
+
     // Theme toggle click handler (desktop)
     if (toggle) {
-      toggle.addEventListener("click", function () {
-        document.body.classList.toggle("dark-mode");
-        // Also toggle .dark class for CSS compatibility
-        document.body.classList.toggle("dark");
-
-        localStorage.setItem(
-          "theme",
-          document.body.classList.contains("dark-mode") ? "dark" : "light"
-        );
-      });
+      toggle.addEventListener("click", toggleDarkMode);
     }
 
     // Theme toggle click handler (mobile)
     if (mobileToggle) {
-      mobileToggle.addEventListener("click", function () {
-        document.body.classList.toggle("dark-mode");
-        // Also toggle .dark class for CSS compatibility
-        document.body.classList.toggle("dark");
-
-        localStorage.setItem(
-          "theme",
-          document.body.classList.contains("dark-mode") ? "dark" : "light"
-        );
-      });
+      mobileToggle.addEventListener("click", toggleDarkMode);
     }
 
-    // Load saved theme or respect system preference
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      document.body.classList.add("dark-mode");
-      document.body.classList.add("dark");
-    } else if (!savedTheme) {
-      // No saved preference - check system preference
-      const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (prefersDarkScheme) {
+    // Load saved theme on page load
+    function loadTheme() {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
         document.body.classList.add("dark-mode");
         document.body.classList.add("dark");
+      } else if (!savedTheme) {
+        // No saved preference - check system preference
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (prefersDarkScheme) {
+          document.body.classList.add("dark-mode");
+          document.body.classList.add("dark");
+        }
       }
+      updateThemeIcons();
+    }
+
+    // Run on DOMContentLoaded
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", loadTheme);
+    } else {
+      loadTheme();
     }
 
     // Listen for system preference changes in real-time
@@ -68,15 +83,13 @@
           document.body.classList.remove("dark-mode");
           document.body.classList.remove("dark");
         }
+        updateThemeIcons();
       }
     });
+  }
 
-    // Year population for footer
-    const year = document.getElementById("year");
-    if (year) {
-      year.textContent = new Date().getFullYear();
-    }
-  });
+  // Initialize dark mode
+  initDarkMode();
 
   // ============================================
   // UTILITIES
@@ -159,68 +172,6 @@
       yearElement.textContent = new Date().getFullYear();
     }
   };
-
-  // ============================================
-  // THEME MANAGER (Unified Theme System)
-  // ============================================
-
-  // Theme Toggle Logic - matches task specification exactly
-  const toggle = document.getElementById("theme-toggle");
-
-  if (toggle) {
-    toggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-      // Also toggle .dark class for CSS compatibility
-      document.body.classList.toggle("dark");
-
-      if (document.body.classList.contains("dark-mode")) {
-        localStorage.setItem("theme", "dark");
-      } else {
-        localStorage.setItem("theme", "light");
-      }
-      
-      // Update all theme toggle icons
-      updateThemeIcons();
-    });
-  }
-
-  // Mobile theme toggle
-  const mobileToggle = document.getElementById("theme-toggle-mobile");
-  if (mobileToggle) {
-    mobileToggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-      // Also toggle .dark class for CSS compatibility
-      document.body.classList.toggle("dark");
-
-      if (document.body.classList.contains("dark-mode")) {
-        localStorage.setItem("theme", "dark");
-      } else {
-        localStorage.setItem("theme", "light");
-      }
-      
-      // Update all theme toggle icons
-      updateThemeIcons();
-    });
-  }
-
-  // Load saved theme on page load
-  window.addEventListener("DOMContentLoaded", () => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      document.body.classList.add("dark-mode");
-      document.body.classList.add("dark");
-    }
-    // Update icons on load
-    updateThemeIcons();
-  });
-
-  // Function to update all theme toggle icons
-  function updateThemeIcons() {
-    const isDark = document.body.classList.contains("dark-mode");
-    document.querySelectorAll('#theme-toggle i, #theme-toggle-mobile i').forEach(icon => {
-      icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-    });
-  }
 
   // ============================================
   // MOBILE MENU MANAGER
@@ -367,14 +318,15 @@
   }
 
   // ============================================
-  // SERVICES CAROUSEL MANAGER
+  // SERVICES CAROUSEL MANAGER (Fixed - Using native scroll)
   // ============================================
 
   class ServicesCarouselManager {
     constructor() {
       this.carousel = document.getElementById('services-carousel');
-      this.prevBtn = document.querySelector('.services-carousel-prev');
-      this.nextBtn = document.querySelector('.services-carousel-next');
+      // Use ID selectors for the navigation buttons
+      this.prevBtn = document.getElementById('services-prev');
+      this.nextBtn = document.getElementById('services-next');
       this.scrollAmount = 0;
       this.maxScroll = 0;
       this.scrollPerClick = 0;
@@ -400,24 +352,25 @@
     }
 
     updateMaxScroll() {
-      const container = this.carousel.parentElement;
-      const containerRect = container.getBoundingClientRect();
-      const paddingLeft = parseFloat(window.getComputedStyle(container).paddingLeft) || 0;
-      const paddingRight = parseFloat(window.getComputedStyle(container).paddingRight) || 0;
-      const visibleWidth = Math.max(0, containerRect.width - paddingLeft - paddingRight);
-      this.maxScroll = Math.max(0, this.carousel.scrollWidth - visibleWidth);
+      this.maxScroll = this.carousel.scrollWidth - this.carousel.clientWidth;
       this.scrollPerClick = this.getSlideWidth();
     }
 
     updateButtons() {
       const tolerance = 5;
+      // Use scrollLeft for current position
+      this.scrollAmount = this.carousel.scrollLeft;
       this.prevBtn.disabled = this.scrollAmount <= tolerance;
       this.nextBtn.disabled = this.scrollAmount >= this.maxScroll - tolerance;
     }
 
     scrollTo(newAmount) {
-      this.scrollAmount = Math.max(0, Math.min(newAmount, this.maxScroll));
-      this.carousel.style.transform = `translateX(-${this.scrollAmount}px)`;
+      const newScroll = Math.max(0, Math.min(newAmount, this.maxScroll));
+      this.carousel.scrollTo({
+        left: newScroll,
+        behavior: 'smooth'
+      });
+      this.scrollAmount = newScroll;
       this.updateButtons();
     }
 
@@ -427,7 +380,7 @@
     }
 
     init() {
-      // Navigation buttons
+      // Navigation buttons - using ID selectors
       this.prevBtn.addEventListener('click', (e) => {
         e.preventDefault();
         this.scrollByCard('prev');
@@ -437,21 +390,18 @@
         this.scrollByCard('next');
       });
 
-      // Touch support
+      // Touch support - native scroll
       this.carousel.addEventListener('touchstart', (e) => {
         this.touchStartX = e.touches[0].clientX;
-        this.touchStartScroll = this.scrollAmount;
-        this.carousel.classList.add('dragging');
+        this.touchStartScroll = this.carousel.scrollLeft;
       }, { passive: true });
 
       this.carousel.addEventListener('touchmove', (e) => {
-        if (!this.carousel.classList.contains('dragging')) return;
         const diff = this.touchStartX - e.touches[0].clientX;
-        this.scrollTo(this.touchStartScroll + diff);
+        this.carousel.scrollLeft = this.touchStartScroll + diff;
       }, { passive: true });
 
       this.carousel.addEventListener('touchend', () => {
-        this.carousel.classList.remove('dragging');
         this.updateButtons();
       }, { passive: true });
 
@@ -460,28 +410,23 @@
         if (e.target.closest('.services-carousel-btn')) return;
         this.isMouseDown = true;
         this.mouseStartX = e.clientX;
-        this.mouseStartScroll = this.scrollAmount;
-        this.carousel.classList.add('dragging');
+        this.mouseStartScroll = this.carousel.scrollLeft;
         this.carousel.style.cursor = 'grabbing';
+        e.preventDefault();
       });
 
       document.addEventListener('mousemove', (e) => {
         if (!this.isMouseDown) return;
         const diff = this.mouseStartX - e.clientX;
-        this.scrollTo(this.mouseStartScroll + diff);
+        this.carousel.scrollLeft = this.mouseStartScroll + diff;
       });
 
       document.addEventListener('mouseup', () => {
         if (this.isMouseDown) {
           this.isMouseDown = false;
-          this.carousel.classList.remove('dragging');
           this.carousel.style.cursor = 'grab';
           this.updateButtons();
         }
-      });
-
-      this.carousel.addEventListener('selectstart', (e) => {
-        if (this.isMouseDown) e.preventDefault();
       });
 
       // Keyboard navigation
@@ -498,19 +443,20 @@
       this.updateMaxScroll();
       this.updateButtons();
 
+      // Update on scroll
+      this.carousel.addEventListener('scroll', () => {
+        this.updateButtons();
+      }, { passive: true });
+
       // Resize handler
       window.addEventListener('resize', () => {
         this.updateMaxScroll();
-        this.scrollAmount = Math.min(this.scrollAmount, this.maxScroll);
-        this.carousel.style.transform = `translateX(-${this.scrollAmount}px)`;
         this.updateButtons();
       }, { passive: true });
 
       window.addEventListener('orientationchange', () => {
         setTimeout(() => {
           this.updateMaxScroll();
-          this.scrollAmount = Math.min(this.scrollAmount, this.maxScroll);
-          this.carousel.style.transform = `translateX(-${this.scrollAmount}px)`;
           this.updateButtons();
         }, 100);
       });
@@ -519,225 +465,6 @@
 
   // ============================================
   // HERO SLIDER MANAGER
-  // ============================================
-
-  class HeroSliderManager {
-    constructor() {
-      this.slider = document.querySelector('.hero-slider');
-      this.slides = document.querySelectorAll('.hero-slider .hero-slide');
-      this.dotsContainer = document.querySelector('.hero-dots');
-      this.current = 0;
-      this.interval = null;
-      this.autoScrollTime = 5000; // 5 seconds
-
-      if (this.slider && this.slides.length > 0) {
-        this.init();
-      }
-    }
-
-    init() {
-      this.createDots();
-      this.startAutoScroll();
-      this.bindEvents();
-    }
-
-    createDots() {
-      if (!this.dotsContainer) return;
-      
-      this.slides.forEach((_, index) => {
-        const dot = document.createElement('button');
-        dot.className = 'dot' + (index === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
-        dot.addEventListener('click', () => this.goToSlide(index));
-        this.dotsContainer.appendChild(dot);
-      });
-    }
-
-    updateDots() {
-      const dots = this.dotsContainer.querySelectorAll('.dot');
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === this.current);
-      });
-    }
-
-    showSlide(index) {
-      this.slides.forEach(slide => slide.classList.remove('active'));
-      this.slides[index].classList.add('active');
-      this.updateDots();
-    }
-
-    nextSlide() {
-      this.current = (this.current + 1) % this.slides.length;
-      this.showSlide(this.current);
-    }
-
-    prevSlide() {
-      this.current = (this.current - 1 + this.slides.length) % this.slides.length;
-      this.showSlide(this.current);
-    }
-
-    goToSlide(index) {
-      this.current = index;
-      this.showSlide(this.current);
-      this.resetTimer();
-    }
-
-    startAutoScroll() {
-      this.interval = setInterval(() => this.nextSlide(), this.autoScrollTime);
-    }
-
-    resetTimer() {
-      if (this.interval) {
-        clearInterval(this.interval);
-      }
-      this.startAutoScroll();
-    }
-
-    bindEvents() {
-      // Keyboard navigation
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-          this.prevSlide();
-          this.resetTimer();
-        } else if (e.key === 'ArrowRight') {
-          this.nextSlide();
-          this.resetTimer();
-        }
-      });
-
-      // Pause on hover
-      this.slider?.addEventListener('mouseenter', () => {
-        if (this.interval) {
-          clearInterval(this.interval);
-        }
-      });
-
-      this.slider?.addEventListener('mouseleave', () => {
-        this.startAutoScroll();
-      });
-
-      // Handle visibility change (pause when tab is hidden)
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-          if (this.interval) {
-            clearInterval(this.interval);
-          }
-        } else {
-          this.startAutoScroll();
-        }
-      });
-    }
-  }
-
-  // ============================================
-  // FORM SUBMISSION MANAGER
-  // ============================================
-
-  class FormSubmissionManager {
-    constructor() {
-      this.form = document.getElementById('contact-form');
-      if (this.form) this.init();
-    }
-
-    init() {
-      this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-    }
-
-    async handleSubmit(e) {
-      e.preventDefault();
-
-      const formData = new FormData(this.form);
-      const name = sanitizeInput(formData.get('name'));
-      const email = sanitizeInput(formData.get('email'));
-      const phone = sanitizeInput(formData.get('phone'));
-      const service = sanitizeInput(formData.get('service'));
-      const message = sanitizeInput(formData.get('message'));
-
-      // Validation
-      const errors = [];
-      if (!name) errors.push('Please enter your name');
-      if (!email || !isValidEmail(email)) errors.push('Please enter a valid email');
-      if (!message) errors.push('Please enter your message');
-
-      if (errors.length > 0) {
-        showNotification(errors.join('. '), 'error');
-        return;
-      }
-
-      // Submit
-      const submitBtn = this.form.querySelector('button[type="submit"]');
-      const originalHTML = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2" aria-hidden="true"></i> Sending...';
-      submitBtn.disabled = true;
-
-      try {
-        const cleanFormData = new FormData();
-        cleanFormData.set('name', name);
-        cleanFormData.set('email', email);
-        cleanFormData.set('phone', phone);
-        cleanFormData.set('service', service);
-        cleanFormData.set('message', message);
-
-        const response = await fetch(this.form.action, {
-          method: 'POST',
-          body: cleanFormData,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          showNotification('Thank you for your inquiry! Our team will contact you at ' + email + ' within 24 hours.', 'success');
-          this.form.reset();
-        } else {
-          showNotification('There was a problem sending your message. Please try again or email us directly.', 'error');
-        }
-      } catch {
-        showNotification('There was a problem sending your message. Please try again or email us directly.', 'error');
-      } finally {
-        submitBtn.innerHTML = originalHTML;
-        submitBtn.disabled = false;
-      }
-    }
-  }
-
-  // ============================================
-  // SERVICE WORKER MANAGER
-  // ============================================
-
-  class ServiceWorkerManager {
-    constructor() {
-      this.init();
-    }
-
-    init() {
-      if (!('serviceWorker' in navigator)) return;
-      if (!(window.location.protocol === 'https:' || window.location.hostname === 'localhost')) return;
-
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then(registration => {
-            registration.addEventListener('updatefound', () => {
-              const worker = registration.installing;
-              worker?.addEventListener('statechange', () => {
-                if (worker.state === 'installed' && navigator.serviceWorker.controller) {
-                  showNotification('New version available! Refresh to update.', 'info');
-                }
-              });
-            });
-          })
-          .catch(() => { /* Silent fail */ });
-
-        // Check for updates every 5 minutes
-        setInterval(() => {
-          if (navigator.serviceWorker.controller) {
-            navigator.serviceWorker.getRegistration().then(r => r?.update());
-          }
-        }, 300000);
-      });
-    }
-  }
-
-  // ============================================
-  // HERO SLIDER MANAGER (With progress bar)
   // ============================================
 
   class HeroSliderManager {
@@ -867,6 +594,113 @@
   }
 
   // ============================================
+  // FORM SUBMISSION MANAGER
+  // ============================================
+
+  class FormSubmissionManager {
+    constructor() {
+      this.form = document.getElementById('contact-form');
+      if (this.form) this.init();
+    }
+
+    init() {
+      this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+    }
+
+    async handleSubmit(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this.form);
+      const name = sanitizeInput(formData.get('name'));
+      const email = sanitizeInput(formData.get('email'));
+      const phone = sanitizeInput(formData.get('phone'));
+      const service = sanitizeInput(formData.get('service'));
+      const message = sanitizeInput(formData.get('message'));
+
+      // Validation
+      const errors = [];
+      if (!name) errors.push('Please enter your name');
+      if (!email || !isValidEmail(email)) errors.push('Please enter a valid email');
+      if (!message) errors.push('Please enter your message');
+
+      if (errors.length > 0) {
+        showNotification(errors.join('. '), 'error');
+        return;
+      }
+
+      // Submit
+      const submitBtn = this.form.querySelector('button[type="submit"]');
+      const originalHTML = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2" aria-hidden="true"></i> Sending...';
+      submitBtn.disabled = true;
+
+      try {
+        const cleanFormData = new FormData();
+        cleanFormData.set('name', name);
+        cleanFormData.set('email', email);
+        cleanFormData.set('phone', phone);
+        cleanFormData.set('service', service);
+        cleanFormData.set('message', message);
+
+        const response = await fetch(this.form.action, {
+          method: 'POST',
+          body: cleanFormData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          showNotification('Thank you for your inquiry! Our team will contact you at ' + email + ' within 24 hours.', 'success');
+          this.form.reset();
+        } else {
+          showNotification('There was a problem sending your message. Please try again or email us directly.', 'error');
+        }
+      } catch {
+        showNotification('There was a problem sending your message. Please try again or email us directly.', 'error');
+      } finally {
+        submitBtn.innerHTML = originalHTML;
+        submitBtn.disabled = false;
+      }
+    }
+  }
+
+  // ============================================
+  // SERVICE WORKER MANAGER
+  // ============================================
+
+  class ServiceWorkerManager {
+    constructor() {
+      this.init();
+    }
+
+    init() {
+      if (!('serviceWorker' in navigator)) return;
+      if (!(window.location.protocol === 'https:' || window.location.hostname === 'localhost')) return;
+
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(registration => {
+            registration.addEventListener('updatefound', () => {
+              const worker = registration.installing;
+              worker?.addEventListener('statechange', () => {
+                if (worker.state === 'installed' && navigator.serviceWorker.controller) {
+                  showNotification('New version available! Refresh to update.', 'info');
+                }
+              });
+            });
+          })
+          .catch(() => { /* Silent fail */ });
+
+        // Check for updates every 5 minutes
+        setInterval(() => {
+          if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.getRegistration().then(r => r?.update());
+          }
+        }, 300000);
+      });
+    }
+  }
+
+  // ============================================
   // INITIALIZATION
   // ====================================
 
@@ -877,22 +711,6 @@
     new SmoothScrollManager();
     new MobileTrackLinkManager();
     new ServicesCarouselManager();
-    
-    // Simple Services Slider - Using scrollBy for horizontal scrolling
-    const slider = document.querySelector(".services-slider");
-    const nextBtn = document.getElementById("services-next");
-    const prevBtn = document.getElementById("services-prev");
-
-    if (slider && nextBtn && prevBtn) {
-      nextBtn.addEventListener("click", () => {
-        slider.scrollBy({ left: 300, behavior: "smooth" });
-      });
-
-      prevBtn.addEventListener("click", () => {
-        slider.scrollBy({ left: -300, behavior: "smooth" });
-      });
-    }
-
     new FormSubmissionManager();
     new ServiceWorkerManager();
     new HeroSliderManager();
@@ -910,11 +728,9 @@
     theme: {
       toggle: () => {
         document.body.classList.toggle("dark-mode");
-        // Also toggle .dark class for CSS compatibility
         document.body.classList.toggle("dark");
         const isDark = document.body.classList.contains("dark-mode");
         localStorage.setItem("theme", isDark ? "dark" : "light");
-        updateThemeIcons();
       },
       isDark: () => document.body.classList.contains("dark-mode")
     },

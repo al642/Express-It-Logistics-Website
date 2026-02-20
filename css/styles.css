@@ -73,8 +73,8 @@ COLOR SYSTEM - Standardized for consistency
   --footer-bg: #111111;
   --footer-text: #ffffff;
 
-  /* Hero Overlay - Brand pink at 60% opacity */
-  --hero-overlay: rgba(219, 39, 119, 0.6);
+  /* Hero Overlay - Subtle pink at 8% opacity (barely visible) */
+  --hero-overlay: rgba(219, 39, 119, 0.08);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -1604,7 +1604,7 @@ body.dark-mode .partner-logo-text {
 .services-carousel {
   display: flex;
   gap: 1.5rem;
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   cursor: grab;
