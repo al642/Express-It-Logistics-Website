@@ -8,6 +8,77 @@
   "use strict";
 
   // ============================================
+  // DARK MODE HANDLER (Task Requirement)
+  // ============================================
+  
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("theme-toggle");
+    const mobileToggle = document.getElementById("theme-toggle-mobile");
+
+    // Theme toggle click handler (desktop)
+    if (toggle) {
+      toggle.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+        // Also toggle .dark class for CSS compatibility
+        document.body.classList.toggle("dark");
+
+        localStorage.setItem(
+          "theme",
+          document.body.classList.contains("dark-mode") ? "dark" : "light"
+        );
+      });
+    }
+
+    // Theme toggle click handler (mobile)
+    if (mobileToggle) {
+      mobileToggle.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+        // Also toggle .dark class for CSS compatibility
+        document.body.classList.toggle("dark");
+
+        localStorage.setItem(
+          "theme",
+          document.body.classList.contains("dark-mode") ? "dark" : "light"
+        );
+      });
+    }
+
+    // Load saved theme or respect system preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-mode");
+      document.body.classList.add("dark");
+    } else if (!savedTheme) {
+      // No saved preference - check system preference
+      const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (prefersDarkScheme) {
+        document.body.classList.add("dark-mode");
+        document.body.classList.add("dark");
+      }
+    }
+
+    // Listen for system preference changes in real-time
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+      // Only auto-switch if user hasn't set a manual preference
+      if (!localStorage.getItem("theme")) {
+        if (e.matches) {
+          document.body.classList.add("dark-mode");
+          document.body.classList.add("dark");
+        } else {
+          document.body.classList.remove("dark-mode");
+          document.body.classList.remove("dark");
+        }
+      }
+    });
+
+    // Year population for footer
+    const year = document.getElementById("year");
+    if (year) {
+      year.textContent = new Date().getFullYear();
+    }
+  });
+
+  // ============================================
   // UTILITIES
   // ============================================
 
@@ -99,6 +170,8 @@
   if (toggle) {
     toggle.addEventListener("click", () => {
       document.body.classList.toggle("dark-mode");
+      // Also toggle .dark class for CSS compatibility
+      document.body.classList.toggle("dark");
 
       if (document.body.classList.contains("dark-mode")) {
         localStorage.setItem("theme", "dark");
@@ -116,6 +189,8 @@
   if (mobileToggle) {
     mobileToggle.addEventListener("click", () => {
       document.body.classList.toggle("dark-mode");
+      // Also toggle .dark class for CSS compatibility
+      document.body.classList.toggle("dark");
 
       if (document.body.classList.contains("dark-mode")) {
         localStorage.setItem("theme", "dark");
@@ -133,6 +208,7 @@
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
       document.body.classList.add("dark-mode");
+      document.body.classList.add("dark");
     }
     // Update icons on load
     updateThemeIcons();
@@ -448,9 +524,7 @@
   class HeroSliderManager {
     constructor() {
       this.slider = document.querySelector('.hero-slider');
-      this.slides = document.querySelectorAll('.hero-slider .slide');
-      this.prevBtn = document.querySelector('.hero-prev');
-      this.nextBtn = document.querySelector('.hero-next');
+      this.slides = document.querySelectorAll('.hero-slider .hero-slide');
       this.dotsContainer = document.querySelector('.hero-dots');
       this.current = 0;
       this.interval = null;
@@ -520,18 +594,6 @@
     }
 
     bindEvents() {
-      // Previous button
-      this.prevBtn?.addEventListener('click', () => {
-        this.prevSlide();
-        this.resetTimer();
-      });
-
-      // Next button
-      this.nextBtn?.addEventListener('click', () => {
-        this.nextSlide();
-        this.resetTimer();
-      });
-
       // Keyboard navigation
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') {
@@ -675,17 +737,15 @@
   }
 
   // ============================================
-  // HERO SLIDER MANAGER
+  // HERO SLIDER MANAGER (With progress bar)
   // ============================================
 
   class HeroSliderManager {
     constructor() {
       this.slider = document.querySelector('.hero-section');
-      this.slides = document.querySelectorAll('.hero-slider .slide');
+      this.slides = document.querySelectorAll('.hero-slider .hero-slide');
       this.dotsContainer = document.querySelector('.hero-dots');
       this.progress = document.querySelector('.hero-progress');
-      this.prevBtn = document.querySelector('.hero-prev');
-      this.nextBtn = document.querySelector('.hero-next');
 
       this.current = 0;
       this.slideInterval = null;
@@ -717,9 +777,6 @@
     }
 
     bindEvents() {
-      this.prevBtn?.addEventListener('click', () => this.prevSlide());
-      this.nextBtn?.addEventListener('click', () => this.nextSlide());
-
       this.slider?.addEventListener('mouseenter', () => this.pauseSlider());
       this.slider?.addEventListener('mouseleave', () => this.resumeSlider());
 
@@ -853,6 +910,8 @@
     theme: {
       toggle: () => {
         document.body.classList.toggle("dark-mode");
+        // Also toggle .dark class for CSS compatibility
+        document.body.classList.toggle("dark");
         const isDark = document.body.classList.contains("dark-mode");
         localStorage.setItem("theme", isDark ? "dark" : "light");
         updateThemeIcons();
