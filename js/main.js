@@ -471,12 +471,10 @@
     constructor() {
       this.slider = document.querySelector('.hero-section');
       this.slides = document.querySelectorAll('.hero-slider .hero-slide');
-      this.dotsContainer = document.querySelector('.hero-dots');
-      this.progress = document.querySelector('.hero-progress');
 
       this.current = 0;
       this.slideInterval = null;
-      this.slideDuration = 6000;
+      this.slideDuration = 4000; // Quick 4-second intervals
 
       if (this.slider && this.slides.length > 0) {
         this.init();
@@ -484,29 +482,14 @@
     }
 
     init() {
-      this.createDots();
+      // Show first slide immediately without animation delay
+      this.showSlide(0);
       this.bindEvents();
       this.startSlider();
     }
 
-    createDots() {
-      if (!this.dotsContainer) return;
-
-      this.slides.forEach((_, index) => {
-        const dot = document.createElement('span');
-        dot.classList.add('dot');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => this.goToSlide(index));
-        this.dotsContainer.appendChild(dot);
-      });
-
-      this.dots = this.dotsContainer.querySelectorAll('.dot');
-    }
-
     bindEvents() {
-      this.slider?.addEventListener('mouseenter', () => this.pauseSlider());
-      this.slider?.addEventListener('mouseleave', () => this.resumeSlider());
-
+      // Slider runs continuously without interruption from mouse hover
       this.initTouchSupport();
     }
 
@@ -533,12 +516,7 @@
 
     showSlide(index) {
       this.slides.forEach(slide => slide.classList.remove('active'));
-      this.dots?.forEach(dot => dot.classList.remove('active'));
-
       this.slides[index]?.classList.add('active');
-      this.dots?.[index]?.classList.add('active');
-
-      this.restartProgress();
     }
 
     nextSlide() {
@@ -558,33 +536,12 @@
 
     startSlider() {
       this.slideInterval = setInterval(() => this.nextSlide(), this.slideDuration);
-      this.restartProgress();
-    }
-
-    restartProgress() {
-      if (!this.progress) return;
-
-      this.progress.style.transition = 'none';
-      this.progress.style.width = '0%';
-
-      void this.progress.offsetWidth;
-
-      setTimeout(() => {
-        this.progress.style.transition = `width ${this.slideDuration}ms linear`;
-        this.progress.style.width = '100%';
-      }, 50);
     }
 
     pauseSlider() {
       if (this.slideInterval) {
         clearInterval(this.slideInterval);
         this.slideInterval = null;
-      }
-      if (this.progress) {
-        const computedStyle = window.getComputedStyle(this.progress);
-        const width = computedStyle.getPropertyValue('width');
-        this.progress.style.transition = 'none';
-        this.progress.style.width = width;
       }
     }
 

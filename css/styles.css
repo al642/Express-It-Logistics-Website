@@ -607,13 +607,8 @@ body.dark-mode .mobile-theme-toggle .dark-mode-toggle i {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Fallback background if images fail to load */
-  background: linear-gradient(
-    135deg,
-    var(--color-pink-dark) 0%,
-    var(--color-pink) 50%,
-    var(--color-pink-light) 100%
-  );
+  /* Neutral dark fallback background - no pink */
+  background: #1a1a2e;
   overflow: hidden;
   padding-top: 80px;
 }
@@ -635,7 +630,12 @@ body.dark-mode .mobile-theme-toggle .dark-mode-toggle i {
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 1.2s ease-in-out;
+  transition: opacity 0.8s ease-in-out;
+}
+
+/* Show first slide immediately on page load - no waiting for JavaScript */
+.hero-slider .hero-slide:first-child {
+  opacity: 1;
 }
 
 .hero-slider .hero-slide.active {
@@ -678,101 +678,25 @@ body.dark-mode .mobile-theme-toggle .dark-mode-toggle i {
   transition: opacity 0.3s ease-in-out;
 }
 
-/* Dark pink overlay to maintain brand identity */
+/* Dark overlay to maintain contrast - no pink tint */
 .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--hero-overlay);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 2;
 }
 
+/* Hide slider dots - remove indicators showing number of slides */
 .hero-dots {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 14px;
-  z-index: 10;
+  display: none;
 }
 
-.hero-dots .dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  border: 2px solid rgba(255, 255, 255, 0.7);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-  min-width: 14px;
-  min-height: 14px;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.hero-dots .dot:hover {
-  background: rgba(255, 255, 255, 0.8);
-  transform: scale(1.15);
-}
-
-.hero-dots .dot.active {
-  background: #ffffff;
-  transform: scale(1.2);
-  border-color: #ffffff;
-}
-
-.hero-dots .dot:active {
-  transform: scale(0.95);
-}
-
-/* Progress Bar */
+/* Hide progress bar - remove loading bar that shows time each slide takes */
 .hero-progress-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.2);
-  z-index: 10;
-}
-
-.hero-progress {
-  height: 100%;
-  width: 0%;
-  background: #ffffff;
-  transition: width 6s linear;
-}
-
-/* Responsive adjustments for slider */
-@media (max-width: 768px) {
-  .hero-dots {
-    bottom: 90px;
-    gap: 12px;
-  }
-
-  .hero-dots .dot {
-    width: 12px;
-    height: 12px;
-    min-width: 12px;
-    min-height: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-dots {
-    gap: 10px;
-    bottom: 80px;
-  }
-
-  .hero-dots .dot {
-    width: 11px;
-    height: 11px;
-    min-width: 11px;
-    min-height: 11px;
-  }
+  display: none;
 }
 
 .hero-section::before {
@@ -2369,8 +2293,9 @@ body.dark-mode .footer-bottom p {
 /* STEP 1 — HERO MOBILE HEIGHT */
 @media (max-width: 768px) {
   .hero-section {
-    height: 85vh;
-    min-height: 550px;
+    height: 75vh;
+    min-height: 500px;
+    padding: 5rem 1rem 2rem;
   }
 }
 
@@ -2408,62 +2333,63 @@ body.dark-mode .footer-bottom p {
   }
 
   .hero-section {
-    height: 70vh;
+    height: 80vh;
     min-height: 450px;
+    padding: 4rem 1rem 1.5rem;
   }
 }
 
 /* Tablets (481px - 768px) */
 @media (max-width: 768px) {
   .hero-section {
-    height: 85vh;
-    min-height: 550px;
-    padding: 6rem 1.25rem 3rem;
+    height: 75vh;
+    min-height: 500px;
+    padding: 5rem 1rem 2rem;
   }
 
   .hero-content {
-    padding: 1.25rem;
+    padding: 1rem;
   }
 
   .hero-badge {
     font-size: 0.8rem;
     padding: 0.5rem 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .hero-title {
-    font-size: clamp(1.625rem, 6vw, 2.25rem);
-    margin-bottom: 1.125rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: 1rem;
     line-height: 1.25;
   }
 
   .hero-subtitle {
-    font-size: clamp(0.9rem, 2.5vw, 1.05rem);
-    line-height: 1.6;
-    margin-bottom: 2rem;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
   }
 
   .hero-stats {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-    padding-top: 1.75rem;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
   }
 
   .stat-value {
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(1.25rem, 3.5vw, 1.75rem);
   }
 
   .stat-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   .section {
-    padding: 60px 0;
+    padding: 50px 0;
   }
 
   .section-title {
-    font-size: clamp(1.625rem, 4vw, 2.125rem);
+    font-size: clamp(1.5rem, 4vw, 2rem);
   }
 
   .section-subtitle {
@@ -2472,35 +2398,35 @@ body.dark-mode .footer-bottom p {
 
   .btn {
     width: 100%;
-    padding: 1rem 1.5rem;
-    font-size: 0.95rem;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
     min-height: 48px;
   }
 
   .hero-buttons {
-    gap: 0.875rem;
+    gap: 0.75rem;
   }
 
   .hero-buttons .btn {
     flex: 1;
-    min-width: 140px;
+    min-width: 120px;
   }
 
   .form-row {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
   }
 
   .form-label {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .form-textarea {
-    min-height: 120px;
+    min-height: 100px;
   }
 
   .footer-grid {
@@ -2758,11 +2684,27 @@ body.dark-mode .footer-bottom p {
    CROSS-BROWSER & MOBILE FIXES
    ============================================ */
 
-/* Safari 100vh fix */
+/* Safari 100vh fix - use dynamic viewport height for better mobile support */
 @supports (height: 100dvh) {
   .hero-section {
     height: 100dvh;
+    min-height: 650px;
     overflow: hidden;
+  }
+
+  /* Mobile overrides */
+  @media (max-width: 768px) {
+    .hero-section {
+      height: 75dvh;
+      min-height: 500px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-section {
+      height: 80dvh;
+      min-height: 450px;
+    }
   }
 }
 
@@ -3029,14 +2971,18 @@ img {
    MOBILE (768px and below)
    =============================== */
 @media (max-width: 768px) {
-  /* Header */
+  /* Header - Reduced height for more hero space */
+  .site-header {
+    padding: 6px 12px;
+  }
+
   .header-container {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    min-height: 70px;
-    padding: 0 16px;
+    gap: 8px;
+    min-height: 56px;
+    padding: 0 12px;
   }
 
   .brand {
@@ -3044,11 +2990,11 @@ img {
   }
 
   .logo {
-    height: 38px;
+    height: 32px;
   }
 
   .brand-name {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .main-nav {
@@ -3125,11 +3071,21 @@ img {
   }
 
   .logo {
-    height: 34px;
+    height: 28px;
   }
 
   .brand-name {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .site-header {
+    padding: 4px 10px;
+  }
+
+  .header-container {
+    min-height: 50px;
+    padding: 0 10px;
+    gap: 6px;
   }
 
   .section {
