@@ -123,59 +123,7 @@
 <body>
 
   <!-- Navigation Bar -->
-  <header class="site-header">
-    <div class="header-container">
-      <a href="index.html" class="brand">
-        <img src="assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
-        <div class="brand-text">
-          <span class="brand-name">Express It Logistics Ltd</span>
-        </div>
-      </a>
-
-      <nav class="main-nav nav-links">
-        <a href="index.html" class="nav-link active" aria-current="page">Home</a>
-        <a href="pages/services.html" class="nav-link">Services</a>
-        <a href="pages/team.html" class="nav-link">Team</a>
-        <a href="pages/contact.html" class="nav-link">Contact</a>
-        <a href="pages/contact.html" class="btn btn-primary">
-          Get Quote
-          <i class="fas fa-arrow-right" aria-hidden="true"></i>
-        </a>
-        <!-- Track Shipment Button -->
-        <a href="https://www.track-trace.com/" class="btn btn-outline track-shipment-btn" aria-label="Track Shipment" target="_blank" rel="noopener noreferrer">
-          <i class="fas fa-search" aria-hidden="true"></i>
-          Track Shipment
-        </a>
-        <!-- Theme Toggle -->
-        <button id="theme-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </button>
-      </nav>
-
-      <button id="mobile-menu-btn" class="mobile-menu-btn menu-toggle" aria-label="Open menu" aria-expanded="false"></button>
-    </div>
-
-    <!-- Mobile Menu -->
-    <nav id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-      <a href="index.html" class="mobile-nav-link active" aria-current="page">Home</a>
-      <a href="pages/services.html" class="mobile-nav-link">Services</a>
-      <a href="pages/team.html" class="mobile-nav-link">Team</a>
-      <a href="pages/contact.html" class="mobile-nav-link">Contact</a>
-      <a href="https://www.track-trace.com/" class="mobile-nav-link" target="_blank" rel="noopener noreferrer" aria-label="Track Shipment">
-        <i class="fas fa-search" aria-hidden="true" style="margin-right: 0.5rem;"></i>
-        Track Shipment
-      </a>
-      <a href="pages/contact.html" class="btn btn-primary inline-block mt-2">
-        Get Quote
-        <i class="fas fa-arrow-right" aria-hidden="true"></i>
-      </a>
-      <div class="mobile-theme-toggle">
-        <button id="theme-toggle-mobile" class="dark-mode-toggle" aria-label="Toggle dark mode">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </button>
-      </div>
-    </nav>
-  </header>
+  <div id="site-header-placeholder"></div>
 
   <!-- Main Content -->
   <main role="main">
@@ -185,25 +133,34 @@
       <!-- Hero Slider -->
       <div class="hero-slider">
         <div class="hero-slide">
-          <img src="images/slide1.jpeg" alt="Port logistics">
+          <img src="images/slide1.jpeg" alt="Port logistics operations - containers being loaded" loading="eager" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide2.jpeg" alt="Cargo ship at sea">
+          <img src="images/slide2.jpeg" alt="Cargo ship at sea - international freight" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide3.jpeg" alt="Cargo plane loading">
+          <img src="images/slide3.jpeg" alt="Cargo plane loading - air freight services" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide4.jpeg" alt="Warehouse logistics">
+          <img src="images/slide4.jpeg" alt="Warehouse logistics - storage and distribution" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide5.jpeg" alt="Truck fleet">
+          <img src="images/slide5.jpeg" alt="Truck fleet - road transportation across East Africa" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide6.jpeg" alt="Distribution center">
+          <img src="images/slide6.jpeg" alt="Distribution center operations" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide7.jpeg" alt="Cold chain transport">
+          <img src="images/slide7.jpeg" alt="Cold chain transport - temperature controlled logistics" loading="lazy" decoding="async">
+        </div>
+        <div class="hero-slide">
+          <img src="images/slide8.jpeg" alt="Express It Logistics advanced logistics solutions" loading="lazy" decoding="async">
+        </div>
+        <div class="hero-slide">
+          <img src="images/slide9.jpeg" alt="Additional logistics showcase - new photo" loading="lazy" decoding="async">
+        </div>
+        <div class="hero-slide">
+          <img src="images/slide10.jpeg" alt="Additional logistics operations - recent photo" loading="lazy" decoding="async">
         </div>
       </div>
       <div class="hero-overlay"></div>
@@ -213,7 +170,7 @@
         <div class="animate-fade-in-up">
         <span class="hero-badge">
             <i class="fas fa-shipping-fast mr-2" aria-hidden="true"></i>
-            Premier Logistics Provider Across East Africa
+            Premier Logistics Provider Across East Africa and across the Globe
           </span>
 
           <h1 class="hero-title">
@@ -264,6 +221,8 @@
       </div>
     </section>
 
+
+
     <!-- About Section -->
     <section id="about" class="section section-light home-about" aria-labelledby="about-title">
       <div class="container home-about-container">
@@ -278,7 +237,7 @@
                 East Africa's Premier Logistics & Cold Chain Solutions Partner
               </h2>
               <p class="text-secondary text-lg mb-6">
-                Express It Logistics Ltd is a leading logistics and transportation company headquartered in Uganda, with operations across East Africa and international reach. We are dedicated to providing world-class logistics solutions and specialized cold chain services across the region.
+                Express It Logistics Ltd is a leading logistics and transportation company headquartered in Uganda, with operations across East Africa and international reach. We are dedicated to providing world-class logistics solutions and specialized cold chain services including dry ice across the region.
               </p>
             </div>
 
@@ -455,140 +414,32 @@
       </div>
     </section>
 
-    <!-- Services Preview Section -->
-    <section id="services" class="section section-secondary" aria-labelledby="services-title">
+    <!-- Services Preview Section with Video Background -->
+    <section id="services" class="section section-secondary video-services-section" aria-labelledby="services-title">
       <div class="container">
-      <div class="section-content">
-        <!-- Section Header -->
-        <div class="section-header">
-          <span class="section-label">Our Services</span>
-          <h2 id="services-title" class="section-title mt-2 mb-4">
-            Comprehensive Logistics Solutions Across East Africa
-          </h2>
-          <p class="section-subtitle">
-            We offer a wide range of logistics services and specialized cold-chain solutions tailored to meet your business needs across the region and internationally.
-          </p>
+        <video class="services-bg-video" autoplay muted loop playsinline aria-hidden="true">
+          <source src="Videos/port-logistics.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="services-video-overlay"></div>
+        
+        <div class="services-content">
+          <div class="section-header">
+            <span class="section-label">Our Services</span>
+            <h2 id="services-title" class="section-title mt-2 mb-4">
+              Comprehensive Logistics Solutions Across East Africa
+            </h2>
+            <p class="section-subtitle">
+              We offer a wide range of logistics services and specialized cold-chain
+              solutions tailored to meet your business needs across the region and internationally.
+            </p>
+            <div class="services-link-container services-link-container-inline">
+              <a href="pages/services.html" class="services-link" aria-label="View our Services">
+                View Our Services
+              </a>
+            </div>
+          </div>
         </div>
-
-        <!-- Services Sliding Carousel -->
-        <div class="services-carousel-container">
-          <div class="services-carousel services-slider" id="services-carousel">
-            <!-- Service 1 - COLD-CHAIN SUPPORT -->
-            <article class="service-slide">
-              <div class="service-card service-slide-card">
-                <div class="service-icon">
-                  <i class="fas fa-snowflake" aria-hidden="true"></i>
-                </div>
-                <h3 class="service-title">Cold-Chain Support</h3>
-                <p class="service-description">
-                  Temperature-controlled logistics solutions for pharmaceutical, food, and industrial applications across East Africa. Our specialized cold-chain support ensures temperature integrity for sensitive shipments including biological samples, vaccines, and cold chain products. Available 24/7 for emergency requirements with temperature-controlled packaging and monitored handling.
-                </p>
-              </div>
-            </article>
-
-            <!-- Service 1b - BIOLOGICAL SAMPLE SHIPMENTS -->
-            <article class="service-slide">
-              <div class="service-card service-slide-card">
-                <div class="service-icon">
-                  <i class="fas fa-flask" aria-hidden="true"></i>
-                </div>
-                <h3 class="service-title">Biological Sample Shipments</h3>
-                <p class="service-description">
-                  Secure and compliant shipping of biological specimens, medical samples, and clinical trial materials with full chain of custody. Specialized logistics for biological specimen transport with IATA-compliant packaging, regulatory compliance, real-time temperature monitoring, and door-to-door global delivery.
-                </p>
-              </div>
-            </article>
-
-            <!-- Service 1c - CLINICAL SAMPLE LOGISTICS -->
-            <article class="service-slide">
-              <div class="service-card service-slide-card">
-                <div class="service-icon">
-                  <i class="fas fa-dna" aria-hidden="true"></i>
-                </div>
-                <h3 class="service-title">Clinical Sample Logistics</h3>
-                <p class="service-description">
-                  End-to-end logistics for clinical trial materials and medical samples with regulatory compliance and secure handling. Comprehensive solutions for clinical specimens, pharmaceutical products, and temperature-sensitive medical shipments with GDP-compliant handling and validated cold chain packaging.
-                </p>
-              </div>
-            </article>
-
-            <!-- Service 2 - FREIGHT -->
-            <article class="service-slide">
-              <div class="service-card service-slide-card">
-                <div class="service-icon">
-                  <i class="fas fa-truck" aria-hidden="true"></i>
-                </div>
-                <h3 class="service-title">Freight Transportation</h3>
-                <p class="service-description">
-                  Reliable road freight services across East Africa with a modern fleet ensuring safe and timely delivery. Professional freight transportation solutions covering Uganda and the broader East African region with fleet of 50+ modern vehicles, real-time GPS tracking, temperature-controlled transport, and cross-border expertise.
-                </p>
-              </div>
-            </article>
-
-            <!-- Service 3 - WAREHOUSING -->
-            <article class="service-slide">
-              <div class="service-card service-slide-card">
-                <div class="service-icon">
-                  <i class="fas fa-warehouse" aria-hidden="true"></i>
-                </div>
-                <h3 class="service-title">Warehousing</h3>
-                <p class="service-description">
-                  Scalable logistics infrastructure with secure storage and inventory management solutions. Ample, scalable storage infrastructure with climate-controlled options for sensitive goods, advanced inventory management systems, bonded warehousing available, and cross-docking services.
-                </p>
-              </div>
-            </article>
-
-            <!-- Service 4 - DISTRIBUTION -->
-            <article class="service-slide">
-              <div class="service-card service-slide-card">
-                <div class="service-icon">
-                  <i class="fas fa-boxes-stacked" aria-hidden="true"></i>
-                </div>
-                <h3 class="service-title">Distribution Services</h3>
-                <p class="service-description">
-                  Efficient last-mile delivery and distribution network covering major cities and towns. Comprehensive distribution solutions ensuring your products reach customers efficiently across Uganda and East Africa with same-day delivery in Kampala, nationwide coverage, express and standard options, and proof of delivery documentation.
-                </p>
-              </div>
-            </article>
-
-            <!-- Service 5 - CONSULTING -->
-            <article class="service-slide">
-              <div class="service-card service-slide-card">
-                <div class="service-icon">
-                  <i class="fas fa-clipboard-list" aria-hidden="true"></i>
-                </div>
-                <h3 class="service-title">Supply Chain Consulting</h3>
-                <p class="service-description">
-                  Expert consulting services to optimize your supply chain efficiency and reduce costs. Strategic supply chain analysis and optimization to enhance your logistics performance with route optimization, cost analysis, supply chain audits, and strategic planning.
-                </p>
-              </div>
-            </article>
-
-            <!-- Service 6 - CROSS-BORDER -->
-            <article class="service-slide">
-              <div class="service-card service-slide-card">
-                <div class="service-icon">
-                  <i class="fas fa-earth-africa" aria-hidden="true"></i>
-                </div>
-                <h3 class="service-title">Cross-Border Logistics</h3>
-                <p class="service-description">
-                  Seamless cross-border transportation to Kenya, Tanzania, Rwanda, DRC, and beyond. End-to-end cross-border logistics solutions handling customs documentation, customs clearance assistance, door-to-door delivery, transit insurance, and full documentation handling.
-                </p>
-              </div>
-            </article>
-          </div>
-
-          <!-- Carousel Navigation -->
-          <div class="services-carousel-nav">
-            <button id="services-prev" class="services-carousel-btn services-carousel-prev" aria-label="Previous services">
-              <i class="fas fa-chevron-left" aria-hidden="true"></i>
-            </button>
-            <button id="services-next" class="services-carousel-btn services-carousel-next" aria-label="Next services">
-              <i class="fas fa-chevron-right" aria-hidden="true"></i>
-            </button>
-          </div>
-
-      </div>
       </div>
     </section>
 
@@ -601,8 +452,10 @@
           Contact us today for a free consultation and quote. Let us help streamline your supply chain.
         </p>
         <div class="hero-buttons">
-          <a href="pages/contact.html" class="btn btn-white">
+
+          <a href="pages/contact.html" class="btn btn-primary">
             Get Free Quote
+            <i class="fas fa-arrow-right" aria-hidden="true"></i>
           </a>
           <a href="pages/contact.html" class="btn btn-secondary">
             Contact Us
@@ -613,61 +466,62 @@
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="site-footer">
+  <!-- Modern Redesigned Footer -->
+  <footer class="footer">
     <div class="footer-container">
-
-      <!-- Column 1 -->
-      <div class="footer-column footer-brand">
-        <img src="assets/images/logo.png" alt="Express It Logistics Logo" class="footer-logo">
-        <h3>Express It Logistics Ltd</h3>
-        <p>Delivering Excellence Across East Africa</p>
+      
+      <!-- 1. Left: Company + Logo + Tagline -->
+      <div class="footer-brand">
+        <a href="index.html" class="brand">
+          <img src="assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
+          <div class="brand-text">
+            <span class="brand-name">Express It Logistics Ltd</span>
+          </div>
+        </a>
       </div>
-
-      <!-- Column 2 -->
-      <div class="footer-column">
+      
+      <!-- 2. Quick Links (slightly left) -->
+      <div class="footer-links">
         <h4>Quick Links</h4>
         <ul>
           <li><a href="pages/services.html">Services</a></li>
           <li><a href="pages/team.html">Team</a></li>
-          <li><a href="pages/contact.html">Contact Us</a></li>
+          <li><a href="pages/contact.html">Contact</a></li>
+          <li><a href="pages/contact.html">Get Quote</a></li>
+          <li><a href="https://www.track-trace.com/" target="_blank" rel="noopener">Track Shipment</a></li>
         </ul>
       </div>
-
-      <!-- Column 3 -->
-      <div class="footer-column">
-        <h4>Contact Info</h4>
-
-        <p><strong>Office Address</strong><br>
-        Express It Logistics Ltd<br>
-        Rumee House, 3rd Floor<br>
-        Plot 19 Lumumba Avenue – Nakasero<br>
-        P.O. Box 74638<br>
-        Kampala – Uganda</p>
-
-        <p><strong>Phone Numbers</strong><br>
-        Main: +256 772 200 122<br>
-        Alt 1: +256 773 001 030<br>
-        Alt 2: +256 701 447 750</p>
-
-        <p><strong>Email Addresses</strong><br>
-        General: info@expressitlogistics.co.ug<br>
-        Sales: expressitlogistics@gmail.com<br>
-        Direct: sabiitiallan@gmail.com</p>
-
-        <p><strong>Business Hours</strong><br>
-        Mon – Fri: 08:00 AM – 06:00 PM<br>
-        Saturday: 08:00 AM – 02:00 PM<br>
-        Sunday: Closed</p>
-
-        <p class="text-sm mt-3"><strong>24/7 Cold-Chain Support Available</strong> — Emergency and on-demand logistics support provided at any time upon request. Please call our team for immediate assistance.</p>
-
+      
+      <!-- 3. Contact (middle) -->
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <ul>
+<li><a href="https://maps.app.goo.gl/NBrZDigMAc3j4jGN6" target="_blank" rel="noopener">Rumee House, Plot 19, Lumumba Avenue, Kampala</a></li>
+          <li><a href="tel:+256772200122">+256 772 200 122</a></li>
+          <li><a href="tel:+256701447750">+256 701 447 750</a></li>
+          <li><a href="mailto:info@expressitlogistics.co.ug">info@expressitlogistics.co.ug</a></li>
+          <li><a href="mailto:expressitlogistics@gmail.com">expressitlogistics@gmail.com</a></li>
+        </ul>
       </div>
-
+      
+      <!-- 4. Business Hours (right) -->
+      <div class="footer-hours">
+        <h4>Business Hours</h4>
+        <div class="hours-list">
+          <strong>Mon – Fri: 08:00 AM – 06:00 PM</strong>
+          <strong>Saturday: 08:00 AM – 02:00 PM</strong>
+          <strong>Sunday: Closed</strong>
+        </div>
+        <div class="hours-note">
+          24/7 Cold-Chain Support Available — Emergency and on-demand logistics support provided at any time upon request. Please call our team for immediate assistance.
+        </div>
+      </div>
+      
     </div>
-
+    
+    <!-- 5. Bottom middle copyright -->
     <div class="footer-bottom">
-      © <span id="year"></span> Express It Logistics Ltd. All rights reserved.
+      © 2026 Express It Logistics Ltd. All rights reserved.
     </div>
   </footer>
 

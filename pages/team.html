@@ -64,59 +64,7 @@
 <body>
 
   <!-- Navigation Bar -->
-  <header class="site-header">
-    <div class="header-container">
-      <a href="../index.html" class="brand">
-        <img src="../assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
-        <div class="brand-text">
-          <span class="brand-name">Express It Logistics Ltd</span>
-        </div>
-      </a>
-
-      <nav class="main-nav nav-links">
-        <a href="../index.html" class="nav-link">Home</a>
-        <a href="services.html" class="nav-link">Services</a>
-        <a href="team.html" class="nav-link active" aria-current="page">Team</a>
-        <a href="contact.html" class="nav-link">Contact</a>
-        <a href="contact.html" class="btn btn-primary">
-          Get Quote
-          <i class="fas fa-arrow-right" aria-hidden="true"></i>
-        </a>
-        <!-- Track Shipment Button -->
-        <a href="https://www.track-trace.com/" class="btn btn-outline track-shipment-btn" aria-label="Track Shipment" target="_blank" rel="noopener noreferrer">
-          <i class="fas fa-search" aria-hidden="true"></i>
-          Track Shipment
-        </a>
-        <!-- Theme Toggle -->
-        <button id="theme-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </button>
-      </nav>
-
-      <button id="mobile-menu-btn" class="mobile-menu-btn menu-toggle" aria-label="Open menu" aria-expanded="false"></button>
-    </div>
-
-    <!-- Mobile Menu -->
-    <nav id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-      <a href="../index.html" class="mobile-nav-link">Home</a>
-      <a href="services.html" class="mobile-nav-link">Services</a>
-      <a href="team.html" class="mobile-nav-link active" aria-current="page">Team</a>
-      <a href="contact.html" class="mobile-nav-link">Contact</a>
-      <a href="https://www.track-trace.com/" class="mobile-nav-link" target="_blank" rel="noopener noreferrer" aria-label="Track Shipment">
-        <i class="fas fa-search" aria-hidden="true" style="margin-right: 0.5rem;"></i>
-        Track Shipment
-      </a>
-      <a href="contact.html" class="btn btn-primary inline-block mt-2">
-        Get Quote
-        <i class="fas fa-arrow-right" aria-hidden="true"></i>
-      </a>
-      <div class="mobile-theme-toggle">
-        <button id="theme-toggle-mobile" class="dark-mode-toggle" aria-label="Toggle dark mode">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </button>
-      </div>
-    </nav>
-  </header>
+  <div id="site-header-placeholder"></div>
 
   <!-- Main Content -->
   <main role="main">
@@ -127,317 +75,165 @@
       <div class="section-content text-center">
         <h1 id="page-title" class="text-4xl md:text-5xl font-bold text-white mb-4">Our Team</h1>
         <p class="hero-subtitle">
-          Dedicated professionals delivering excellence in logistics and cold-chain solutions
+          Meet the dedicated team driving logistics excellence across East Africa with specialized cold-chain capabilities and premium service delivery.
         </p>
       </div>
       </div>
     </section>
 
-    <!-- Team Section -->
-    <section class="section section-light" aria-labelledby="team-title">
+    <!-- Modern Team Section -->
+    <section class="team-section section-light" aria-labelledby="team-title">
       <div class="container">
-      <div class="section-content">
-        <div class="section-header">
-          <h2 id="team-title" class="section-title mb-4">Our Capabilities</h2>
-          <p class="section-subtitle">
-            Our team is organized into specialized capability groups, each bringing expertise to deliver world-class logistics and cold-chain solutions across East Africa and internationally.
-          </p>
-        </div>
+        <div class="section-content">
+          <!-- Section header removed per request -->
+          
+          <div class="team-grid">
+            <!-- Managing Director -->
+            <article class="team-card">
+              <div class="team-card-photo">
+                <img src="../images/team/Allan Sabiiti.jpeg" alt="Allan - Managing Director" />
+              </div>
+              <span class="team-card-role">Managing Director</span>
+              <h3 class="team-card-title">Allan Sabiiti</h3>
+              <p class="team-card-desc">
+                Allan started this company in 2011 as a self-employed personnel. He provides strategic leadership and oversees the company’s vision, partnerships, and overall performance, ensuring sustainable growth and excellence in logistics operations.
+              </p>
+            </article>
 
-        <!-- Executive & Operations Leadership -->
-        <div class="mb-12">
-          <h3 class="text-2xl font-bold text-primary-text mb-6 flex items-center gap-3">
-            <i class="fas fa-users-cog text-primary" aria-hidden="true"></i>
-            Executive & Operations Leadership
-          </h3>
-          <div class="grid grid-3">
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-user-tie text-6xl text-primary/30" aria-hidden="true"></i>
+            <!-- General Manager -->
+            <article class="team-card">
+              <div class="team-card-photo">
+                <img src="../images/team/Alyce K Sabiiti.jpeg" alt="Alyce - Manager" />
               </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Strategic leadership overseeing company vision, corporate governance, and overall logistics operations across all service lines including cold-chain solutions and specialized supply services.
-                </p>
-              </div>
+              <span class="team-card-role">General Manager</span>
+              <h3 class="team-card-title">Alyce K. Sabiiti</h3>
+              <p class="team-card-desc">
+                Alyce has contributed to the growth of this company. She supervises daily operations, coordinates the team, and ensures efficient service delivery while maintaining high operational standards.
+              </p>
             </article>
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-chart-line text-6xl text-primary/30" aria-hidden="true"></i>
+
+            <!-- Operations -->
+            <article class="team-card">
+              <div class="team-card-photo">
+                <img src="../images/team/Robert Nshekanabo.jpeg" alt="Robert (Bob) - Operations" />
               </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Operations management team ensuring efficient service delivery, process optimization, and continuous improvement across warehousing, transportation, and supply chain operations.
-                </p>
-              </div>
+              <span class="team-card-role">Operations</span>
+              <h3 class="team-card-title">Robert Nshekanabo</h3>
+              <p class="team-card-desc">
+                Robert (Bob) manages logistics execution including dispatch, transport coordination, and workflow efficiency to ensure timely and reliable service delivery.
+              </p>
             </article>
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-tasks text-6xl text-primary/30" aria-hidden="true"></i>
+
+            <!-- Accountant -->
+            <article class="team-card">
+              <div class="team-card-photo">
+                <img src="../assets/images/port-logistics-fallback.jpeg" alt="Amanya - Accountant" />
               </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Project management professionals coordinating complex logistics operations, customer implementations, and cross-functional initiatives for seamless service execution.
-                </p>
+              <span class="team-card-role">Accountant</span>
+              <h3 class="team-card-title">Amanya Ayebare</h3>
+              <p class="team-card-desc">
+                Amanya handles financial reporting, budgeting, reconciliations, and compliance, ensuring accuracy and transparency in all financial processes.
+              </p>
+            </article>
+
+            <!-- Assistant Accountant -->
+            <article class="team-card">
+              <div class="team-card-photo">
+                <img src="../assets/images/port-logistics-fallback.jpeg" alt="Cleopatra (Claire) - Assistant Accountant" />
               </div>
+              <span class="team-card-role">Assistant Accountant</span>
+              <h3 class="team-card-title">Cleopatra Ainomugisha</h3>
+              <p class="team-card-desc">
+                Cleopatra (Claire) supports bookkeeping, invoice management, expense tracking, and financial documentation to maintain smooth accounting operations.
+              </p>
+            </article>
+
+            <!-- Administrator -->
+            <article class="team-card">
+              <div class="team-card-photo">
+                <img src="../assets/images/port-logistics-fallback.jpeg" alt="Sharon - Administrative Assistant" />
+              </div>
+              <span class="team-card-role">Administrator</span>
+              <h3 class="team-card-title">Sharon Nabimanya</h3>
+              <p class="team-card-desc">
+                Sharon coordinates office activities, manages schedules, supports communication, and ensures smooth administrative operations.
+              </p>
+            </article>
+
+            <!-- Administrative Assistant -->
+            <article class="team-card">
+              <div class="team-card-photo">
+                <img src="../assets/images/port-logistics-fallback.jpeg" alt="Carolina (Carol) - Administrative Assistant" />
+              </div>
+              <span class="team-card-role">Administrative Assistant</span>
+              <h3 class="team-card-title">Carolina Akatukunda</h3>
+              <p class="team-card-desc">
+                Carolina (Carol) handles documentation, record keeping, internal coordination, and administrative support functions to enhance organizational efficiency.
+              </p>
             </article>
           </div>
         </div>
-
-        <!-- Production & Cold-Chain Specialists -->
-        <div class="mb-12">
-          <h3 class="text-2xl font-bold text-primary-text mb-6 flex items-center gap-3">
-            <i class="fas fa-snowflake text-primary" aria-hidden="true"></i>
-            Production & Cold-Chain Specialists
-          </h3>
-          <div class="grid grid-3">
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-industry text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Cold-chain logistics specialists ensuring consistent temperature control solutions for pharmaceutical, food, and industrial applications across East Africa.
-                </p>
-              </div>
-            </article>
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-thermometer-half text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Cold chain specialists ensuring temperature integrity throughout the supply chain, from temperature-controlled logistics to last-mile delivery of sensitive goods.
-                </p>
-              </div>
-            </article>
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-flask text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Quality control professionals maintaining strict standards for cold-chain integrity, temperature-controlled packaging, and compliance with food safety and pharmaceutical requirements.
-                </p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <!-- Logistics & Distribution Team -->
-        <div class="mb-12">
-          <h3 class="text-2xl font-bold text-primary-text mb-6 flex items-center gap-3">
-            <i class="fas fa-truck-loading text-primary" aria-hidden="true"></i>
-            Logistics & Distribution Team
-          </h3>
-          <div class="grid grid-3">
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-shipping-fast text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Fleet management and dispatch teams coordinating over 50 vehicles for reliable freight transportation across East Africa and internationally, ensuring on-time deliveries.
-                </p>
-              </div>
-            </article>
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-box-open text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Warehouse operations teams managing extensive storage capacity with advanced inventory management, order fulfillment, and cross-docking services across the region.
-                </p>
-              </div>
-            </article>
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-truck text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Last-mile delivery professionals ensuring efficient distribution to businesses and consumers across East Africa.
-                </p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <!-- Quality, Safety & Compliance -->
-        <div class="mb-12">
-          <h3 class="text-2xl font-bold text-primary-text mb-6 flex items-center gap-3">
-            <i class="fas fa-shield-alt text-primary" aria-hidden="true"></i>
-            Quality, Safety & Compliance
-          </h3>
-          <div class="grid grid-3">
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-certificate text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Quality assurance specialists implementing and maintaining industry standards for temperature-controlled logistics, food safety, and pharmaceutical cold chain compliance.
-                </p>
-              </div>
-            </article>
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-hard-hat text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Health and safety professionals ensuring compliance with occupational safety standards, temperature-controlled handling procedures, and fleet safety protocols.
-                </p>
-              </div>
-            </article>
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-file-contract text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Regulatory compliance team managing licenses, permits, customs documentation, and adherence to regional and international logistics standards.
-                </p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <!-- Customer Support & Partnerships -->
-        <div class="mb-12">
-          <h3 class="text-2xl font-bold text-primary-text mb-6 flex items-center gap-3">
-            <i class="fas fa-headset text-primary" aria-hidden="true"></i>
-            Customer Support & Partnerships
-          </h3>
-          <div class="grid grid-3">
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-comments text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Customer service representatives available 24/7 to handle inquiries, provide shipment updates, and ensure customer satisfaction across all service offerings.
-                </p>
-              </div>
-            </article>
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-handshake text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Business development and partnership managers cultivating relationships with key accounts, suppliers, and logistics partners across East Africa.
-                </p>
-              </div>
-            </article>
-            <article class="card card-secondary">
-              <div class="h-48 bg-primary/10 flex items-center justify-center rounded-t-lg">
-                <i class="fas fa-file-invoice-dollar text-6xl text-primary/30" aria-hidden="true"></i>
-              </div>
-              <div class="p-6">
-                <p class="text-secondary text-sm">
-                  Sales and quotations team providing customized logistics solutions, competitive pricing, and timely responses to customer requirements.
-                </p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-      </div>
       </div>
     </section>
 
-        <!-- Why Choose Our Team Section -->
-        <section class="section section-secondary" aria-labelledby="why-title">
-      <div class="container">
-          <div class="section-content">
-            <div class="section-header">
-              <h2 id="why-title" class="section-title mb-4">Why Choose Our Team</h2>
-            </div>
-            <div class="grid grid-3">
-              <article class="card p-8 hover:shadow-lg transition-shadow">
-                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i class="fas fa-certificate text-primary text-2xl" aria-hidden="true"></i>
-                </div>
-                <h3 class="text-xl font-bold text-primary-text mb-2 text-center">Certified Professionals</h3>
-                <p class="text-secondary text-center">Our team holds industry certifications and undergoes regular training in logistics and cold-chain management.</p>
-              </article>
-              <article class="card p-8 hover:shadow-lg transition-shadow">
-                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i class="fas fa-snowflake text-primary text-2xl" aria-hidden="true"></i>
-                </div>
-                <h3 class="text-xl font-bold text-primary-text mb-2 text-center">Cold-Chain Expertise</h3>
-                <p class="text-secondary text-center">Specialized knowledge in cold-chain logistics and temperature-controlled solutions for various industries across the region.</p>
-              </article>
-              <article class="card p-8 hover:shadow-lg transition-shadow">
-                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i class="fas fa-map-marked-alt text-primary text-2xl" aria-hidden="true"></i>
-                </div>
-                <h3 class="text-xl font-bold text-primary-text mb-2 text-center">Regional Experience</h3>
-                <p class="text-secondary text-center">18+ years of combined experience in East African logistics and supply chain operations.</p>
-              </article>
-            </div>
-          </div>
-      </div>
-    </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="site-footer">
+  <!-- Modern Redesigned Footer -->
+  <footer class="footer">
     <div class="footer-container">
-
-      <!-- Column 1 -->
-      <div class="footer-column footer-brand">
-        <img src="../assets/images/logo.png" alt="Express It Logistics Logo" class="footer-logo">
-        <h3>Express It Logistics Ltd</h3>
-        <p>Delivering Excellence Across East Africa</p>
+      
+      <!-- 1. Left: Company + Logo + Tagline -->
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <img src="../assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
+          <div class="brand-text">
+            <span class="brand-name">Express It Logistics Ltd</span>
+          </div>
+        </a>
       </div>
-
-      <!-- Column 2 -->
-      <div class="footer-column">
+      
+      <!-- 2. Quick Links (slightly left) -->
+      <div class="footer-links">
         <h4>Quick Links</h4>
         <ul>
           <li><a href="services.html">Services</a></li>
           <li><a href="team.html">Team</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Get Quote</a></li>
+          <li><a href="https://www.track-trace.com/" target="_blank" rel="noopener">Track Shipment</a></li>
         </ul>
       </div>
-
-      <!-- Column 3 -->
-      <div class="footer-column">
-        <h4>Contact Info</h4>
-
-        <p><strong>Office Address</strong><br>
-        Express It Logistics Ltd<br>
-        Rumee House, 3rd Floor<br>
-        Plot 19 Lumumba Avenue – Nakasero<br>
-        P.O. Box 74638<br>
-        Kampala – Uganda</p>
-
-        <p><strong>Phone Numbers</strong><br>
-        Main: +256 772 200 122<br>
-        Alt 1: +256 773 001 030<br>
-        Alt 2: +256 701 447 750</p>
-
-        <p><strong>Email Addresses</strong><br>
-        General: info@expressitlogistics.co.ug<br>
-        Sales: expressitlogistics@gmail.com<br>
-        Direct: sabiitiallan@gmail.com</p>
-
-        <p><strong>Business Hours</strong><br>
-        Mon – Fri: 08:00 AM – 06:00 PM<br>
-        Saturday: 08:00 AM – 02:00 PM<br>
-        Sunday: Closed</p>
-
-        <p class="text-sm mt-3"><strong>24/7 Cold-Chain Support Available</strong> — Emergency and on-demand logistics support provided at any time upon request. Please call our team for immediate assistance.</p>
-
+      
+      <!-- 3. Contact (middle) -->
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <ul>
+<li><a href="https://maps.app.goo.gl/NBrZDigMAc3j4jGN6" target="_blank" rel="noopener">Rumee House, Plot 19, Lumumba Avenue, Kampala</a></li>
+          <li><a href="tel:+256772200122">+256 772 200 122</a></li>
+          <li><a href="tel:+256701447750">+256 701 447 750</a></li>
+          <li><a href="mailto:info@expressitlogistics.co.ug">info@expressitlogistics.co.ug</a></li>
+          <li><a href="mailto:expressitlogistics@gmail.com">expressitlogistics@gmail.com</a></li>
+        </ul>
       </div>
-
+      
+      <!-- 4. Business Hours (right) -->
+      <div class="footer-hours">
+        <h4>Business Hours</h4>
+        <div class="hours-list">
+          <strong>Mon – Fri: 08:00 AM – 06:00 PM</strong>
+          <strong>Saturday: 08:00 AM – 02:00 PM</strong>
+          <strong>Sunday: Closed</strong>
+        </div>
+        <div class="hours-note">
+          24/7 Cold-Chain Support Available — Emergency and on-demand logistics support provided at any time upon request. Please call our team for immediate assistance.
+        </div>
+      </div>
+      
     </div>
-
+    
+    <!-- 5. Bottom middle copyright -->
     <div class="footer-bottom">
-      © <span id="year"></span> Express It Logistics Ltd. All rights reserved.
+      © 2026 Express It Logistics Ltd. All rights reserved.
     </div>
   </footer>
 

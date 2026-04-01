@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express It Logistics Ltd - Footer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    .footer {
+      background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+      color: #eee;
+      padding: 1.75rem 2rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      border-top: 1px solid #333;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    
+    /* Left: Brand + Logo + Tagline */
+    .footer-brand {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .brand-logo {
+      height: 36px;
+      width: auto;
+    }
+    
+    .brand-name {
+      color: #db2777;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .brand-tagline {
+      color: #ccc;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    /* Mid-left: Quick Links */
+    .footer-links {
+      flex: 0.8;
+      min-width: 150px;
+    }
+    
+    .footer-links h4 {
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    
+    .footer-links ul {
+      list-style: none;
+    }
+    
+    .footer-links a {
+      color: #eee;
+      text-decoration: none;
+      font-size: 13px;
+      display: block;
+      padding: 0.25rem 0;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    
+    .footer-links a:hover {
+      color: #db2777;
+      padding-left: 0.5rem;
+    }
+    
+    .footer-links a:hover::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 3px;
+      background: #db2777;
+      border-radius: 50%;
+    }
+    
+    /* Center: Contact */
+    .footer-contact {
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+    }
+    
+    .footer-contact h4 {
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    
+    .footer-contact ul {
+      list-style: none;
+    }
+    
+    .footer-contact li {
+      margin-bottom: 0.4rem;
+      font-size: 13px;
+    }
+    
+    .footer-contact a {
+      color: #eee;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      display: inline-block;
+    }
+    
+    /* All links light #eee, pink hover only */
+    
+    .footer-contact a:hover {
+      color: #db2777;
+      text-decoration: underline;
+    }
+    
+    /* Right: Business Hours */
+    .footer-hours {
+      flex: 1;
+      min-width: 180px;
+      text-align: right;
+    }
+    
+    .footer-hours h4 {
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    
+    .hours-list {
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    
+    .hours-list strong {
+      color: #fff;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    
+    .hours-note {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 0.75rem;
+      line-height: 1.4;
+      font-style: italic;
+    }
+    
+    /* Bottom Copyright */
+    .footer-bottom {
+      width: 100%;
+      text-align: center;
+      padding-top: 1.25rem;
+      margin-top: 1.25rem;
+      border-top: 1px solid #333;
+      font-size: 12px;
+      color: #aaa;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .footer {
+        padding: 1.5rem 1rem 1rem;
+      }
+      
+      .footer-container {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        align-items: center;
+      }
+      
+      .footer-brand, .footer-links, .footer-contact, .footer-hours {
+        min-width: 100%;
+        text-align: center;
+      }
+      
+      .footer-hours {
+        text-align: center;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .footer {
+        font-size: 12px;
+        padding: 1.25rem 0.75rem 0.75rem;
+      }
+      
+      .brand-name { font-size: 15px; }
+      .brand-tagline { font-size: 11px; }
+      .footer-logo { height: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <footer class="footer">
+    <div class="footer-container">
+      
+      <!-- 1. Left: Company + Logo + Tagline (Header-matched) -->
+      <div class="footer-brand">
+        <a href="/" class="brand">
+          <img src="assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
+          <div class="brand-text">
+            <span class="brand-name">Express It Logistics Ltd</span>
+          </div>
+        </a>
+      </div>
+      
+      <!-- 2. Quick Links (slightly left) -->
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="pages/services.html">Services</a></li>
+          <li><a href="pages/team.html">Team</a></li>
+          <li><a href="pages/contact.html">Contact</a></li>
+          <li><a href="pages/contact.html">Get Quote</a></li>
+          <li><a href="https://www.track-trace.com/" target="_blank" rel="noopener">Track Shipment</a></li>
+        </ul>
+      </div>
+      
+      <!-- 3. Contact (middle) -->
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <ul>
+<li><a href="https://maps.app.goo.gl/NBrZDigMAc3j4jGN6" target="_blank" rel="noopener">Rumee House, Plot 19, Lumumba Avenue, Kampala</a></li>
+          <li><a href="tel:+256772200122">+256 772 200 122</a></li>
+          <li><a href="tel:+256701447750">+256 701 447 750</a></li>
+          <li><a href="mailto:info@expressitlogistics.co.ug">info@expressitlogistics.co.ug</a></li>
+          <li><a href="mailto:expressitlogistics@gmail.com">expressitlogistics@gmail.com</a></li>
+        </ul>
+      </div>
+      
+      <!-- 4. Business Hours (right) -->
+      <div class="footer-hours">
+        <h4>Business Hours</h4>
+        <div class="hours-list">
+          <strong>Mon – Fri: 08:00 AM – 06:00 PM</strong>
+          <strong>Saturday: 08:00 AM – 02:00 PM</strong>
+          <strong>Sunday: Closed</strong>
+        </div>
+        <div class="hours-note">
+          24/7 Cold-Chain Support Available — Emergency and on-demand logistics support provided at any time upon request. Please call our team for immediate assistance.
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- 5. Bottom middle copyright -->
+    <div class="footer-bottom">
+      © 2026 Express It Logistics Ltd. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
+

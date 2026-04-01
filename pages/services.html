@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -88,59 +88,7 @@
 <body>
 
   <!-- Navigation Bar -->
-  <header class="site-header">
-    <div class="header-container">
-      <a href="../index.html" class="brand">
-        <img src="../assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
-        <div class="brand-text">
-          <span class="brand-name">Express It Logistics Ltd</span>
-        </div>
-      </a>
-
-      <nav class="main-nav nav-links">
-        <a href="../index.html" class="nav-link">Home</a>
-        <a href="services.html" class="nav-link active" aria-current="page">Services</a>
-        <a href="team.html" class="nav-link">Team</a>
-        <a href="contact.html" class="nav-link">Contact</a>
-        <a href="contact.html" class="btn btn-primary">
-          Get Quote
-          <i class="fas fa-arrow-right" aria-hidden="true"></i>
-        </a>
-        <!-- Track Shipment Button -->
-        <a href="https://www.track-trace.com/" class="btn btn-outline track-shipment-btn" aria-label="Track Shipment" target="_blank" rel="noopener noreferrer">
-          <i class="fas fa-search" aria-hidden="true"></i>
-          Track Shipment
-        </a>
-        <!-- Theme Toggle -->
-        <button id="theme-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </button>
-      </nav>
-
-      <button id="mobile-menu-btn" class="mobile-menu-btn menu-toggle" aria-label="Open menu" aria-expanded="false"></button>
-    </div>
-
-    <!-- Mobile Menu -->
-    <nav id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-      <a href="../index.html" class="mobile-nav-link">Home</a>
-      <a href="services.html" class="mobile-nav-link active" aria-current="page">Services</a>
-      <a href="team.html" class="mobile-nav-link">Team</a>
-      <a href="contact.html" class="mobile-nav-link">Contact</a>
-      <a href="https://www.track-trace.com/" class="mobile-nav-link" target="_blank" rel="noopener noreferrer" aria-label="Track Shipment">
-        <i class="fas fa-search" aria-hidden="true" style="margin-right: 0.5rem;"></i>
-        Track Shipment
-      </a>
-      <a href="contact.html" class="btn btn-primary inline-block mt-2">
-        Get Quote
-        <i class="fas fa-arrow-right" aria-hidden="true"></i>
-      </a>
-      <div class="mobile-theme-toggle">
-        <button id="theme-toggle-mobile" class="dark-mode-toggle" aria-label="Toggle dark mode">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </button>
-      </div>
-    </nav>
-  </header>
+  <div id="site-header-placeholder"></div>
 
   <!-- Main Content -->
   <main role="main">
@@ -348,78 +296,65 @@
       </div>
     </section>
 
-    <!-- Call to Action Section -->
-    <section class="section section-dark" aria-labelledby="cta-title">
-      <div class="container">
-      <div class="section-content text-center">
-        <h2 id="cta-title" class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Get Started?</h2>
-        <p class="hero-subtitle mb-8">
-          Contact us today for a free consultation and quote on our logistics services.
-        </p>
-        <a href="contact.html" class="btn btn-white">
-          Get Free Quote
-          <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
-        </a>
-      </div>
-      </div>
-    </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="site-footer">
+
+  <!-- Modern Redesigned Footer -->
+  <footer class="footer">
     <div class="footer-container">
-
-      <!-- Column 1 -->
-      <div class="footer-column footer-brand">
-        <img src="../assets/images/logo.png" alt="Express It Logistics Logo" class="footer-logo">
-        <h3>Express It Logistics Ltd</h3>
-        <p>Delivering Excellence Across East Africa</p>
+      
+      <!-- 1. Left: Company + Logo + Tagline -->
+      <div class="footer-brand">
+        <a href="../index.html" class="brand">
+          <img src="../assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
+          <div class="brand-text">
+            <span class="brand-name">Express It Logistics Ltd</span>
+          </div>
+        </a>
       </div>
-
-      <!-- Column 2 -->
-      <div class="footer-column">
+      
+      <!-- 2. Quick Links (slightly left) -->
+      <div class="footer-links">
         <h4>Quick Links</h4>
         <ul>
           <li><a href="services.html">Services</a></li>
           <li><a href="team.html">Team</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Get Quote</a></li>
+          <li><a href="https://www.track-trace.com/" target="_blank" rel="noopener">Track Shipment</a></li>
         </ul>
       </div>
-
-      <!-- Column 3 -->
-      <div class="footer-column">
-        <h4>Contact Info</h4>
-
-        <p><strong>Office Address</strong><br>
-        Express It Logistics Ltd<br>
-        Rumee House, 3rd Floor<br>
-        Plot 19 Lumumba Avenue – Nakasero<br>
-        P.O. Box 74638<br>
-        Kampala – Uganda</p>
-
-        <p><strong>Phone Numbers</strong><br>
-        Main: +256 772 200 122<br>
-        Alt 1: +256 773 001 030<br>
-        Alt 2: +256 701 447 750</p>
-
-        <p><strong>Email Addresses</strong><br>
-        General: info@expressitlogistics.co.ug<br>
-        Sales: expressitlogistics@gmail.com<br>
-        Direct: sabiitiallan@gmail.com</p>
-
-        <p><strong>Business Hours</strong><br>
-        Mon – Fri: 08:00 AM – 06:00 PM<br>
-        Saturday: 08:00 AM – 02:00 PM<br>
-        Sunday: Closed</p>
-
-        <p class="text-sm mt-3"><strong>24/7 Cold-Chain Support Available</strong> — Emergency and on-demand logistics support provided at any time upon request. Please call our team for immediate assistance.</p>
-
+      
+      <!-- 3. Contact (middle) -->
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <ul>
+<li><a href="https://maps.app.goo.gl/NBrZDigMAc3j4jGN6" target="_blank" rel="noopener">Rumee House, Plot 19, Lumumba Avenue, Kampala</a></li>
+          <li><a href="tel:+256772200122">+256 772 200 122</a></li>
+          <li><a href="tel:+256701447750">+256 701 447 750</a></li>
+          <li><a href="mailto:info@expressitlogistics.co.ug">info@expressitlogistics.co.ug</a></li>
+          <li><a href="mailto:expressitlogistics@gmail.com">expressitlogistics@gmail.com</a></li>
+        </ul>
       </div>
-
+      
+      <!-- 4. Business Hours (right) -->
+      <div class="footer-hours">
+        <h4>Business Hours</h4>
+        <div class="hours-list">
+          <strong>Mon – Fri: 08:00 AM – 06:00 PM</strong>
+          <strong>Saturday: 08:00 AM – 02:00 PM</strong>
+          <strong>Sunday: Closed</strong>
+        </div>
+        <div class="hours-note">
+          24/7 Cold-Chain Support Available — Emergency and on-demand logistics support provided at any time upon request. Please call our team for immediate assistance.
+        </div>
+      </div>
+      
     </div>
-
+    
+    <!-- 5. Bottom middle copyright -->
     <div class="footer-bottom">
-      © <span id="year"></span> Express It Logistics Ltd. All rights reserved.
+      © 2026 Express It Logistics Ltd. All rights reserved.
     </div>
   </footer>
 

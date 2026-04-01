@@ -3,16 +3,6 @@
 
 User-agent: *
 Allow: /
-Disallow: /assets/
-Allow: /assets/css/
-Allow: /assets/js/
-Allow: /assets/images/
-
-# Crawl delay (milliseconds between requests)
-Crawl-delay: 1
-
-# Request rate (requests per second)
-Request-rate: 1/1s
 
 # Sitemap location
-Sitemap: https://expressitlogistics.github.io/sitemap.xml
+Sitemap: https://expressitlogistics.co.ug/sitemap.xml

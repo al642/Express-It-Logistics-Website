@@ -88,8 +88,196 @@
     });
   }
 
-  // Initialize dark mode
-  initDarkMode();
+  // ============================================
+  // HEADER LINK NORMALIZATION
+  // ============================================
+
+  function normalizeHeaderLinks() {
+    const currentPath = window.location.pathname.toLowerCase();
+    const inPagesFolder = currentPath.includes('/pages/') || currentPath.includes('\\pages\\');
+
+    const linkMap = {
+      home: inPagesFolder ? '../index.html' : 'index.html',
+      services: inPagesFolder ? 'services.html' : 'pages/services.html',
+      team: inPagesFolder ? 'team.html' : 'pages/team.html',
+      contact: inPagesFolder ? 'contact.html' : 'pages/contact.html'
+    };
+
+    const navAnchors = document.querySelectorAll('.main-nav a, #mobile-menu a');
+    navAnchors.forEach((link) => {
+      const text = link.textContent.trim().toLowerCase();
+      if (!text) return;
+
+      if (text.includes('track shipment')) {
+        // Do not overwrite external track link
+        return;
+      }
+
+      for (const key in linkMap) {
+        if (text.includes(key)) {
+          link.href = linkMap[key];
+          break;
+        }
+      }
+    });
+
+    const setActiveNavigation = () => {
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      document.querySelectorAll('.main-nav .nav-link, #mobile-menu .mobile-nav-link').forEach((link) => {
+        link.classList.remove('active');
+        const hrefPage = link.getAttribute('href')?.split('/').pop();
+        if (!hrefPage) return;
+        if (hrefPage === currentPage || (currentPage === '' && hrefPage === 'index.html')) {
+          link.classList.add('active');
+        }
+      });
+    };
+
+    setActiveNavigation();
+
+    document.querySelectorAll('.main-nav .nav-link, #mobile-menu .mobile-nav-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        setTimeout(setActiveNavigation, 20);
+        const menu = document.getElementById('mobile-menu');
+        const btn = document.getElementById('mobile-menu-btn');
+        if (menu) menu.classList.remove('open');
+        if (btn) {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    const mobileTrackLink = document.getElementById('mobile-track-link');
+    if (mobileTrackLink) {
+      const isMobileView = window.matchMedia('(max-width: 768px)').matches;
+      mobileTrackLink.href = isMobileView ? 'https://touch.track-trace.com/' : 'https://www.track-trace.com/';
+    }
+  }
+
+  // Expose for header loader fallback steps and other integrations.
+  window.normalizeHeaderLinks = normalizeHeaderLinks;
+
+  function preloadHeroImages() {
+    const slideImages = [
+      'images/slide1.jpeg',
+      'images/slide2.jpeg',
+      'images/slide3.jpeg',
+      'images/slide4.jpeg',
+      'images/slide5.jpeg',
+      'images/slide6.jpeg',
+      'images/slide7.jpeg',
+      'images/slide8.jpeg',
+      'images/slide9.jpeg',
+      'images/slide10.jpeg',
+      'images/slide11.jpeg',
+      'images/slide12.jpeg'
+    ];
+
+    slideImages.forEach((src, index) => {
+      const img = new Image();
+      img.onload = () => {
+        console.log(`Slide ${index + 1} preloaded`);
+      };
+      img.onerror = () => {
+        console.warn(`Failed to preload slide ${index + 1}`);
+      };
+      img.src = src;
+    });
+  }
+
+  function getHeaderTemplatePath() {
+    const currentPath = window.location.pathname.toLowerCase();
+    return currentPath.includes('/pages/') || currentPath.includes('\\pages\\') ? '../header.html' : 'header.html';
+  }
+
+  function normalizeLogoPath() {
+    const logo = document.querySelector('.brand .logo');
+    if (!logo) return;
+    const currentPath = window.location.pathname.toLowerCase();
+    const inPagesFolder = currentPath.includes('/pages/') || currentPath.includes('\\pages\\');
+    logo.src = inPagesFolder ? '../assets/images/logo.png' : './assets/images/logo.png';
+    const brandLink = document.querySelector('.brand');
+    if (brandLink) {
+      brandLink.href = inPagesFolder ? '../index.html' : './index.html';
+    }
+  }
+
+  function initTeamCardExpansion() {
+    const cards = document.querySelectorAll('.team-card');
+    if (!cards.length) return;
+
+    cards.forEach((card) => {
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('a, button')) return;
+        card.classList.toggle('expanded');
+      });
+    });
+  }
+
+  function applyPageHeaderStyle() {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+
+    const currentPath = window.location.pathname.toLowerCase();
+    const isHomePage = currentPath === '/' || currentPath.endsWith('index.html') || currentPath.endsWith('index.htm');
+
+    if (isHomePage) {
+      header.classList.remove('page-header');
+    } else {
+      header.classList.add('page-header');
+    }
+  }
+
+  async function loadHeaderTemplate() {
+    const placeholder = document.getElementById('site-header-placeholder');
+    if (!placeholder) return;
+
+    const fallback = `
+<header class="site-header">
+  <div class="header-container">
+    <a href="/index.html" class="brand">
+      <img src="/assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
+      <div class="brand-text"><span class="brand-name">Express It Logistics Ltd</span></div>
+    </a>
+    <nav class="main-nav nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="pages/services.html" class="nav-link">Services</a>
+      <a href="pages/team.html" class="nav-link">Team</a>
+      <a href="pages/contact.html" class="nav-link">Contact</a>
+      <a href="https://www.track-trace.com/" class="nav-btn btn-outline" target="_blank" rel="noopener noreferrer">Track Shipment</a>
+      <button id="theme-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon" aria-hidden="true"></i></button>
+    </nav>
+    <button id="mobile-menu-btn" class="mobile-menu-btn menu-toggle" aria-label="Open menu" aria-expanded="false"></button>
+  </div>
+  <nav id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html" class="mobile-nav-link">Home</a>
+    <a href="pages/services.html" class="mobile-nav-link">Services</a>
+    <a href="pages/team.html" class="mobile-nav-link">Team</a>
+    <a href="pages/contact.html" class="mobile-nav-link">Contact</a>
+    <a id="mobile-track-link" href="https://www.track-trace.com/" class="mobile-nav-link btn-outline" target="_blank" rel="noopener noreferrer">Track Shipment</a>
+    <div class="mobile-theme-toggle"><button id="theme-toggle-mobile" class="dark-mode-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon" aria-hidden="true"></i></button></div>
+  </nav>
+</header>
+    `;
+
+    try {
+      const path = getHeaderTemplatePath();
+      const response = await fetch(path, { cache: 'no-cache' });
+      if (!response.ok) throw new Error(`Header fetch failed: ${response.status}`);
+      const html = await response.text();
+      placeholder.innerHTML = html;
+      normalizeHeaderLinks();
+      normalizeLogoPath();
+      applyPageHeaderStyle();
+    } catch (e) {
+      console.warn('Header load failed; using fallback header.', e);
+      placeholder.innerHTML = fallback;
+      normalizeHeaderLinks();
+      normalizeLogoPath();
+      applyPageHeaderStyle();
+    }
+  }
 
   // ============================================
   // UTILITIES
@@ -166,7 +354,13 @@
       el.textContent = "2026";
     });
 
-    // Handle #year elements (footer year - auto population)
+    // Handle #current-year elements (footer current year)
+    const currentYearElements = document.querySelectorAll("#current-year");
+    currentYearElements.forEach((el) => {
+      el.textContent = new Date().getFullYear();
+    });
+
+    // Backward compatibility for old #year IDs
     const yearElement = document.getElementById("year");
     if (yearElement) {
       yearElement.textContent = new Date().getFullYear();
@@ -189,13 +383,16 @@
       this.btn = document.getElementById("mobile-menu-btn");
       this.menu = document.getElementById("mobile-menu");
 
-      if (!this.btn || !this.menu) return;
+      if (!this.btn || !this.menu) {
+      setTimeout(() => this.init(), 120);
+      return;
+    }
 
-      // Toggle button
-      this.btn.addEventListener("click", () => this.toggle());
+    // Toggle button
+    this.btn.addEventListener("click", () => this.toggle());
 
-      // Close on document click (delegated)
-      document.addEventListener("click", (e) => this.handleOutsideClick(e));
+    // Close on document click (delegated)
+    document.addEventListener("click", (e) => this.handleOutsideClick(e));
 
       // Close on Escape key
       document.addEventListener("keydown", (e) => {
@@ -238,7 +435,11 @@
       this.navbar = document.querySelector(".site-header");
       this.lastScrollY = 0;
       this.ticking = false;
-      if (this.navbar) this.init();
+      if (!this.navbar) {
+        setTimeout(() => { this.navbar = document.querySelector(".site-header"); if (this.navbar) this.init(); }, 120);
+      } else {
+        this.init();
+      }
     }
 
     init() {
@@ -318,150 +519,125 @@
   }
 
   // ============================================
-  // SERVICES CAROUSEL MANAGER (Fixed - Using native scroll)
+  // PARTNERS CAROUSEL MANAGER (Swipe Support)
   // ============================================
 
-  class ServicesCarouselManager {
+  class PartnersCarouselManager {
     constructor() {
-      this.carousel = document.getElementById('services-carousel');
-      // Use ID selectors for the navigation buttons
-      this.prevBtn = document.getElementById('services-prev');
-      this.nextBtn = document.getElementById('services-next');
-      this.scrollAmount = 0;
-      this.maxScroll = 0;
-      this.scrollPerClick = 0;
+      this.container = document.querySelector('.partners-carousel-container');
+      this.carousel = document.querySelector('.partners-carousel');
+      
       this.touchStartX = 0;
-      this.touchStartScroll = 0;
+      this.touchStartY = 0;
+      this.touchEndX = 0;
+      this.touchEndY = 0;
       this.isMouseDown = false;
       this.mouseStartX = 0;
-      this.mouseStartScroll = 0;
-
-      if (this.carousel && this.prevBtn && this.nextBtn) {
+      this.scrollStart = 0;
+      
+      this.minSwipeDistance = 50;
+      
+      if (this.container && this.carousel) {
         this.init();
       }
     }
 
-    getSlideWidth() {
-      const firstSlide = this.carousel.querySelector('.service-slide');
-      if (firstSlide) {
-        const slideRect = firstSlide.getBoundingClientRect();
-        const gap = parseFloat(window.getComputedStyle(this.carousel).gap) || 24;
-        return slideRect.width + gap;
+    init() {
+      // Touch events for mobile swipe
+      this.container.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
+      this.container.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+      this.container.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: true });
+      
+      // Mouse events for desktop drag
+      this.container.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+      document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+      document.addEventListener('mouseup', () => this.handleMouseUp());
+      
+      // Pause animation on hover/touch to allow manual scrolling
+      this.container.addEventListener('mouseenter', () => this.pauseAnimation());
+      this.container.addEventListener('mouseleave', () => this.resumeAnimation());
+      this.container.addEventListener('touchstart', () => this.pauseAnimation(), { passive: true });
+      this.container.addEventListener('touchend', () => this.resumeAnimation(), { passive: true });
+    }
+
+    handleTouchStart(e) {
+      this.touchStartX = e.touches[0].clientX;
+      this.touchStartY = e.touches[0].clientY;
+    }
+
+    handleTouchMove(e) {
+      // Allow vertical scrolling but prevent horizontal overscroll
+      const touchX = e.touches[0].clientX;
+      const touchY = e.touches[0].clientY;
+      const diffX = Math.abs(touchX - this.touchStartX);
+      const diffY = Math.abs(touchY - this.touchStartY);
+      
+      // If horizontal swipe is dominant, prevent vertical scroll
+      if (diffX > diffY && diffX > 10) {
+        e.preventDefault();
       }
-      return 344;
     }
 
-    updateMaxScroll() {
-      this.maxScroll = this.carousel.scrollWidth - this.carousel.clientWidth;
-      this.scrollPerClick = this.getSlideWidth();
+    handleTouchEnd(e) {
+      this.touchEndX = e.changedTouches[0].clientX;
+      this.touchEndY = e.changedTouches[0].clientY;
+      
+      const swipeDistance = this.touchStartX - this.touchEndX;
+      
+      if (Math.abs(swipeDistance) > this.minSwipeDistance) {
+        // Determine swipe direction
+        if (swipeDistance > 0) {
+          // Swipe left - scroll right
+          this.scrollByAmount(200);
+        } else {
+          // Swipe right - scroll left
+          this.scrollByAmount(-200);
+        }
+      }
     }
 
-    updateButtons() {
-      const tolerance = 5;
-      // Use scrollLeft for current position
-      this.scrollAmount = this.carousel.scrollLeft;
-      this.prevBtn.disabled = this.scrollAmount <= tolerance;
-      this.nextBtn.disabled = this.scrollAmount >= this.maxScroll - tolerance;
+    handleMouseDown(e) {
+      if (e.target.closest('.partner-item')) return;
+      this.isMouseDown = true;
+      this.mouseStartX = e.clientX;
+      this.scrollStart = this.carousel.scrollLeft;
+      this.carousel.style.cursor = 'grabbing';
+      this.pauseAnimation();
     }
 
-    scrollTo(newAmount) {
-      const newScroll = Math.max(0, Math.min(newAmount, this.maxScroll));
+    handleMouseMove(e) {
+      if (!this.isMouseDown) return;
+      e.preventDefault();
+      const diff = this.mouseStartX - e.clientX;
+      this.carousel.scrollLeft = this.scrollStart + diff;
+    }
+
+    handleMouseUp() {
+      if (this.isMouseDown) {
+        this.isMouseDown = false;
+        this.carousel.style.cursor = 'grab';
+        this.resumeAnimation();
+      }
+    }
+
+    scrollByAmount(amount) {
+      const currentScroll = this.carousel.scrollLeft;
       this.carousel.scrollTo({
-        left: newScroll,
+        left: currentScroll + amount,
         behavior: 'smooth'
       });
-      this.scrollAmount = newScroll;
-      this.updateButtons();
     }
 
-    scrollByCard(direction) {
-      const delta = direction === 'next' ? this.scrollPerClick : -this.scrollPerClick;
-      this.scrollTo(this.scrollAmount + delta);
+    pauseAnimation() {
+      this.carousel.style.animationPlayState = 'paused';
     }
 
-    init() {
-      // Navigation buttons - using ID selectors
-      this.prevBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.scrollByCard('prev');
-      });
-      this.nextBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.scrollByCard('next');
-      });
-
-      // Touch support - native scroll
-      this.carousel.addEventListener('touchstart', (e) => {
-        this.touchStartX = e.touches[0].clientX;
-        this.touchStartScroll = this.carousel.scrollLeft;
-      }, { passive: true });
-
-      this.carousel.addEventListener('touchmove', (e) => {
-        const diff = this.touchStartX - e.touches[0].clientX;
-        this.carousel.scrollLeft = this.touchStartScroll + diff;
-      }, { passive: true });
-
-      this.carousel.addEventListener('touchend', () => {
-        this.updateButtons();
-      }, { passive: true });
-
-      // Mouse drag support
-      this.carousel.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.services-carousel-btn')) return;
-        this.isMouseDown = true;
-        this.mouseStartX = e.clientX;
-        this.mouseStartScroll = this.carousel.scrollLeft;
-        this.carousel.style.cursor = 'grabbing';
-        e.preventDefault();
-      });
-
-      document.addEventListener('mousemove', (e) => {
-        if (!this.isMouseDown) return;
-        const diff = this.mouseStartX - e.clientX;
-        this.carousel.scrollLeft = this.mouseStartScroll + diff;
-      });
-
-      document.addEventListener('mouseup', () => {
-        if (this.isMouseDown) {
-          this.isMouseDown = false;
-          this.carousel.style.cursor = 'grab';
-          this.updateButtons();
-        }
-      });
-
-      // Keyboard navigation
-      this.carousel.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') this.scrollByCard('prev');
-        else if (e.key === 'ArrowRight') this.scrollByCard('next');
-      });
-
-      this.carousel.setAttribute('tabindex', '0');
-      this.carousel.setAttribute('role', 'region');
-      this.carousel.setAttribute('aria-label', 'Services carousel');
-
-      // Initialize
-      this.updateMaxScroll();
-      this.updateButtons();
-
-      // Update on scroll
-      this.carousel.addEventListener('scroll', () => {
-        this.updateButtons();
-      }, { passive: true });
-
-      // Resize handler
-      window.addEventListener('resize', () => {
-        this.updateMaxScroll();
-        this.updateButtons();
-      }, { passive: true });
-
-      window.addEventListener('orientationchange', () => {
-        setTimeout(() => {
-          this.updateMaxScroll();
-          this.updateButtons();
-        }, 100);
-      });
+    resumeAnimation() {
+      this.carousel.style.animationPlayState = 'running';
     }
   }
+
+
 
   // ============================================
   // HERO SLIDER MANAGER
@@ -473,8 +649,10 @@
       this.slides = document.querySelectorAll('.hero-slider .hero-slide');
 
       this.current = 0;
-      this.slideInterval = null;
-      this.slideDuration = 4000; // Quick 4-second intervals
+      this.slideTimer = null;
+      this.slideDuration = 4500; // A little smoother pacing
+      this.transitionDuration = 900; // match CSS ease transition
+      this.isTransitioning = false;
 
       if (this.slider && this.slides.length > 0) {
         this.init();
@@ -515,38 +693,55 @@
     }
 
     showSlide(index) {
-      this.slides.forEach(slide => slide.classList.remove('active'));
-      this.slides[index]?.classList.add('active');
+      // Avoid overlapping transitions and prevent same-index toggles.
+      if (this.isTransitioning || index === this.current) return;
+
+      this.isTransitioning = true;
+      const previous = this.slides[this.current];
+      const nextSlide = this.slides[index];
+
+      if (previous) previous.classList.remove('active');
+      if (nextSlide) nextSlide.classList.add('active');
+
+      this.current = index;
+
+      clearTimeout(this.slideTimer);
+      this.slideTimer = setTimeout(() => {
+        this.isTransitioning = false;
+        this.startSlider();
+      }, this.transitionDuration);
     }
 
     nextSlide() {
-      this.current = (this.current + 1) % this.slides.length;
-      this.showSlide(this.current);
+      const nextIndex = (this.current + 1) % this.slides.length;
+      this.goToSlide(nextIndex);
     }
 
     prevSlide() {
-      this.current = (this.current - 1 + this.slides.length) % this.slides.length;
-      this.showSlide(this.current);
+      const prevIndex = (this.current - 1 + this.slides.length) % this.slides.length;
+      this.goToSlide(prevIndex);
     }
 
     goToSlide(index) {
-      this.current = index;
-      this.showSlide(this.current);
+      if (this.isTransitioning || index === this.current) return;
+      this.showSlide(index);
     }
 
     startSlider() {
-      this.slideInterval = setInterval(() => this.nextSlide(), this.slideDuration);
+      clearTimeout(this.slideTimer);
+      this.slideTimer = setTimeout(() => this.nextSlide(), this.slideDuration);
     }
 
     pauseSlider() {
-      if (this.slideInterval) {
-        clearInterval(this.slideInterval);
-        this.slideInterval = null;
-      }
+      clearTimeout(this.slideTimer);
+      this.slideTimer = null;
+      this.isTransitioning = false;
     }
 
     resumeSlider() {
-      this.startSlider();
+      if (!this.slideTimer) {
+        this.startSlider();
+      }
     }
   }
 
@@ -661,16 +856,25 @@
   // INITIALIZATION
   // ====================================
 
-  const init = () => {
+  const init = async () => {
+    // Load shared header into the placeholder
+    await loadHeaderTemplate();
+
+    // Activate dark mode while header is present
+    initDarkMode();
+
     setCopyrightYear();
     new MobileMenuManager();
+    normalizeHeaderLinks();
+    preloadHeroImages();
     new NavbarScrollManager();
     new SmoothScrollManager();
     new MobileTrackLinkManager();
-    new ServicesCarouselManager();
+    new PartnersCarouselManager();
     new FormSubmissionManager();
     new ServiceWorkerManager();
     new HeroSliderManager();
+    initTeamCardExpansion();
   };
 
   // Run when DOM is ready
