@@ -433,7 +433,7 @@
   class NavbarScrollManager {
     constructor() {
       this.navbar = document.querySelector(".site-header");
-      this.lastScrollY = 0;
+      this.lastScrollY = window.scrollY || 0;
       this.ticking = false;
       if (!this.navbar) {
         setTimeout(() => { this.navbar = document.querySelector(".site-header"); if (this.navbar) this.init(); }, 120);
@@ -449,8 +449,17 @@
     handleScroll() {
       if (!this.ticking) {
         window.requestAnimationFrame(() => {
-          const {scrollY} = window;
+          const { scrollY } = window;
+          const isScrollingDown = scrollY > this.lastScrollY;
+
           this.navbar?.classList.toggle("scrolled", scrollY > 50);
+
+          if (isScrollingDown && scrollY > 80) {
+            this.navbar?.classList.add("hidden");
+          } else {
+            this.navbar?.classList.remove("hidden");
+          }
+
           this.lastScrollY = scrollY;
           this.ticking = false;
         });
@@ -649,10 +658,8 @@
       this.slides = document.querySelectorAll('.hero-slider .hero-slide');
 
       this.current = 0;
-      this.slideTimer = null;
+      this.slideInterval = null;
       this.slideDuration = 4500; // A little smoother pacing
-      this.transitionDuration = 900; // match CSS ease transition
-      this.isTransitioning = false;
 
       if (this.slider && this.slides.length > 0) {
         this.init();
@@ -660,7 +667,7 @@
     }
 
     init() {
-      // Show first slide immediately without animation delay
+      // Show first slide immediately, then begin loop
       this.showSlide(0);
       this.bindEvents();
       this.startSlider();
@@ -693,10 +700,9 @@
     }
 
     showSlide(index) {
-      // Avoid overlapping transitions and prevent same-index toggles.
-      if (this.isTransitioning || index === this.current) return;
+      if (index === this.current) return;
 
-      this.isTransitioning = true;
+      // Update visual state
       const previous = this.slides[this.current];
       const nextSlide = this.slides[index];
 
@@ -704,12 +710,6 @@
       if (nextSlide) nextSlide.classList.add('active');
 
       this.current = index;
-
-      clearTimeout(this.slideTimer);
-      this.slideTimer = setTimeout(() => {
-        this.isTransitioning = false;
-        this.startSlider();
-      }, this.transitionDuration);
     }
 
     nextSlide() {
@@ -723,23 +723,26 @@
     }
 
     goToSlide(index) {
-      if (this.isTransitioning || index === this.current) return;
+      if (index === this.current) return;
       this.showSlide(index);
     }
 
     startSlider() {
-      clearTimeout(this.slideTimer);
-      this.slideTimer = setTimeout(() => this.nextSlide(), this.slideDuration);
+      if (this.slideInterval) {
+        clearInterval(this.slideInterval);
+      }
+      this.slideInterval = setInterval(() => this.nextSlide(), this.slideDuration);
     }
 
     pauseSlider() {
-      clearTimeout(this.slideTimer);
-      this.slideTimer = null;
-      this.isTransitioning = false;
+      if (this.slideInterval) {
+        clearInterval(this.slideInterval);
+        this.slideInterval = null;
+      }
     }
 
     resumeSlider() {
-      if (!this.slideTimer) {
+      if (!this.slideInterval) {
         this.startSlider();
       }
     }

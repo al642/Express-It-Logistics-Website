@@ -440,6 +440,14 @@ body.dark-mode .team-card-label {
   padding: 8px 40px;
 }
 
+.site-header.hidden {
+  transform: translateY(-110%);
+  transition: transform 180ms ease-in-out, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease, padding 220ms ease;
+}
+
+.site-header {
+  transition: transform 180ms ease-in-out, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease, padding 220ms ease;
+}
 .site-header.not-scrolled,
 .site-header:not(.page-header) {
   color: #111827;
@@ -1008,11 +1016,7 @@ body.dark-mode .mobile-theme-toggle .dark-mode-toggle i {
   z-index: 1;
 }
 
-/* Show first slide immediately on page load - no waiting for JavaScript */
-.hero-slider .hero-slide:first-child {
-  opacity: 1;
-}
-
+/* Starting state: all slides are hidden until JS activates one */
 .hero-slider .hero-slide.active {
   opacity: 1;
 }
@@ -2051,8 +2055,9 @@ body.dark-mode .services-video-overlay {
     padding: 70px 16px;
   }
 
+  /* Keep the video background active on mobile; remove old hide rule */
   .services-bg-video {
-    display: none;
+    display: block;
   }
 
   .video-services-section::before {
