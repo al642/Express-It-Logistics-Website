@@ -2153,12 +2153,11 @@ body.dark-mode .services-video-overlay {
       linear-gradient(rgba(30, 41, 59, 0.5), rgba(30, 41, 59, 0.5)),
       url("../images/port-logistics-fallback.jpeg") center/cover no-repeat;
   }
-}</xai:function_call]
+}
 
 
 
-<xai:function_call name="edit_file">
-<parameter name="path">TODO.md
+
 
 /* Tablet - 2 columns */
 @media (max-width: 1024px) {

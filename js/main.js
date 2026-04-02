@@ -11,6 +11,7 @@
   // DARK MODE HANDLER
   // ============================================
   
+// sourcery skip: avoid-function-declarations-in-blocks
   function initDarkMode() {
     const toggle = document.getElementById("theme-toggle");
     const mobileToggle = document.getElementById("theme-toggle-mobile");
@@ -884,11 +885,10 @@ function initTeamCardExpansion() {
   // INITIALIZATION
   // ====================================
 
-  const init = async () => {
-    // Load shared header into the placeholder
-    await loadHeaderTemplate();
+const initNoHeader = () => {
+    // Header already embedded statically - no dynamic load needed
 
-    // Activate dark mode while header is present
+    // Activate dark mode
     initDarkMode();
 
     setCopyrightYear();
@@ -905,11 +905,11 @@ function initTeamCardExpansion() {
     initTeamCardExpansion();
   };
 
-  // Run when DOM is ready
+// Run when DOM is ready
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", initNoHeader);
   } else {
-    init();
+    initNoHeader();
   }
 
   // Export for external use

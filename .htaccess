@@ -1,0 +1,22 @@
+RewriteEngine On
+
+# Redirect .html URLs to extensionless versions
+RewriteCond %{THE_REQUEST} \s/+(.*)\.html[\s?] [NC]
+RewriteRule ^(.*)\.html$ /$1 [R=301,L]
+
+# Internally map extensionless URLs to .html files
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+
+RewriteOptions inherit
+RewriteCond %{HTTP_HOST} ^expressitlogistics\.co\.ug$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.expressitlogistics\.co\.ug$
+RewriteRule ^mail\.expressitlogistics\.co\.ug$ https://expressitlogistics\.co\.ug:2096/ [R=301,L]
+
+# php -- BEGIN cPanel-generated handler, do not edit
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
+
