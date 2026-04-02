@@ -453,43 +453,81 @@ function initTeamCardExpansion() {
   }
 
   // ============================================
-  // NAVBAR SCROLL MANAGER
+// SMART HEADER SCROLL MANAGER (Hide on fast down-scroll, show on any up-scroll)
   // ============================================
 
-  class NavbarScrollManager {
+  class SmartHeaderScroll {
     constructor() {
-      this.navbar = document.querySelector(".site-header");
-      this.lastScrollY = window.scrollY || 0;
-      this.ticking = false;
-      if (!this.navbar) {
-        setTimeout(() => { this.navbar = document.querySelector(".site-header"); if (this.navbar) this.init(); }, 120);
-      } else {
-        this.init();
+      this.header = document.querySelector('.site-header');
+      if (!this.header) {
+        // Retry after potential dynamic load
+        setTimeout(() => this.init(), 200);
+        return;
       }
+      this.init();
     }
 
     init() {
-      window.addEventListener("scroll", () => this.handleScroll(), { passive: true });
+      this.lastScrollY = window.scrollY;
+      this.ticking = false;
+      
+      // Wheel + touch for mobile/desktop
+      window.addEventListener('wheel', (e) => this.handleWheel(e), { passive: true });
+      window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+      
+      // Touch support for mobile scroll detection
+      let touchStartY = 0;
+      document.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      
+      document.addEventListener('touchmove', (e) => {
+        const touchY = e.touches[0].clientY;
+        const deltaY = touchStartY - touchY;
+        if (Math.abs(deltaY) > 8) { // Mobile sensitivity
+          this.scrollDelta = deltaY > 0 ? 15 : -8; // Simulate scroll delta
+          this.updateHeader();
+          touchStartY = touchY;
+        }
+      }, { passive: true });
+    }
+
+    handleWheel(e) {
+      // Capture wheel delta for finer control
+      this.scrollDelta = e.deltaY;
+      this.updateHeader();
     }
 
     handleScroll() {
       if (!this.ticking) {
-        window.requestAnimationFrame(() => {
-          const { scrollY } = window;
-          const isScrollingDown = scrollY > this.lastScrollY;
-
-          this.navbar?.classList.toggle("scrolled", scrollY > 50);
-
-          if (isScrollingDown && scrollY > 80) {
-            this.navbar?.classList.add("hidden");
-          } else {
-            this.navbar?.classList.remove("hidden");
-          }
-
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          this.scrollDelta = scrollY - this.lastScrollY;
+          this.updateHeader();
           this.lastScrollY = scrollY;
           this.ticking = false;
         });
         this.ticking = true;
+      }
+    }
+
+    updateHeader() {
+      if (!this.header || window.scrollY < 100) {
+        this.header?.classList.remove('hidden');
+        return;
+      }
+
+      const isMobile = window.innerWidth <= 768;
+      const hideThreshold = isMobile ? 15 : 20;
+      const showThreshold = isMobile ? 8 : 10;
+
+      if (this.scrollDelta > hideThreshold) {
+        // Fast down-scroll: hide
+        this.header.classList.add('scrolled', 'hidden');
+      } else if (this.scrollDelta < -showThreshold) {
+        // Any up-scroll: show immediately
+        this.header.classList.remove('hidden');
+        this.header.classList.add('scrolled');
       }
     }
   }

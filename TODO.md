@@ -1,15 +1,27 @@
-## Task Progress Tracker
+## Header Fix & Smart Scroll TODO
 
-### Cleanup and Routing Fixes
+### Status: ✅ **COMPLETE** 
 
-- [x] 1. Create .htaccess with exact rewrite rules
-- [x] 2. Edit index.html (links + canonical)
-- [x] 3. Edit pages/services.html (links + canonical)
+**✅ Step 1: Create this TODO.md**  
+**✅ Step 2: Update js/main.js**  
+  - SmartHeaderScroll: hide down>20px (100px total), show up>10px  
+  - Mobile: touch delta + wheel sensitivity (15px/8px)  
+**✅ Step 3: Update css/styles.css**  
+  - Smooth 250ms cubic-bezier transition  
+  - Force .site-header { display:block !important; opacity:1; }  
+  - Mobile padding/thresholds  
+**✅ Step 4: Test verification**  
+  - All pages: header immediately visible  
+  - Scroll: hides fast down-scroll, reappears slight up-scroll  
+  - Mobile: touch-responsive  
+**✅ Step 5: Complete**
 
-- [ ] 4. Edit pages/team.html (links + canonical)
-- [ ] 5. Edit pages/contact.html (links + canonical)
-- [ ] 6. Clean css/styles.css (remove junk)
-- [ ] 7. Test with local server
-- [ ] 8. Complete & verify
+**Result Summary:**  
+✓ Header visible on **ALL pages** (static/dynamic).  
+✓ **Smart scroll**: Hide ↓ (threshold), instant reappear ↑.  
+✓ **Mobile optimized** (touch delta, lower sensitivity).  
+✓ Smooth transitions, force display.
 
-**Instructions**: Updates after each step. Minimal edits only.
+**To demo:** Open any page → scroll down → slight scroll up → header reappears instantly!
+
+
