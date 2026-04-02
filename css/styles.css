@@ -371,7 +371,7 @@ a:hover {
   opacity: 0;
   margin-top: 0;
   padding-top: 0;
-  transition: max-height 0.35s ease, opacity 0.35s ease, margin-top 0.35s ease, padding-top 0.35s ease;
+  transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease, margin-top 0.4s ease, padding-top 0.4s ease, transform 0.4s ease;
   display: block;
   -webkit-line-clamp: unset;
   -webkit-box-orient: unset;
@@ -383,6 +383,34 @@ a:hover {
   opacity: 1;
   margin-top: 1rem;
   padding-top: 0.25rem;
+  transform: translateY(0);
+}
+
+/* Mobile Team Cards - Touch Exclusive Expand */
+@media (pointer: coarse), (max-width: 768px) {
+  .team-card {
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .team-card.expanded {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3), 0 0 0 1px rgba(219,39,119,0.2) !important;
+    z-index: 10;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  body.dark-mode .team-card.expanded {
+    background: rgba(15,23,42,0.95);
+  }
+
+  .team-card:not(.expanded) .team-card-desc {
+    max-height: 0 !important;
+    opacity: 0 !important;
+  }
 }
 
 /* Responsive */
@@ -440,6 +468,14 @@ body.dark-mode .team-card-label {
   padding: 8px 40px;
 }
 
+.site-header.hidden {
+  transform: translateY(-110%);
+  transition: transform 180ms ease-in-out, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease, padding 220ms ease;
+}
+
+.site-header {
+  transition: transform 180ms ease-in-out, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease, padding 220ms ease;
+}
 .site-header.not-scrolled,
 .site-header:not(.page-header) {
   color: #111827;
@@ -782,6 +818,12 @@ body.dark-mode .main-nav .btn-outline:hover {
   background: #fee2ec;
 }
 
+.main-nav .dark-mode-toggle:active,
+.mobile-theme-toggle .dark-mode-toggle:active {
+  transform: scale(0.95) rotate(180deg);
+  transition: transform 0.15s ease;
+}
+
 .main-nav .dark-mode-toggle i {
   color: #db2777;
   font-size: 1rem;
@@ -868,6 +910,50 @@ body.dark-mode .main-nav .dark-mode-toggle i {
     opacity 0.3s ease-out,
     max-height 0.4s ease-out,
     padding 0.4s ease-out;
+}
+
+/* Hamburger Menu - Footer Quicklinks Behavior */
+#mobile-menu.open .mobile-nav-link {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideInFromLeft 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+#mobile-menu.open .mobile-nav-link:nth-child(1) { animation-delay: 0.05s; }
+#mobile-menu.open .mobile-nav-link:nth-child(2) { animation-delay: 0.1s; }
+#mobile-menu.open .mobile-nav-link:nth-child(3) { animation-delay: 0.15s; }
+#mobile-menu.open .mobile-nav-link:nth-child(4) { animation-delay: 0.2s; }
+#mobile-menu.open .mobile-nav-link:nth-child(5) { animation-delay: 0.25s; }
+#mobile-menu.open .mobile-theme-toggle { animation-delay: 0.3s; animation: slideInFromLeft 0.4s 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+
+@keyframes slideInFromLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Mobile Nav Links - Footer Quicklinks Hover */
+.mobile-nav-link {
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.mobile-nav-link:hover {
+  padding-left: 1rem !important;
+  color: var(--color-primary);
+}
+
+.mobile-nav-link:hover::after {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--color-primary);
+  border-radius: 50%;
 }
 
 .mobile-nav-link {
@@ -1008,11 +1094,7 @@ body.dark-mode .mobile-theme-toggle .dark-mode-toggle i {
   z-index: 1;
 }
 
-/* Show first slide immediately on page load - no waiting for JavaScript */
-.hero-slider .hero-slide:first-child {
-  opacity: 1;
-}
-
+/* Starting state: all slides are hidden until JS activates one */
 .hero-slider .hero-slide.active {
   opacity: 1;
 }
@@ -2051,8 +2133,9 @@ body.dark-mode .services-video-overlay {
     padding: 70px 16px;
   }
 
+  /* Keep the video background active on mobile; remove old hide rule */
   .services-bg-video {
-    display: none;
+    display: block;
   }
 
   .video-services-section::before {
