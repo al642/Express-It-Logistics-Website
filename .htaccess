@@ -1,0 +1,26 @@
+RewriteEngine On
+
+# Redirect homepage file-style URLs to the clean root URL
+RewriteRule ^index(\.html?)?$ / [R=301,L,NC]
+
+# Redirect old page URLs to clean folder URLs
+RewriteRule ^pages/services(\.html?)?$ /services/ [R=301,L,NC]
+RewriteRule ^pages/team(\.html?)?$ /team/ [R=301,L,NC]
+RewriteRule ^pages/contact(\.html?)?$ /contact/ [R=301,L,NC]
+
+# Redirect direct .html versions of clean routes
+RewriteRule ^services\.html$ /services/ [R=301,L,NC]
+RewriteRule ^team\.html$ /team/ [R=301,L,NC]
+RewriteRule ^contact\.html$ /contact/ [R=301,L,NC]
+
+RewriteOptions inherit
+RewriteCond %{HTTP_HOST} ^expressitlogistics\.co\.ug$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.expressitlogistics\.co\.ug$
+RewriteRule ^mail\.expressitlogistics\.co\.ug$ https://expressitlogistics\.co\.ug:2096/ [R=301,L]
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php82” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

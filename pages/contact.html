@@ -7,13 +7,13 @@
   <meta name="keywords" content="contact logistics, freight quote, East Africa logistics, shipping solutions, cold chain, Uganda logistics">
   <meta name="author" content="Express It Logistics Ltd">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="contact.html">
+  <link rel="canonical" href="https://expressitlogistics.co.ug/contact/">
   
   <!-- OpenGraph Meta Tags -->
   <meta property="og:title" content="Contact Express It Logistics Ltd">
   <meta property="og:description" content="Get in touch for logistics solutions and cold-chain services. 24/7 support available across East Africa.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="contact.html">
+  <meta property="og:url" content="https://expressitlogistics.co.ug/contact/">
   <meta property="og:site_name" content="Express It Logistics Ltd">
   
   <!-- Security Headers (Static Site) -->
@@ -35,10 +35,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/styles.css?v=20260403-mobile-sync">
 
   <!-- PWA Manifest -->
-  <link rel="manifest" href="../manifest.json">
+  <link rel="manifest" href="../manifest.json?v=20260403-mobile-sync">
   <meta name="theme-color" content="#db2777">
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="../assets/images/logo.png">
@@ -49,7 +49,7 @@
     "@context": "https://schema.org",
     "@type": "ContactPage",
     "name": "Contact Express It Logistics Ltd",
-    "url": "contact.html",
+    "url": "https://expressitlogistics.co.ug/contact/",
     "organization": {
       "@type": "LocalBusiness",
       "name": "Express It Logistics Ltd",
@@ -66,10 +66,47 @@
   }
   </script>
 </head>
-<body>
+<body class="inner-page">
 
-  <!-- Navigation Bar -->
-  <div id="site-header-placeholder"></div>
+  <!-- Navigation Bar (Embedded from header.html) -->
+<header class="site-header page-header">
+  <div class="header-container">
+    <a href="../" class="brand">
+      <img src="../assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
+      <div class="brand-text">
+        <span class="brand-name">Express It Logistics Ltd</span>
+      </div>
+    </a>
+
+    <nav class="main-nav nav-links">
+      <a href="../" class="nav-link">Home</a>
+      <a href="../services/" class="nav-link">Services</a>
+      <a href="../team/" class="nav-link">Team</a>
+      <a href="../contact/" class="nav-link active" aria-current="page">Contact</a>
+      <a href="https://www.track-trace.com/" class="nav-btn btn-outline" aria-label="Track Shipment" target="_blank" rel="noopener noreferrer">Track Shipment</a>
+      <button id="theme-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon" aria-hidden="true"></i></button>
+    </nav>
+
+    <button id="mobile-menu-btn" class="mobile-menu-btn menu-toggle" aria-label="Open menu" aria-expanded="false"></button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <nav id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <a href="../" class="mobile-nav-link">Home</a>
+    <a href="../services/" class="mobile-nav-link">Services</a>
+    <a href="../team/" class="mobile-nav-link">Team</a>
+    <a href="../contact/" class="mobile-nav-link active">Contact</a>
+    <a id="mobile-track-link" href="https://www.track-trace.com/" class="mobile-nav-link btn-outline" target="_blank" rel="noopener noreferrer" aria-label="Track Shipment">
+      <i class="fas fa-search mobile-nav-icon" aria-hidden="true"></i>
+      Track Shipment
+    </a>
+    <div class="mobile-theme-toggle">
+      <button id="theme-toggle-mobile" class="dark-mode-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 
   <!-- Main Content -->
   <main role="main">
@@ -90,7 +127,7 @@
     <section class="section section-light" aria-labelledby="contact-title">
       <div class="container">
       <div class="section-content">
-        <div class="grid grid-2" style="align-items: start;">
+        <div class="grid grid-2 contact-layout" data-reveal-group="stagger">
           <!-- Contact Form -->
           <div>
             <h2 id="contact-title" class="section-title mb-6">Send Us a Message</h2>
@@ -155,7 +192,7 @@
               Reach out to us directly through any of the following channels.
             </p>
 
-            <div class="space-y-6">
+            <div class="space-y-6" data-reveal-group="stagger">
               <!-- Address -->
               <article class="card card-secondary flex items-start gap-4">
                 <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-secondary">
@@ -227,67 +264,62 @@
     </section>
   </main>
 
-  <!-- Modern Redesigned Footer -->
   <footer class="footer">
     <div class="footer-container">
-      
-      <!-- 1. Left: Company + Logo + Tagline -->
       <div class="footer-brand">
-        <a href="../index.html" class="brand">
+        <a href="../" class="brand">
           <img src="../assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
           <div class="brand-text">
             <span class="brand-name">Express It Logistics Ltd</span>
           </div>
         </a>
+        <p class="footer-description">
+          We deliver what others promise!
+        </p>
       </div>
-      
-      <!-- 2. Quick Links (slightly left) -->
-      <div class="footer-links">
+
+      <nav class="footer-links" aria-label="Footer navigation">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="contact.html">Get Quote</a></li>
-          <li><a href="https://www.track-trace.com/" target="_blank" rel="noopener">Track Shipment</a></li>
+          <li><a href="../services/">Services</a></li>
+          <li><a href="../team/">Team</a></li>
+          <li><a href="../contact/">Contact</a></li>
+          <li><a href="../contact/">Get Quote</a></li>
+          <li><a href="https://www.track-trace.com/" target="_blank" rel="noopener noreferrer">Track Shipment</a></li>
         </ul>
-      </div>
-      
-      <!-- 3. Contact (middle) -->
+      </nav>
+
       <div class="footer-contact">
         <h4>Contact</h4>
         <ul>
-<li><a href="https://maps.app.goo.gl/NBrZDigMAc3j4jGN6" target="_blank" rel="noopener">Rumee House, Plot 19, Lumumba Avenue, Kampala</a></li>
+          <li><a href="https://maps.app.goo.gl/NBrZDigMAc3j4jGN6" target="_blank" rel="noopener noreferrer">Rumee House, Plot 19, Lumumba Avenue, Kampala</a></li>
           <li><a href="tel:+256772200122">+256 772 200 122</a></li>
           <li><a href="tel:+256701447750">+256 701 447 750</a></li>
           <li><a href="mailto:info@expressitlogistics.co.ug">info@expressitlogistics.co.ug</a></li>
           <li><a href="mailto:expressitlogistics@gmail.com">expressitlogistics@gmail.com</a></li>
         </ul>
       </div>
-      
-      <!-- 4. Business Hours (right) -->
+
       <div class="footer-hours">
         <h4>Business Hours</h4>
         <div class="hours-list">
-          <strong>Mon – Fri: 08:00 AM – 06:00 PM</strong>
-          <strong>Saturday: 08:00 AM – 02:00 PM</strong>
+          <strong>Mon - Fri: 08:00 AM - 06:00 PM</strong>
+          <strong>Saturday: 08:00 AM - 02:00 PM</strong>
           <strong>Sunday: Closed</strong>
         </div>
-        <div class="hours-note">
-          24/7 Cold-Chain Support Available — Emergency and on-demand logistics support provided at any time upon request. Please call our team for immediate assistance.
-        </div>
+        <p class="hours-note">
+          24/7 cold-chain support is available for emergency and on-demand logistics needs.
+        </p>
       </div>
-      
     </div>
-    
-    <!-- 5. Bottom middle copyright -->
+
     <div class="footer-bottom">
-      © 2026 Express It Logistics Ltd. All rights reserved.
+      <p>&copy; <span id="current-year">2026</span> Express It Logistics Ltd. All rights reserved.</p>
     </div>
   </footer>
 
   <!-- Main JavaScript -->
-  <script src="../js/main.js"></script>
+  <script src="../js/main.js?v=20260403-mobile-sync"></script>
   <a href="https://wa.me/256772200122" class="whatsapp-float" target="_blank">
     WhatsApp
   </a>

@@ -1,8 +1,8 @@
 {
 	"name": "Express It Logistics Ltd",
-	"short_name": "Express It Logistics Ltd",
+	"short_name": "Express It",
 	"description": "Premier logistics and shipping solutions provider across East Africa with specialized cold-chain logistics capabilities",
-	"start_url": "./index.html",
+	"start_url": "/",
 	"scope": "./",
 	"display": "standalone",
 	"orientation": "portrait-primary",
@@ -13,22 +13,16 @@
 			"src": "assets/images/apple-touch-icon.png",
 			"sizes": "180x180",
 			"type": "image/png",
-			"purpose": "any maskable"
+			"purpose": "any"
 		},
 		{
-			"src": "assets/images/icon.svg",
+			"src": "assets/images/Logo-icon.svg",
 			"sizes": "any",
 			"type": "image/svg+xml",
 			"purpose": "any"
 		},
 		{
-			"src": "assets/images/icon-192.png",
-			"sizes": "192x192",
-			"type": "image/png",
-			"purpose": "any"
-		},
-		{
-			"src": "assets/images/icon-512.png",
+			"src": "assets/images/logo.png",
 			"sizes": "512x512",
 			"type": "image/png",
 			"purpose": "any"
@@ -38,4 +32,3 @@
 	"lang": "en",
 	"dir": "ltr"
 }
-

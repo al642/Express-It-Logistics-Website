@@ -7,13 +7,13 @@
   <meta name="keywords" content="logistics, shipping, freight, warehousing, transportation, East Africa, Uganda, cold chain, distribution, supply chain">
   <meta name="author" content="Express It Logistics Ltd">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="index.html">
+  <link rel="canonical" href="https://expressitlogistics.co.ug/">
   
   <!-- OpenGraph Meta Tags (Social Sharing) -->
   <meta property="og:title" content="Express It Logistics Ltd - Logistics & Shipping Solutions">
   <meta property="og:description" content="Premier logistics solutions provider across East Africa and internationally. Specialized cold-chain logistics, freight, warehousing, and distribution services.">
   <meta property="og:type" content="business.business">
-  <meta property="og:url" content="/">
+  <meta property="og:url" content="https://expressitlogistics.co.ug/">
   <meta property="og:site_name" content="Express It Logistics Ltd">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Express It Logistics Ltd">
@@ -37,10 +37,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=20260403-mobile-sync">
 
   <!-- PWA Manifest -->
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json?v=20260403-mobile-sync">
 <meta name="theme-color" content="#db2777">
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/images/logo.png">
@@ -52,7 +52,7 @@
     "@type": "LocalBusiness",
     "name": "Express It Logistics Ltd",
     "description": "Premier logistics and shipping solutions provider across East Africa and internationally. Specialized cold-chain logistics, freight transportation, warehousing, and distribution services.",
-    "url": "/",
+    "url": "https://expressitlogistics.co.ug/",
     "telephone": "+256772200122",
     "email": "info@expressitlogistics.co.ug",
     "address": {
@@ -73,7 +73,7 @@
       "@type": "GeoShape",
       "box": "-1.2921 29.8739 4.2476 35.3994"
     },
-    "image": "/assets/images/logo.png",
+    "image": "https://expressitlogistics.co.ug/assets/images/logo.png",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -122,8 +122,45 @@
 </head>
 <body>
 
-  <!-- Navigation Bar -->
-  <div id="site-header-placeholder"></div>
+  <!-- Navigation Bar (Embedded from header.html) -->
+<header class="site-header">
+  <div class="header-container">
+    <a href="/" class="brand">
+      <img src="assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
+      <div class="brand-text">
+        <span class="brand-name">Express It Logistics Ltd</span>
+      </div>
+    </a>
+
+    <nav class="main-nav nav-links">
+      <a href="/" class="nav-link active" aria-current="page">Home</a>
+      <a href="services/" class="nav-link">Services</a>
+      <a href="team/" class="nav-link">Team</a>
+      <a href="contact/" class="nav-link">Contact</a>
+      <a href="https://www.track-trace.com/" class="nav-btn btn-outline" aria-label="Track Shipment" target="_blank" rel="noopener noreferrer">Track Shipment</a>
+      <button id="theme-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon" aria-hidden="true"></i></button>
+    </nav>
+
+    <button id="mobile-menu-btn" class="mobile-menu-btn menu-toggle" aria-label="Open menu" aria-expanded="false"></button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <nav id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+    <a href="/" class="mobile-nav-link">Home</a>
+    <a href="services/" class="mobile-nav-link">Services</a>
+    <a href="team/" class="mobile-nav-link">Team</a>
+    <a href="contact/" class="mobile-nav-link">Contact</a>
+    <a id="mobile-track-link" href="https://www.track-trace.com/" class="mobile-nav-link btn-outline" target="_blank" rel="noopener noreferrer" aria-label="Track Shipment">
+      <i class="fas fa-search mobile-nav-icon" aria-hidden="true"></i>
+      Track Shipment
+    </a>
+    <div class="mobile-theme-toggle">
+      <button id="theme-toggle-mobile" class="dark-mode-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 
   <!-- Main Content -->
   <main role="main">
@@ -132,75 +169,86 @@
     <section class="hero-section" aria-label="Hero">
       <!-- Hero Slider -->
       <div class="hero-slider">
-        <div class="hero-slide">
-          <img src="images/slide1.jpeg" alt="Port logistics operations - containers being loaded" loading="eager" decoding="async">
+        <div class="hero-slide active">
+          <img src="images/slide1.jpeg" alt="Aircraft cabin filled with cargo boxes secured in transport netting" loading="eager" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide2.jpeg" alt="Cargo ship at sea - international freight" loading="lazy" decoding="async">
+          <img src="images/slide2.jpeg" alt="Airport ground crew handling an air cargo container beside a plane" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide3.jpeg" alt="Cargo plane loading - air freight services" loading="lazy" decoding="async">
+          <img src="images/slide3.jpeg" alt="Rows of airline cargo containers prepared for air freight operations" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide4.jpeg" alt="Warehouse logistics - storage and distribution" loading="lazy" decoding="async">
+          <img src="images/slide4.jpeg" alt="Airport cargo truck and ramp staff supporting airside logistics operations" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide5.jpeg" alt="Truck fleet - road transportation across East Africa" loading="lazy" decoding="async">
+          <img src="images/slide5.jpeg" alt="Warehouse team sorting cartons with conveyors and a forklift" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide6.jpeg" alt="Distribution center operations" loading="lazy" decoding="async">
+          <img src="images/slide6.jpeg" alt="Warehouse staff standing among stacked cartons in a storage aisle" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide7.jpeg" alt="Cold chain transport - temperature controlled logistics" loading="lazy" decoding="async">
+          <img src="images/slide7.jpeg" alt="Protected delivery team carrying parcel boxes beside a logistics van" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide8.jpeg" alt="Express It Logistics advanced logistics solutions" loading="lazy" decoding="async">
+          <img src="images/slide8.jpeg" alt="Container ship transporting stacked freight across open water" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide9.jpeg" alt="Additional logistics showcase - new photo" loading="lazy" decoding="async">
+          <img src="images/slide9.jpeg" alt="Freight train hauling stacked containers through a hillside route" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-          <img src="images/slide10.jpeg" alt="Additional logistics operations - recent photo" loading="lazy" decoding="async">
+          <img src="images/slide10.jpeg" alt="Logistics transport icons arranged like a clock to represent delivery timing" loading="lazy" decoding="async">
+        </div>
+        <div class="hero-slide">
+          <img src="images/slide11.jpeg" alt="Large container ship docked at a brightly lit cargo terminal at night" loading="lazy" decoding="async">
+        </div>
+        <div class="hero-slide">
+          <img src="images/slide12.jpeg" alt="Container vessel emerging through fog with stacked shipping containers on deck" loading="lazy" decoding="async">
         </div>
       </div>
       <div class="hero-overlay"></div>
       
       <div class="container">
-      <div class="hero-content">
+      <div class="hero-content" data-reveal-group="hero">
         <div class="animate-fade-in-up">
-        <span class="hero-badge">
-            <i class="fas fa-shipping-fast mr-2" aria-hidden="true"></i>
-            Premier Logistics Provider Across East Africa and across the Globe
-          </span>
+          <div class="hero-copy-top">
+            <h1 class="hero-title">
+              We Deliver What <span class="highlight">Others Promise!</span>
+            </h1>
+          </div>
 
-          <h1 class="hero-title">
-            We Deliver What<br>
-            <span class="highlight">Others Promise!</span>
-          </h1>
+          <div class="hero-copy-bottom">
+            <span class="hero-badge">
+              <i class="fas fa-shipping-fast mr-2" aria-hidden="true"></i>
+              Premier Logistics Provider Across East Africa and the Globe
+            </span>
 
-          <p class="hero-subtitle">
-            Express It Logistics Ltd is a premier logistics and shipping solutions provider across East Africa and internationally. We deliver excellence in temperature-controlled logistics, cold-chain support, transportation, warehousing, and supply chain management.
-          </p>
+            <p class="hero-subtitle">
+              Express It Logistics Ltd is a premier logistics and shipping solutions provider across East Africa and internationally. We deliver excellence in temperature-controlled logistics, cold-chain support, transportation, warehousing, and supply chain management.
+            </p>
 
-          <!-- Stats -->
-          <div class="hero-stats" aria-label="Company statistics">
-            <div class="stat-item">
-              <div class="stat-value">18+</div>
-              <div class="stat-label">Years Experience</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">500+</div>
-              <div class="stat-label">Clients Served</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">50K+</div>
-              <div class="stat-label">Deliveries Made</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">99%</div>
-              <div class="stat-label">Satisfaction Rate</div>
+            <!-- Stats -->
+            <div class="hero-stats" aria-label="Company statistics" data-reveal-group="stagger">
+              <div class="stat-item">
+                <div class="stat-value">18+</div>
+                <div class="stat-label">Years Experience</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">500+</div>
+                <div class="stat-label">Clients Served</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">50K+</div>
+                <div class="stat-label">Deliveries Made</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">99%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
       </div>
 
       <!-- Scroll Down Indicator -->
@@ -229,7 +277,7 @@
         <div class="about-wrapper">
 
           <!-- Top Row: 2-Column Layout -->
-          <div class="about-top">
+          <div class="about-top" data-reveal-group="stagger">
             <!-- Left Column: Heading + First Paragraph -->
             <div class="about-left">
               <span class="section-label">About Us</span>
@@ -237,21 +285,21 @@
                 East Africa's Premier Logistics & Cold Chain Solutions Partner
               </h2>
               <p class="text-secondary text-lg mb-6">
-                Express It Logistics Ltd is a leading logistics and transportation company headquartered in Uganda, with operations across East Africa and international reach. We are dedicated to providing world-class logistics solutions and specialized cold chain services including dry ice across the region.
+                Express It Logistics Ltd is a leading logistics and transportation company headquartered in Uganda, with operations across East Africa and international reach. We are dedicated to providing world-class logistics solutions and specialized cold chain services including dry ice across.
               </p>
             </div>
 
             <!-- Right Column: Card -->
             <div class="about-card">
-              <div class="card">
+              <a href="services/" class="card about-card-link" aria-label="View our services">
                 <div class="text-center py-8">
-                  <div class="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <i class="fas fa-shipping-fast text-white text-4xl" aria-hidden="true"></i>
+                  <div class="about-card-main-icon mx-auto mb-6">
+                    <img src="assets/images/logo.png" alt="Express It Logistics Ltd logo" class="about-card-main-logo">
                   </div>
                   <h3 class="text-2xl font-bold mb-2">Logistics Excellence</h3>
                   <p class="text-muted mb-8">East Africa's trusted logistics partner</p>
 
-                  <div class="grid grid-3 gap-4">
+                  <div class="grid grid-3 gap-4" data-reveal-group="stagger">
                     <div class="card-secondary p-4 text-center">
                       <i class="fas fa-snowflake text-primary text-2xl mb-2" aria-hidden="true"></i>
                       <div class="text-sm text-secondary">Cold-Chain Support</div>
@@ -270,12 +318,12 @@
                 <!-- Decorative Elements -->
                 <div class="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full"></div>
                 <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-primary/20 rounded-full"></div>
-              </div>
+              </a>
             </div>
           </div>
 
           <!-- Bottom Row: Full Width Text -->
-          <div class="about-full">
+          <div class="about-full" data-reveal-group="stagger">
             <p class="text-secondary text-lg mb-6">
               Our specialized cold-chain capabilities include temperature-controlled logistics support for pharmaceutical, food, and industrial applications. Combined with our comprehensive logistics services, we provide end-to-end supply chain solutions.
             </p>
@@ -302,7 +350,7 @@
               </li>
             </ul>
 
-<a href="pages/contact.html" class="btn btn-primary">
+<a href="contact/" class="btn btn-primary">
               Learn More About Us
               <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
             </a>
@@ -326,8 +374,8 @@
             <!-- Partner 1 - Fracht Group -->
             <a href="https://www.fracht.com" target="_blank" rel="noopener noreferrer" class="partner-item" aria-label="Fracht Group - Visit website">
               <div class="partner-logo">
-                <div class="partner-logo-icon">
-                  <i class="fas fa-ship" aria-hidden="true"></i>
+                <div class="partner-logo-badge partner-logo-badge--fracht">
+                  <img src="assets/images/partners/fracht-group.png" alt="Fracht Group logo" class="partner-logo-image partner-logo-image--wide partner-logo-image--fracht">
                 </div>
                 <span class="partner-logo-text">Fracht Group</span>
               </div>
@@ -335,8 +383,8 @@
             <!-- Partner 2 - DHL -->
             <a href="https://www.dhl.com" target="_blank" rel="noopener noreferrer" class="partner-item" aria-label="DHL - Visit website">
               <div class="partner-logo">
-                <div class="partner-logo-icon">
-                  <i class="fas fa-truck" aria-hidden="true"></i>
+                <div class="partner-logo-badge partner-logo-badge--light">
+                  <img src="assets/images/partners/dhl.svg" alt="DHL logo" class="partner-logo-image partner-logo-image--wide partner-logo-image--dhl">
                 </div>
                 <span class="partner-logo-text">DHL</span>
               </div>
@@ -344,8 +392,8 @@
             <!-- Partner 3 - Amazon -->
             <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer" class="partner-item" aria-label="Amazon - Visit website">
               <div class="partner-logo">
-                <div class="partner-logo-icon">
-                  <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                <div class="partner-logo-badge partner-logo-badge--light">
+                  <img src="assets/images/partners/amazon-wordmark.svg" alt="Amazon logo" class="partner-logo-image partner-logo-image--wide partner-logo-image--amazon">
                 </div>
                 <span class="partner-logo-text">Amazon</span>
               </div>
@@ -353,8 +401,8 @@
             <!-- Partner 4 - YourWay -->
             <a href="https://www.yourway.com" target="_blank" rel="noopener noreferrer" class="partner-item" aria-label="YourWay - Visit website">
               <div class="partner-logo">
-                <div class="partner-logo-icon">
-                  <i class="fas fa-route" aria-hidden="true"></i>
+                <div class="partner-logo-badge partner-logo-badge--light">
+                  <img src="assets/images/partners/yourway.svg" alt="Yourway logo" class="partner-logo-image partner-logo-image--wide partner-logo-image--yourway">
                 </div>
                 <span class="partner-logo-text">YourWay</span>
               </div>
@@ -362,8 +410,8 @@
             <!-- Partner 5 - Rainbow Logistics -->
             <a href="https://rainbowell.com/" target="_blank" rel="noopener noreferrer" class="partner-item" aria-label="Rainbow Logistics Ltd - Visit website">
               <div class="partner-logo">
-                <div class="partner-logo-icon">
-                  <i class="fas fa-rainbow" aria-hidden="true"></i>
+                <div class="partner-logo-badge partner-logo-badge--light">
+                  <img src="assets/images/partners/rainbow-logistics.png" alt="Rainbow Logistics Ltd logo" class="partner-logo-image">
                 </div>
                 <span class="partner-logo-text">Rainbow Logistics Ltd</span>
               </div>
@@ -371,40 +419,40 @@
             <!-- Duplicate set for seamless infinite loop -->
             <a href="https://www.fracht.com" target="_blank" rel="noopener noreferrer" class="partner-item" aria-label="Fracht Group - Visit website">
               <div class="partner-logo">
-                <div class="partner-logo-icon">
-                  <i class="fas fa-ship" aria-hidden="true"></i>
+                <div class="partner-logo-badge partner-logo-badge--fracht">
+                  <img src="assets/images/partners/fracht-group.png" alt="Fracht Group logo" class="partner-logo-image partner-logo-image--wide partner-logo-image--fracht">
                 </div>
                 <span class="partner-logo-text">Fracht Group</span>
               </div>
             </a>
             <a href="https://www.dhl.com" target="_blank" rel="noopener noreferrer" class="partner-item" aria-label="DHL - Visit website">
               <div class="partner-logo">
-                <div class="partner-logo-icon">
-                  <i class="fas fa-truck" aria-hidden="true"></i>
+                <div class="partner-logo-badge partner-logo-badge--light">
+                  <img src="assets/images/partners/dhl.svg" alt="DHL logo" class="partner-logo-image partner-logo-image--wide partner-logo-image--dhl">
                 </div>
                 <span class="partner-logo-text">DHL</span>
               </div>
             </a>
             <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer" class="partner-item" aria-label="Amazon - Visit website">
               <div class="partner-logo">
-                <div class="partner-logo-icon">
-                  <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                <div class="partner-logo-badge partner-logo-badge--light">
+                  <img src="assets/images/partners/amazon-wordmark.svg" alt="Amazon logo" class="partner-logo-image partner-logo-image--wide partner-logo-image--amazon">
                 </div>
                 <span class="partner-logo-text">Amazon</span>
               </div>
             </a>
             <a href="https://www.yourway.com" target="_blank" rel="noopener noreferrer" class="partner-item" aria-label="YourWay - Visit website">
               <div class="partner-logo">
-                <div class="partner-logo-icon">
-                  <i class="fas fa-route" aria-hidden="true"></i>
+                <div class="partner-logo-badge partner-logo-badge--light">
+                  <img src="assets/images/partners/yourway.svg" alt="Yourway logo" class="partner-logo-image partner-logo-image--wide partner-logo-image--yourway">
                 </div>
                 <span class="partner-logo-text">YourWay</span>
               </div>
             </a>
             <a href="https://rainbowell.com/" target="_blank" rel="noopener noreferrer" class="partner-item" aria-label="Rainbow Logistics Ltd - Visit website">
               <div class="partner-logo">
-                <div class="partner-logo-icon">
-                  <i class="fas fa-rainbow" aria-hidden="true"></i>
+                <div class="partner-logo-badge partner-logo-badge--light">
+                  <img src="assets/images/partners/rainbow-logistics.png" alt="Rainbow Logistics Ltd logo" class="partner-logo-image">
                 </div>
                 <span class="partner-logo-text">Rainbow Logistics Ltd</span>
               </div>
@@ -417,24 +465,24 @@
     <!-- Services Preview Section with Video Background -->
     <section id="services" class="section section-secondary video-services-section" aria-labelledby="services-title">
       <div class="container">
-        <video class="services-bg-video" autoplay muted loop playsinline aria-hidden="true">
-          <source src="Videos/port-logistics.mp4" type="video/mp4">
+        <video class="services-bg-video" muted loop playsinline preload="none" poster="images/port-logistics-fallback.jpeg" aria-hidden="true">
+          <source data-src="videos/port-logistics.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
         <div class="services-video-overlay"></div>
         
         <div class="services-content">
-          <div class="section-header">
+          <div class="section-header" data-reveal-group="stagger">
             <span class="section-label">Our Services</span>
             <h2 id="services-title" class="section-title mt-2 mb-4">
-              Comprehensive Logistics Solutions Across East Africa
+              Comprehensive Logistics Solutions Across East Africa and the Globe
             </h2>
             <p class="section-subtitle">
               We offer a wide range of logistics services and specialized cold-chain
               solutions tailored to meet your business needs across the region and internationally.
             </p>
             <div class="services-link-container services-link-container-inline">
-              <a href="pages/services.html" class="services-link" aria-label="View our Services">
+              <a href="services/" class="services-link" aria-label="View our Services">
                 View Our Services
               </a>
             </div>
@@ -453,11 +501,11 @@
         </p>
         <div class="hero-buttons">
 
-          <a href="pages/contact.html" class="btn btn-primary">
+          <a href="contact/" class="btn btn-primary">
             Get Free Quote
             <i class="fas fa-arrow-right" aria-hidden="true"></i>
           </a>
-          <a href="pages/contact.html" class="btn btn-secondary">
+          <a href="contact/" class="btn btn-secondary">
             Contact Us
           </a>
         </div>
@@ -466,67 +514,62 @@
     </section>
   </main>
 
-  <!-- Modern Redesigned Footer -->
   <footer class="footer">
     <div class="footer-container">
-      
-      <!-- 1. Left: Company + Logo + Tagline -->
       <div class="footer-brand">
-        <a href="index.html" class="brand">
+        <a href="/" class="brand">
           <img src="assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
           <div class="brand-text">
             <span class="brand-name">Express It Logistics Ltd</span>
           </div>
         </a>
+        <p class="footer-description">
+          We deliver what others promise!
+        </p>
       </div>
-      
-      <!-- 2. Quick Links (slightly left) -->
-      <div class="footer-links">
+
+      <nav class="footer-links" aria-label="Footer navigation">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="pages/services.html">Services</a></li>
-          <li><a href="pages/team.html">Team</a></li>
-          <li><a href="pages/contact.html">Contact</a></li>
-          <li><a href="pages/contact.html">Get Quote</a></li>
-          <li><a href="https://www.track-trace.com/" target="_blank" rel="noopener">Track Shipment</a></li>
+          <li><a href="services/">Services</a></li>
+          <li><a href="team/">Team</a></li>
+          <li><a href="contact/">Contact</a></li>
+          <li><a href="contact/">Get Quote</a></li>
+          <li><a href="https://www.track-trace.com/" target="_blank" rel="noopener noreferrer">Track Shipment</a></li>
         </ul>
-      </div>
-      
-      <!-- 3. Contact (middle) -->
+      </nav>
+
       <div class="footer-contact">
         <h4>Contact</h4>
         <ul>
-<li><a href="https://maps.app.goo.gl/NBrZDigMAc3j4jGN6" target="_blank" rel="noopener">Rumee House, Plot 19, Lumumba Avenue, Kampala</a></li>
+          <li><a href="https://maps.app.goo.gl/NBrZDigMAc3j4jGN6" target="_blank" rel="noopener noreferrer">Rumee House, Plot 19, Lumumba Avenue, Kampala</a></li>
           <li><a href="tel:+256772200122">+256 772 200 122</a></li>
           <li><a href="tel:+256701447750">+256 701 447 750</a></li>
           <li><a href="mailto:info@expressitlogistics.co.ug">info@expressitlogistics.co.ug</a></li>
           <li><a href="mailto:expressitlogistics@gmail.com">expressitlogistics@gmail.com</a></li>
         </ul>
       </div>
-      
-      <!-- 4. Business Hours (right) -->
+
       <div class="footer-hours">
         <h4>Business Hours</h4>
         <div class="hours-list">
-          <strong>Mon – Fri: 08:00 AM – 06:00 PM</strong>
-          <strong>Saturday: 08:00 AM – 02:00 PM</strong>
+          <strong>Mon - Fri: 08:00 AM - 06:00 PM</strong>
+          <strong>Saturday: 08:00 AM - 02:00 PM</strong>
           <strong>Sunday: Closed</strong>
         </div>
-        <div class="hours-note">
-          24/7 Cold-Chain Support Available — Emergency and on-demand logistics support provided at any time upon request. Please call our team for immediate assistance.
-        </div>
+        <p class="hours-note">
+          24/7 cold-chain support is available for emergency and on-demand logistics needs.
+        </p>
       </div>
-      
     </div>
-    
-    <!-- 5. Bottom middle copyright -->
+
     <div class="footer-bottom">
-      © 2026 Express It Logistics Ltd. All rights reserved.
+      <p>&copy; <span id="current-year">2026</span> Express It Logistics Ltd. All rights reserved.</p>
     </div>
   </footer>
 
   <!-- Main JavaScript -->
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=20260403-mobile-sync"></script>
   <a href="https://wa.me/256772200122" class="whatsapp-float" target="_blank">
     WhatsApp
   </a>

@@ -4,14 +4,16 @@
  * Safe implementation for GitHub Pages deployment
  */
 
-const CACHE_NAME = 'express-it-logistics-v1';
-const OFFLINE_URL = './index.html';
+const CACHE_NAME = 'express-it-logistics-v3-clean-routes';
+const OFFLINE_URL = '/';
 
 // Assets to cache - only static files that exist
 const PRECACHE_ASSETS = [
-  './',
-  './index.html',
-  './manifest.json'
+  '/',
+  '/manifest.json',
+  '/services/',
+  '/team/',
+  '/contact/'
 ];
 
 // Install event - cache critical assets
@@ -138,7 +140,7 @@ self.addEventListener('push', (event) => {
     body: data.body || 'New notification from Express It Logistics Ltd',
     icon: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22%3E%3Crect width=%22512%22 height=%22512%22 rx=%2264%22 fill=%22%23e91e63%22/%3E%3Cpath d=%22M160 192h192v32H160zm0 64h128v32H160zm0 64h160v32H160z%22 fill=%22white%22/%3E%3C/svg%3E',
     badge: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22%3E%3Crect width=%22512%22 height=%22512%22 rx=%2264%22 fill=%22%23e91e63%22/%3E%3C/svg%3E',
-    data: data.url || './index.html',
+    data: data.url || '/',
     actions: [
       { action: 'open', title: 'Open' },
       { action: 'close', title: 'Close' }
@@ -158,7 +160,7 @@ self.addEventListener('notificationclick', (event) => {
     return;
   }
   
-  const urlToOpen = event.notification.data || './index.html';
+  const urlToOpen = event.notification.data || '/';
   
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true })
@@ -179,4 +181,3 @@ self.addEventListener('notificationclick', (event) => {
       })
 );
 });
-

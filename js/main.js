@@ -17,13 +17,19 @@
 
     // Function to toggle dark mode
     function toggleDarkMode() {
-      document.body.classList.toggle("dark-mode");
-      // Also toggle .dark class for CSS compatibility
-      document.body.classList.toggle("dark");
+      const html = document.documentElement;
+      const isDark = html.classList.contains("dark-mode");
 
-      const isDark = document.body.classList.contains("dark-mode");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-      
+      if (isDark) {
+        html.classList.remove("dark-mode", "dark");
+        document.body.classList.remove("dark-mode", "dark");
+      } else {
+        html.classList.add("dark-mode", "dark");
+        document.body.classList.add("dark-mode", "dark");
+      }
+
+      localStorage.setItem("theme", isDark ? "light" : "dark");
+
       // Update all theme toggle icons
       updateThemeIcons();
     }
@@ -31,7 +37,7 @@
     // Function to update all theme toggle icons
     function updateThemeIcons() {
       const isDark = document.body.classList.contains("dark-mode");
-      document.querySelectorAll('#theme-toggle i, #theme-toggle-mobile i').forEach(icon => {
+      document.querySelectorAll('#theme-toggle i, #theme-toggle-mobile i').forEach((icon) => {
         if (icon) {
           icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
         }
@@ -50,18 +56,21 @@
 
     // Load saved theme on page load
     function loadTheme() {
+      const html = document.documentElement;
       const savedTheme = localStorage.getItem("theme");
+
       if (savedTheme === "dark") {
-        document.body.classList.add("dark-mode");
-        document.body.classList.add("dark");
+        html.classList.add("dark-mode", "dark");
+        document.body.classList.add("dark-mode", "dark");
       } else if (!savedTheme) {
         // No saved preference - check system preference
         const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
         if (prefersDarkScheme) {
-          document.body.classList.add("dark-mode");
-          document.body.classList.add("dark");
+          html.classList.add("dark-mode", "dark");
+          document.body.classList.add("dark-mode", "dark");
         }
       }
+
       updateThemeIcons();
     }
 
@@ -73,15 +82,16 @@
     }
 
     // Listen for system preference changes in real-time
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
       // Only auto-switch if user hasn't set a manual preference
       if (!localStorage.getItem("theme")) {
+        const html = document.documentElement;
         if (e.matches) {
-          document.body.classList.add("dark-mode");
-          document.body.classList.add("dark");
+          html.classList.add("dark-mode", "dark");
+          document.body.classList.add("dark-mode", "dark");
         } else {
-          document.body.classList.remove("dark-mode");
-          document.body.classList.remove("dark");
+          html.classList.remove("dark-mode", "dark");
+          document.body.classList.remove("dark-mode", "dark");
         }
         updateThemeIcons();
       }
@@ -92,15 +102,45 @@
   // HEADER LINK NORMALIZATION
   // ============================================
 
-  function normalizeHeaderLinks() {
-    const currentPath = window.location.pathname.toLowerCase();
-    const inPagesFolder = currentPath.includes('/pages/') || currentPath.includes('\\pages\\');
+  function getNormalizedPath(pathname = window.location.pathname) {
+    return pathname.toLowerCase().replace(/\/+$/, '') || '/';
+  }
 
+  function getPageKey(pathname = window.location.pathname) {
+    const normalizedPath = getNormalizedPath(pathname);
+    const segments = normalizedPath.split('/').filter(Boolean);
+    const lastSegment = segments[segments.length - 1] || '';
+    const cleanSegment = lastSegment.replace(/\.(html?|php)$/i, '');
+
+    if (normalizedPath === '/' || cleanSegment === 'index' || cleanSegment === 'home') {
+      return 'home';
+    }
+
+    if (segments[0] === 'pages' && cleanSegment) {
+      return cleanSegment;
+    }
+
+    return cleanSegment || 'home';
+  }
+
+  function getAssetPrefix(pathname = window.location.pathname) {
+    const normalizedPath = getNormalizedPath(pathname);
+    const segments = normalizedPath.split('/').filter(Boolean);
+    const pageKey = getPageKey(pathname);
+
+    if (normalizedPath === '/' || pageKey === 'home') {
+      return '';
+    }
+
+    return segments.length > 0 ? '../' : '';
+  }
+
+  function normalizeHeaderLinks() {
     const linkMap = {
-      home: inPagesFolder ? '../index.html' : 'index.html',
-      services: inPagesFolder ? 'services.html' : 'pages/services.html',
-      team: inPagesFolder ? 'team.html' : 'pages/team.html',
-      contact: inPagesFolder ? 'contact.html' : 'pages/contact.html'
+      home: getAssetPrefix() ? '../' : '/',
+      services: getAssetPrefix() ? '../services/' : 'services/',
+      team: getAssetPrefix() ? '../team/' : 'team/',
+      contact: getAssetPrefix() ? '../contact/' : 'contact/'
     };
 
     const navAnchors = document.querySelectorAll('.main-nav a, #mobile-menu a');
@@ -122,12 +162,19 @@
     });
 
     const setActiveNavigation = () => {
-      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      const currentPageKey = getPageKey();
+
       document.querySelectorAll('.main-nav .nav-link, #mobile-menu .mobile-nav-link').forEach((link) => {
         link.classList.remove('active');
-        const hrefPage = link.getAttribute('href')?.split('/').pop();
-        if (!hrefPage) return;
-        if (hrefPage === currentPage || (currentPage === '' && hrefPage === 'index.html')) {
+
+        let hrefPageKey = '';
+        try {
+          hrefPageKey = getPageKey(new URL(link.getAttribute('href'), window.location.origin).pathname);
+        } catch {
+          hrefPageKey = '';
+        }
+
+        if (hrefPageKey && hrefPageKey === currentPageKey) {
           link.classList.add('active');
         }
       });
@@ -159,149 +206,166 @@
   window.normalizeHeaderLinks = normalizeHeaderLinks;
 
   function preloadHeroImages() {
+    const assetPrefix = getAssetPrefix();
     const slideImages = [
-      'images/slide1.jpeg',
-      'images/slide2.jpeg',
-      'images/slide3.jpeg',
-      'images/slide4.jpeg',
-      'images/slide5.jpeg',
-      'images/slide6.jpeg',
-      'images/slide7.jpeg',
-      'images/slide8.jpeg',
-      'images/slide9.jpeg',
-      'images/slide10.jpeg',
-      'images/slide11.jpeg',
-      'images/slide12.jpeg'
+      `${assetPrefix}images/slide1.jpeg`,
+      `${assetPrefix}images/slide2.jpeg`,
+      `${assetPrefix}images/slide3.jpeg`,
+      `${assetPrefix}images/slide4.jpeg`,
+      `${assetPrefix}images/slide5.jpeg`,
+      `${assetPrefix}images/slide6.jpeg`,
+      `${assetPrefix}images/slide7.jpeg`,
+      `${assetPrefix}images/slide8.jpeg`,
+      `${assetPrefix}images/slide9.jpeg`,
+      `${assetPrefix}images/slide10.jpeg`,
+      `${assetPrefix}images/slide11.jpeg`,
+      `${assetPrefix}images/slide12.jpeg`
     ];
 
-    slideImages.forEach((src, index) => {
+    slideImages.forEach((src) => {
       const img = new Image();
-      img.onload = () => {
-        console.log(`Slide ${index + 1} preloaded`);
-      };
-      img.onerror = () => {
-        console.warn(`Failed to preload slide ${index + 1}`);
-      };
+      img.onload = () => {};
+      img.onerror = () => {};
       img.src = src;
     });
   }
 
-  function getHeaderTemplatePath() {
-    const currentPath = window.location.pathname.toLowerCase();
-    return currentPath.includes('/pages/') || currentPath.includes('\\pages\\') ? '../header.html' : 'header.html';
-  }
-
-  function normalizeLogoPath() {
-    const logo = document.querySelector('.brand .logo');
-    if (!logo) return;
-    const currentPath = window.location.pathname.toLowerCase();
-    const inPagesFolder = currentPath.includes('/pages/') || currentPath.includes('\\pages\\');
-    logo.src = inPagesFolder ? '../assets/images/logo.png' : './assets/images/logo.png';
-    const brandLink = document.querySelector('.brand');
-    if (brandLink) {
-      brandLink.href = inPagesFolder ? '../index.html' : './index.html';
-    }
-  }
-
-function initTeamCardExpansion() {
-    const cards = document.querySelectorAll('.team-card');
+  function initTeamCardExpansion() {
+    const cardSlots = Array.from(document.querySelectorAll('.team-card-slot'));
+    const cards = Array.from(document.querySelectorAll('.team-card'));
     if (!cards.length) return;
 
-    // Mobile/touch devices only for tap expansion
-    const isMobile = window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+    const desktopHoverQuery = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 769px)');
+    const mobileQuery = window.matchMedia('(max-width: 768px), (pointer: coarse)');
+    let layoutFrame = 0;
+    const collapsedCardHeight = 360;
+    let mobileHandlersBound = false;
 
-    if (!isMobile) return;
+    const syncExpandedCardHeights = () => {
+      cards.forEach((card) => {
+        const description = card.querySelector('.team-card-desc');
+        if (!description) return;
 
-    cards.forEach((card) => {
-      card.addEventListener('click', (event) => {
-        // Prevent on links/buttons/images
-        if (event.target.closest('a, button, img')) return;
-        
-        event.stopPropagation();
-        event.preventDefault();
-        
-        // Exclusive expand: close all others
-        cards.forEach((otherCard) => {
-          if (otherCard !== card) {
-            otherCard.classList.remove('expanded');
+        const descriptionHeight = Math.ceil(description.scrollHeight);
+        const expandedDescriptionHeight = Math.max(descriptionHeight + 32, 220);
+        const expandedCardHeight = Math.max(collapsedCardHeight + expandedDescriptionHeight + 20, 580);
+
+        card.style.setProperty('--team-card-desc-height', `${expandedDescriptionHeight}px`);
+        card.style.setProperty('--team-card-expanded-height', `${expandedCardHeight}px`);
+      });
+    };
+
+    const syncLastRowCards = () => {
+      window.cancelAnimationFrame(layoutFrame);
+      layoutFrame = window.requestAnimationFrame(() => {
+        syncExpandedCardHeights();
+
+        cards.forEach((card) => {
+          card.classList.remove('team-card-last-row');
+        });
+
+        if (!desktopHoverQuery.matches) return;
+
+        const slots = cardSlots.length
+          ? cardSlots
+          : cards.map((card) => card.parentElement).filter(Boolean);
+        let lastRowTop = -Infinity;
+
+        slots.forEach((slot) => {
+          lastRowTop = Math.max(lastRowTop, Math.round(slot.getBoundingClientRect().top));
+        });
+
+        slots.forEach((slot) => {
+          const slotTop = Math.round(slot.getBoundingClientRect().top);
+          if (Math.abs(slotTop - lastRowTop) <= 6) {
+            slot.querySelector('.team-card')?.classList.add('team-card-last-row');
           }
         });
-        
-        // Toggle target
-        card.classList.toggle('expanded');
       });
-    });
+    };
 
-    // Close on outside click (mobile)
-    document.addEventListener('click', (event) => {
-      if (!event.target.closest('.team-card')) {
-        cards.forEach((card) => card.classList.remove('expanded'));
+    const bindMobileExpansion = () => {
+      if (mobileHandlersBound) return;
+      mobileHandlersBound = true;
+
+      cards.forEach((card) => {
+        card.addEventListener('click', (event) => {
+          if (!mobileQuery.matches) return;
+
+          // Prevent on links/buttons/images
+          if (event.target.closest('a, button, img')) return;
+
+          event.stopPropagation();
+          event.preventDefault();
+
+          cards.forEach((otherCard) => {
+            if (otherCard !== card) {
+              otherCard.classList.remove('expanded');
+            }
+          });
+
+          card.classList.toggle('expanded');
+        });
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!mobileQuery.matches) return;
+        if (!event.target.closest('.team-card')) {
+          cards.forEach((card) => card.classList.remove('expanded'));
+        }
+      });
+    };
+
+    const bindMediaChange = (mediaQuery, handler) => {
+      if (typeof mediaQuery.addEventListener === 'function') {
+        mediaQuery.addEventListener('change', handler);
+      } else if (typeof mediaQuery.addListener === 'function') {
+        mediaQuery.addListener(handler);
       }
-    });
+    };
+
+    syncLastRowCards();
+    window.addEventListener('resize', syncLastRowCards, { passive: true });
+    window.addEventListener('load', syncLastRowCards, { once: true });
+    bindMediaChange(desktopHoverQuery, syncLastRowCards);
+    bindMediaChange(mobileQuery, syncLastRowCards);
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(syncLastRowCards).catch(() => {});
+    }
+
+    bindMobileExpansion();
   }
 
   function applyPageHeaderStyle() {
     const header = document.querySelector('.site-header');
     if (!header) return;
 
-    const currentPath = window.location.pathname.toLowerCase();
-    const isHomePage = currentPath === '/' || currentPath.endsWith('index.html') || currentPath.endsWith('index.htm');
+    const isHomePage = getPageKey() === 'home';
 
     if (isHomePage) {
       header.classList.remove('page-header');
+      document.body.classList.add('home-page');
+      document.body.classList.remove('inner-page');
     } else {
       header.classList.add('page-header');
+      document.body.classList.add('inner-page');
+      document.body.classList.remove('home-page');
     }
-  }
 
-  async function loadHeaderTemplate() {
-    const placeholder = document.getElementById('site-header-placeholder');
-    if (!placeholder) return;
+    const syncHeaderOffset = () => {
+      const headerHeight = Math.ceil(header.getBoundingClientRect().height || 0);
+      if (!headerHeight) return;
 
-    const fallback = `
-<header class="site-header">
-  <div class="header-container">
-    <a href="/index.html" class="brand">
-      <img src="/assets/images/logo.png" alt="Express It Logistics Ltd Logo" class="logo">
-      <div class="brand-text"><span class="brand-name">Express It Logistics Ltd</span></div>
-    </a>
-    <nav class="main-nav nav-links">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="pages/services.html" class="nav-link">Services</a>
-      <a href="pages/team.html" class="nav-link">Team</a>
-      <a href="pages/contact.html" class="nav-link">Contact</a>
-      <a href="https://www.track-trace.com/" class="nav-btn btn-outline" target="_blank" rel="noopener noreferrer">Track Shipment</a>
-      <button id="theme-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon" aria-hidden="true"></i></button>
-    </nav>
-    <button id="mobile-menu-btn" class="mobile-menu-btn menu-toggle" aria-label="Open menu" aria-expanded="false"></button>
-  </div>
-  <nav id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-    <a href="index.html" class="mobile-nav-link">Home</a>
-    <a href="pages/services.html" class="mobile-nav-link">Services</a>
-    <a href="pages/team.html" class="mobile-nav-link">Team</a>
-    <a href="pages/contact.html" class="mobile-nav-link">Contact</a>
-    <a id="mobile-track-link" href="https://www.track-trace.com/" class="mobile-nav-link btn-outline" target="_blank" rel="noopener noreferrer">Track Shipment</a>
-    <div class="mobile-theme-toggle"><button id="theme-toggle-mobile" class="dark-mode-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon" aria-hidden="true"></i></button></div>
-  </nav>
-</header>
-    `;
+      if (isHomePage) {
+        document.documentElement.style.setProperty('--header-offset', '0px');
+      } else {
+        document.documentElement.style.setProperty('--header-offset', `${headerHeight + 12}px`);
+      }
+    };
 
-    try {
-      const path = getHeaderTemplatePath();
-      const response = await fetch(path, { cache: 'no-cache' });
-      if (!response.ok) throw new Error(`Header fetch failed: ${response.status}`);
-      const html = await response.text();
-      placeholder.innerHTML = html;
-      normalizeHeaderLinks();
-      normalizeLogoPath();
-      applyPageHeaderStyle();
-    } catch (e) {
-      console.warn('Header load failed; using fallback header.', e);
-      placeholder.innerHTML = fallback;
-      normalizeHeaderLinks();
-      normalizeLogoPath();
-      applyPageHeaderStyle();
-    }
+    syncHeaderOffset();
+    window.addEventListener('resize', syncHeaderOffset, { passive: true });
   }
 
   // ============================================
@@ -419,6 +483,18 @@ function initTeamCardExpansion() {
     // Close on document click (delegated)
     document.addEventListener("click", (e) => this.handleOutsideClick(e));
 
+      // Dismiss the mobile menu as soon as the user starts scrolling the page.
+      window.addEventListener("scroll", () => {
+        if (this.isOpen) this.close();
+      }, { passive: true });
+
+      // Close on touch-driven page interaction outside the menu for better mobile comfort.
+      document.addEventListener("touchmove", (e) => {
+        if (!this.isOpen) return;
+        if (this.menu.contains(e.target) || this.btn.contains(e.target)) return;
+        this.close();
+      }, { passive: true });
+
       // Close on Escape key
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && this.isOpen) this.close();
@@ -435,6 +511,7 @@ function initTeamCardExpansion() {
       this.menu.classList.toggle("open", this.isOpen);
       this.btn.classList.toggle("active", this.isOpen);
       this.btn.setAttribute("aria-expanded", this.isOpen);
+      document.body.classList.toggle("mobile-menu-open", this.isOpen);
     }
 
     close() {
@@ -442,6 +519,7 @@ function initTeamCardExpansion() {
       this.menu.classList.remove("open");
       this.btn?.classList.remove("active");
       this.btn?.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("mobile-menu-open");
     }
 
     handleOutsideClick(e) {
@@ -459,7 +537,12 @@ function initTeamCardExpansion() {
     constructor() {
       this.navbar = document.querySelector(".site-header");
       this.lastScrollY = window.scrollY || 0;
+      this.scrollDirection = "up";
       this.ticking = false;
+      this.hideThreshold = 12;
+      this.showThreshold = 2;
+      this.nearTopThreshold = 24;
+      this.hideStart = 90;
       if (!this.navbar) {
         setTimeout(() => { this.navbar = document.querySelector(".site-header"); if (this.navbar) this.init(); }, 120);
       } else {
@@ -468,24 +551,50 @@ function initTeamCardExpansion() {
     }
 
     init() {
+      this.update();
       window.addEventListener("scroll", () => this.handleScroll(), { passive: true });
+      window.addEventListener("resize", () => this.update(), { passive: true });
+    }
+
+    update() {
+      const navbar = this.navbar;
+      if (!navbar) return;
+
+      const currentScrollY = Math.max(window.scrollY || 0, 0);
+      const delta = currentScrollY - this.lastScrollY;
+      const isMenuOpen = document.body.classList.contains("mobile-menu-open");
+      const isNearTop = currentScrollY <= this.nearTopThreshold;
+      const isScrollingDown = delta > this.hideThreshold;
+      const isScrollingUp = delta < -this.showThreshold;
+
+      if (isScrollingDown) this.scrollDirection = "down";
+      if (isScrollingUp) this.scrollDirection = "up";
+
+      navbar.classList.toggle("scrolled", currentScrollY > 18);
+      navbar.classList.toggle("compact", currentScrollY > 28);
+
+      if (isMenuOpen || isNearTop) {
+        navbar.classList.remove("hidden");
+        navbar.classList.remove("reveal");
+      } else if (isScrollingDown && currentScrollY > this.hideStart) {
+        navbar.classList.add("hidden");
+        navbar.classList.remove("reveal");
+      } else if (this.scrollDirection === "up") {
+        navbar.classList.remove("hidden");
+        navbar.classList.add("reveal");
+      }
+
+      if (currentScrollY <= 80) {
+        navbar.classList.remove("reveal");
+      }
+
+      this.lastScrollY = currentScrollY;
     }
 
     handleScroll() {
       if (!this.ticking) {
         window.requestAnimationFrame(() => {
-          const { scrollY } = window;
-          const isScrollingDown = scrollY > this.lastScrollY;
-
-          this.navbar?.classList.toggle("scrolled", scrollY > 50);
-
-          if (isScrollingDown && scrollY > 80) {
-            this.navbar?.classList.add("hidden");
-          } else {
-            this.navbar?.classList.remove("hidden");
-          }
-
-          this.lastScrollY = scrollY;
+          this.update();
           this.ticking = false;
         });
         this.ticking = true;
@@ -684,7 +793,8 @@ function initTeamCardExpansion() {
 
       this.current = 0;
       this.slideInterval = null;
-      this.slideDuration = 4500; // A little smoother pacing
+      this.slideDuration = 5600;
+      this.isTransitioning = false;
 
       if (this.slider && this.slides.length > 0) {
         this.init();
@@ -692,8 +802,9 @@ function initTeamCardExpansion() {
     }
 
     init() {
-      // Show first slide immediately, then begin loop
-      this.showSlide(0);
+      this.slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === 0);
+      });
       this.bindEvents();
       this.startSlider();
     }
@@ -707,34 +818,69 @@ function initTeamCardExpansion() {
       if (!this.slider) return;
 
       let startX = 0;
+      let startTime = 0;
+      let velocity = 0;
 
       this.slider.addEventListener('touchstart', (e) => {
         startX = e.touches[0].clientX;
+        startTime = Date.now();
+        velocity = 0;
       }, { passive: true });
+
+      this.slider.addEventListener('touchmove', (e) => {
+        // Prevent vertical scroll interference for strong horizontal swipes
+        const currentX = e.touches[0].clientX;
+        const diffX = Math.abs(currentX - startX);
+        const diffY = Math.abs(e.touches[0].clientY - (e.touches[0].clientY || 0));
+        if (diffX > diffY && diffX > 30) {
+          e.preventDefault();
+        }
+      }, { passive: false });
 
       this.slider.addEventListener('touchend', (e) => {
         const endX = e.changedTouches[0].clientX;
-        const diff = startX - endX;
+        const timeDelta = Date.now() - startTime;
+        const distance = startX - endX;
+        velocity = Math.abs(distance) / timeDelta * 1000; // px/ms
 
-        if (diff > 50) {
+        const threshold = 80;
+        const fastSwipeThreshold = 0.4;
+
+        if (distance > threshold || (distance > 40 && velocity > fastSwipeThreshold)) {
           this.nextSlide();
-        } else if (diff < -50) {
+        } else if (distance < -threshold || (distance < -40 && velocity > fastSwipeThreshold)) {
           this.prevSlide();
         }
       }, { passive: true });
     }
 
     showSlide(index) {
-      if (index === this.current) return;
+      if (index === this.current || this.isTransitioning) return;
 
-      // Update visual state
       const previous = this.slides[this.current];
       const nextSlide = this.slides[index];
 
-      if (previous) previous.classList.remove('active');
-      if (nextSlide) nextSlide.classList.add('active');
+      this.isTransitioning = true;
+
+      if (nextSlide) {
+        nextSlide.classList.remove('is-exiting');
+        requestAnimationFrame(() => {
+          nextSlide.classList.add('active');
+        });
+      }
+
+      if (previous) {
+        previous.classList.add('is-exiting');
+        window.setTimeout(() => {
+          previous.classList.remove('active', 'is-exiting');
+        }, 1400);
+      }
 
       this.current = index;
+
+      window.setTimeout(() => {
+        this.isTransitioning = false;
+      }, 1400);
     }
 
     nextSlide() {
@@ -750,6 +896,7 @@ function initTeamCardExpansion() {
     goToSlide(index) {
       if (index === this.current) return;
       this.showSlide(index);
+      this.startSlider();
     }
 
     startSlider() {
@@ -769,6 +916,172 @@ function initTeamCardExpansion() {
     resumeSlider() {
       if (!this.slideInterval) {
         this.startSlider();
+      }
+    }
+  }
+
+  class ScrollRevealManager {
+    constructor() {
+      this.elements = [];
+      this.observer = null;
+      this.reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      this.reducedMotion = this.reducedMotionQuery.matches;
+      this.heroSection = document.querySelector(".hero-section");
+      this.heroSlider = document.querySelector(".hero-slider");
+      this.parallaxTicking = false;
+      this.boundParallaxUpdate = () => this.requestParallaxUpdate();
+      this.boundMotionPreferenceChange = (event) => this.handleMotionPreferenceChange(event);
+
+      if (!document.querySelector("main")) return;
+      this.init();
+    }
+
+    init() {
+      this.prepareRevealTargets();
+
+      if (this.reducedMotion) {
+        this.showAll();
+      } else {
+        this.createObserver();
+        this.observeTargets();
+        this.initHeroParallax();
+      }
+
+      this.reducedMotionQuery.addEventListener?.("change", this.boundMotionPreferenceChange);
+    }
+
+    prepareRevealTargets() {
+      const singles = [
+        [".hero-badge", "reveal-soft", 40],
+        [".hero-title", "reveal-lift", 120],
+        [".hero-subtitle", "reveal-soft", 220],
+        [".hero-buttons", "reveal-soft", 300],
+        [".scroll-indicator", "reveal-soft", 420],
+        ["main .section-label", "reveal-soft", 0],
+        ["main .section-title", "reveal-lift", 60],
+        ["main .section-subtitle", "reveal-soft", 120],
+        ["main .about-left > p", "reveal-soft", 120],
+        ["main .about-card", "reveal-scale", 120],
+        ["main .about-full > p", "reveal-soft", 80],
+        ["main .about-highlights", "reveal-soft", 140],
+        ["main .services-link-container", "reveal-soft", 160],
+        ["main .contact-layout > div > h2", "reveal-soft", 80],
+        ["main .contact-layout > div > p", "reveal-soft", 140],
+        ["main .contact-layout form", "reveal-scale", 180],
+        ["main .btn", "reveal-soft", 120],
+        ["main .services-link", "reveal-soft", 120]
+      ];
+
+      singles.forEach(([selector, variant, delay]) => {
+        document.querySelectorAll(selector).forEach((element) => {
+          this.markReveal(element, { variant, delay });
+        });
+      });
+
+      document.querySelectorAll('[data-reveal-group="stagger"]').forEach((group) => {
+        const children = Array.from(group.children).filter((child) => {
+          return child instanceof HTMLElement && !child.matches("script, style");
+        });
+
+        children.forEach((child, index) => {
+          this.markReveal(child, {
+            variant: child.matches(".stat-item, .card-secondary, .btn, .services-link") ? "reveal-soft" : "reveal-lift",
+            delay: Math.min(index * 90, 420)
+          });
+        });
+      });
+    }
+
+    markReveal(element, { variant = "reveal-lift", delay = 0 } = {}) {
+      if (!element || !(element instanceof HTMLElement)) return;
+      if (element.dataset.revealBound === "true") return;
+      if (element.closest(".site-header, .footer, #mobile-menu, .partners-carousel")) return;
+
+      element.dataset.revealBound = "true";
+      element.classList.add("reveal-on-scroll", variant);
+      element.style.setProperty("--reveal-delay", `${delay}ms`);
+      this.elements.push(element);
+    }
+
+    createObserver() {
+      if (this.observer) this.observer.disconnect();
+
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          this.observer?.unobserve(entry.target);
+        });
+      }, {
+        threshold: 0.14,
+        rootMargin: "0px 0px -12% 0px"
+      });
+    }
+
+    observeTargets() {
+      this.elements.forEach((element) => this.observer?.observe(element));
+    }
+
+    showAll() {
+      this.elements.forEach((element) => element.classList.add("is-visible"));
+      if (this.heroSlider) {
+        this.heroSlider.style.transform = "";
+      }
+    }
+
+    handleMotionPreferenceChange(event) {
+      this.reducedMotion = event.matches;
+
+      if (this.reducedMotion) {
+        this.destroyParallax();
+        this.observer?.disconnect();
+        this.showAll();
+        return;
+      }
+
+      this.createObserver();
+      this.observeTargets();
+      this.initHeroParallax();
+    }
+
+    initHeroParallax() {
+      if (!this.heroSection || !this.heroSlider || this.reducedMotion) return;
+
+      window.addEventListener("scroll", this.boundParallaxUpdate, { passive: true });
+      window.addEventListener("resize", this.boundParallaxUpdate, { passive: true });
+      this.requestParallaxUpdate();
+    }
+
+    requestParallaxUpdate() {
+      if (this.parallaxTicking || this.reducedMotion) return;
+
+      window.requestAnimationFrame(() => {
+        this.updateHeroParallax();
+        this.parallaxTicking = false;
+      });
+
+      this.parallaxTicking = true;
+    }
+
+    updateHeroParallax() {
+      if (!this.heroSection || !this.heroSlider) return;
+
+      const rect = this.heroSection.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || 0;
+
+      if (rect.bottom <= 0 || rect.top >= viewportHeight) return;
+
+      const progress = Math.min(Math.max((0 - rect.top) / Math.max(rect.height, 1), 0), 1);
+      const offset = progress * (window.matchMedia("(max-width: 768px)").matches ? 18 : 34);
+      this.heroSlider.style.transform = `translate3d(0, ${offset}px, 0)`;
+    }
+
+    destroyParallax() {
+      window.removeEventListener("scroll", this.boundParallaxUpdate);
+      window.removeEventListener("resize", this.boundParallaxUpdate);
+
+      if (this.heroSlider) {
+        this.heroSlider.style.transform = "";
       }
     }
   }
@@ -855,20 +1168,32 @@ function initTeamCardExpansion() {
     init() {
       if (!('serviceWorker' in navigator)) return;
       if (!(window.location.protocol === 'https:' || window.location.hostname === 'localhost')) return;
+      const serviceWorkerPath = getAssetPrefix() ? '../sw.js' : './sw.js';
 
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
+        navigator.serviceWorker.register(serviceWorkerPath)
           .then(registration => {
+            registration.update();
+
+            if (registration.waiting) {
+              registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+            }
+
             registration.addEventListener('updatefound', () => {
               const worker = registration.installing;
               worker?.addEventListener('statechange', () => {
                 if (worker.state === 'installed' && navigator.serviceWorker.controller) {
+                  worker.postMessage({ type: 'SKIP_WAITING' });
                   showNotification('New version available! Refresh to update.', 'info');
                 }
               });
             });
           })
           .catch(() => { /* Silent fail */ });
+
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          window.location.reload();
+        }, { once: true });
 
         // Check for updates every 5 minutes
         setInterval(() => {
@@ -884,16 +1209,15 @@ function initTeamCardExpansion() {
   // INITIALIZATION
   // ====================================
 
-  const init = async () => {
-    // Load shared header into the placeholder
-    await loadHeaderTemplate();
+  const initPage = () => {
+    normalizeHeaderLinks();
+    applyPageHeaderStyle();
 
-    // Activate dark mode while header is present
+    // Activate dark mode
     initDarkMode();
 
     setCopyrightYear();
     new MobileMenuManager();
-    normalizeHeaderLinks();
     preloadHeroImages();
     new NavbarScrollManager();
     new SmoothScrollManager();
@@ -902,26 +1226,114 @@ function initTeamCardExpansion() {
     new FormSubmissionManager();
     new ServiceWorkerManager();
     new HeroSliderManager();
+    new ScrollRevealManager();
+    initVideoOptimization();
     initTeamCardExpansion();
   };
 
+  function initVideoOptimization() {
+    const video = document.querySelector('.services-bg-video');
+    const section = document.querySelector('.video-services-section');
+    const source = video?.querySelector('source[data-src]');
+    if (!video || !section || !source) return;
+
+    const isMobile = window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+    let sourceLoaded = false;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.setAttribute('autoplay', '');
+    video.preload = isMobile ? 'metadata' : 'auto';
+
+    const markVideoPlaying = () => {
+      section.classList.add('video-playing');
+    };
+
+    const markVideoIdle = () => {
+      section.classList.remove('video-playing');
+    };
+
+    const loadVideoSource = () => {
+      if (sourceLoaded) return;
+      source.src = source.dataset.src;
+      video.load();
+      sourceLoaded = true;
+    };
+
+    const attemptVideoPlay = () => {
+      loadVideoSource();
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          markVideoIdle();
+        });
+      }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          attemptVideoPlay();
+        } else {
+          video.pause();
+          markVideoIdle();
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: isMobile ? '180px 0px' : '280px 0px'
+    });
+
+    observer.observe(section);
+
+    video.addEventListener('loadedmetadata', () => {
+      video.currentTime = 0;
+    });
+
+    video.addEventListener('canplay', attemptVideoPlay, { once: true });
+    video.addEventListener('playing', markVideoPlaying);
+    video.addEventListener('pause', markVideoIdle);
+    video.addEventListener('error', markVideoIdle);
+    video.addEventListener('stalled', markVideoIdle);
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        attemptVideoPlay();
+      } else {
+        video.pause();
+        markVideoIdle();
+      }
+    });
+
+    if (!isMobile) {
+      attemptVideoPlay();
+    }
+  }
+
   // Run when DOM is ready
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", initPage);
   } else {
-    init();
+    initPage();
   }
 
   // Export for external use
   window.ExpressIT = {
     theme: {
       toggle: () => {
-        document.body.classList.toggle("dark-mode");
-        document.body.classList.toggle("dark");
-        const isDark = document.body.classList.contains("dark-mode");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
+        const html = document.documentElement;
+        const nextIsDark = !html.classList.contains("dark-mode");
+
+        html.classList.toggle("dark-mode", nextIsDark);
+        html.classList.toggle("dark", nextIsDark);
+        document.body.classList.toggle("dark-mode", nextIsDark);
+        document.body.classList.toggle("dark", nextIsDark);
+        localStorage.setItem("theme", nextIsDark ? "dark" : "light");
       },
-      isDark: () => document.body.classList.contains("dark-mode")
+      isDark: () => document.documentElement.classList.contains("dark-mode")
     },
     showNotification,
     isValidEmail,
@@ -929,4 +1341,3 @@ function initTeamCardExpansion() {
   };
 
 })();
-
